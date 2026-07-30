@@ -24,6 +24,11 @@ from rag_memory.advanced_intelligence import (
     WinRateEstimator,
     CrossSellEngine,
 )
+try:
+    from operations.quantity_parser import QuantityParser
+except ImportError:
+    from src.operations.quantity_parser import QuantityParser
+
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +77,18 @@ class CotizacionInventarioAgent(BaseAgent):
         template: BOMTemplate = STANDARD_BOM_TEMPLATES.get(b_type, STANDARD_BOM_TEMPLATES[BusinessLineType.PMU_PDC])
 
         partner_id = str(user_params.get("partner_id") or user_params.get("client") or "Cliente Coordinado 2026")
-        num_devices = float(user_params.get("num_rtus") or user_params.get("num_remotas") or user_params.get("num_pmus") or user_params.get("qty") or 1.0)
+
+        raw_qty = user_params.get("num_rtus") or user_params.get("num_remotas") or user_params.get("num_pmus") or user_params.get("qty")
+        if raw_qty is not None:
+            if isinstance(raw_qty, str):
+                num_devices = QuantityParser.extract_device_quantity(raw_qty, default=1.0)
+            else:
+                num_devices = float(raw_qty)
+        else:
+            num_devices = QuantityParser.extract_device_quantity(prompt_or_line, default=1.0)
+
+        parsed_quantities = QuantityParser.parse_quantities(prompt_or_line)
+
         modality_str = user_params.get("modality") or ("licitacion" if "licitacion" in prompt_or_line.lower() or "rfp" in prompt_or_line.lower() else "compra_directa")
         modality = CommercialModality.LICITACION if modality_str == "licitacion" else CommercialModality.COMPRA_DIRECTA
 
@@ -92,6 +108,9 @@ class CotizacionInventarioAgent(BaseAgent):
             qty = b_item.default_qty
             if ("pmu" in b_item.item_code.lower() or "rtu" in b_item.item_code.lower()) and num_devices > 1:
                 qty = num_devices
+            elif "switch" in b_item.item_code.lower() and parsed_quantities.get("num_switches"):
+                qty = float(parsed_quantities["num_switches"])
+
 
             unit_cost = b_item.unit_price_clp
 

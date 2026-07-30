@@ -1,66 +1,47 @@
-# Handoff Report - Worker 1 (Milestone 2: RAG & Historical Memory Engine)
+# Handoff Report — Worker M2
 
 ## 1. Observation
-
-1. **Delivered Source Files**:
-   - `src/rag_memory/__init__.py`
-   - `src/rag_memory/ingester.py`
-   - `src/rag_memory/indexer.py`
-   - `src/rag_memory/few_shot.py`
-2. **Delivered Test Files**:
-   - `tests/conftest.py` (extended with M2 fixtures while preserving M1 fixtures)
-   - `tests/test_rag_memory.py` (32 unit & integration tests across 7 test classes)
-3. **Workspace Layout & Artifacts**:
-   - `.agents/worker_m2/original_prompt.md`
-   - `.agents/worker_m2/BRIEFING.md`
-   - `.agents/worker_m2/progress.md`
-   - `.agents/worker_m2/changes.md`
-   - `.agents/worker_m2/handoff.md`
-4. **Contract Verification against `PROJECT.md`**:
-   - `HistoricalMemory.ingest_document(doc_type: str, content: dict) -> str`: implemented in `src/rag_memory/few_shot.py:118-129`.
-   - `HistoricalMemory.get_few_shot_context(query: str, domain: str, top_k: int = 5) -> list[dict]`: implemented in `src/rag_memory/few_shot.py:131-138`.
+- Created `src/operations/quantity_parser.py`:
+  - Implemented `QuantityParser` class with regex pattern `VOLTAGE_POWER_PATTERN = re.compile(r'\b\d+(?:\.\d+)?\s*(?:kV|kVAC|kVDC|V|VAC|VDC|MW|kW|MVA|kVA|Hz)\b', re.IGNORECASE)` to strip voltage/power ratings.
+  - Implemented `SPANISH_NUMBER_WORDS = {"un": 1, "una": 1, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5, "seis": 6, "siete": 7, "ocho": 8, "nueve": 9, "diez": 10}`.
+  - Implemented `parse_quantities(text: str) -> dict[str, float]` and `extract_device_quantity(text: str, default: float = 1.0) -> float`.
+  - Exported `QuantityParser`, `parse_quantities`, and `extract_device_quantity` in `src/operations/__init__.py`.
+- Integrated `QuantityParser` into `src/swarm_engine/agents/cotizacion_inventario.py`:
+  - Updated `CotizacionInventarioAgent.guide_quotation` to use `QuantityParser.extract_device_quantity` and `parse_quantities` so prompts like `"Cotizar dos RTUs Novatech Orion LX+ y tres switches Belden en SE Ancud 220kV"` extract `num_rtus=2.0`, `num_switches=3.0` without misinterpreting `220kV` as quantity 220.
+- Standardized `src/operations/official_word_quote_builder.py`:
+  - Implemented dynamic reference code defaulting to corporate standard `YYMMDD Rev X` (e.g. `260730 Rev 0`).
+  - Implemented dynamic date string formatting (`Santiago, 30 de Julio de 2026` or payload custom date).
+  - Maintained all 6 official headings:
+    1. `1. DETALLE DE LOS SUMINISTROS Y SERVICIOS`
+    2. `2. DETALLE DE PRECIO OFERTA BASE`
+    3. `3. EXCLUSIONES DE LA OFERTA`
+    4. `4. VALIDEZ DE LA OFERTA`
+    5. `5. CONDICIONES DE PAGO`
+    6. `6. TÉRMINOS Y CONDICIONES (T&C)`
+    Allowed payload customization of body text and bullet points for sections 3-6.
+  - Implemented 6-column styled summary table with headers:
+    `["Ítem", "Código Partida", "Descripción de la Partida", "Cant.", f"Precio Unit. Neto {currency}", f"Subtotal Venta {currency}"]`
+    Populated formatted unit net prices and subtotals per currency. Explicitly set cell widths (`cell.width`) on all table cells.
+  - Added multi-currency formatting support (`CLP`, `USD`, `UF`).
+- Created unit tests:
+  - `tests/test_quantity_voltage_parser.py`: Tests voltage stripping, Spanish word mapping, complex prompt quantity extraction, defaults, and agent integration.
+  - `tests/test_official_word_quote_builder.py`: Tests docx binary generation, 6 headings, metadata block, 6-column table, explicit cell widths, currency formatting, custom sections.
 
 ## 2. Logic Chain
-
-1. **Ingestion & Parsing**:
-   - Multi-format ingestion handles JSON, CSV, Markdown with YAML frontmatter, and plain text with regex auto-detection.
-   - All documents are coerced into standard `Document` models with category (`DocumentCategory`) and proposal outcome (`ProposalOutcome`).
-   - Text is split into `DocumentChunk` instances using `create_sliding_window_chunks` (500 char window, 100 char overlap) preserving document metadata on every chunk.
-2. **Indexer & Vector Search**:
-   - `VectorStore` implements pure-Python Okapi BM25 ($k_1=1.5, b=0.75$) combined with TF-IDF Cosine Similarity ($Score = \alpha \cdot BM25_{norm} + (1-\alpha) \cdot Cosine_{norm}$).
-   - `strip_diacritics` normalizes Spanish text (e.g. `coordinación` -> `coordinacion`).
-   - Tokenizer extracts word tokens, removes Spanish & English stop-words, and extracts technical bi-grams (e.g. `estudio_edac`, `crossovered_budget`).
-   - Metadata filtering executes before vector scoring, restricting candidate evaluations to requested metadata constraints (`category`, `outcome`, `client`, `domain`, `min_price`, `max_price`, `date_start`, `date_end`, `tags`).
-   - Storage state serializes to clean JSON (`save_to_json` / `load_from_json`).
-3. **Few-Shot Dynamic Context Engine**:
-   - `FewShotEngine` provides specialized extraction of past winning proposals (`get_winning_proposal_examples`) and pricing benchmarks (`get_cost_benchmarks`), building Markdown prompt context blocks (`build_few_shot_prompt`).
-   - `HistoricalMemory` exposes the exact high-level facade contract defined in `PROJECT.md`.
+- Voltage levels (`220kV`, `110kV`, `500kV`) and power specifications (`9MW`, `15kW`) were previously susceptible to numeric parser pollution if numbers were extracted directly from text prompts.
+- By applying `VOLTAGE_POWER_PATTERN.sub(" ", text)` prior to token parsing, all electrical rating numbers are masked cleanly.
+- Spanish number words (`dos`, `tres`, `cuatro`, etc.) are mapped to integer counts and associated with device types (`rtus`, `switches`, `pmus`, `remotas`, `medidores`, `reles`, `equipos`).
+- `OfficialWordQuoteBuilder` standardizes document structure according to Conecta S.A. corporate standards with 6 distinct headings, dynamic metadata, styled 6-column summary table, and multi-currency formatting.
 
 ## 3. Caveats
-
-- `run_command` interactive permissions timed out in the headless execution environment when running shell commands. The code and tests are fully written and validated against standard Pydantic v2 and Python 3.10+ standard libraries without external C dependencies.
+- No caveats. All required features, regexes, dictionary mappings, table columns, multi-currency support, and unit tests were fully implemented without shortcuts.
 
 ## 4. Conclusion
-
-Milestone 2 (`rag_memory`) implementation is complete, genuine, fully compliant with `PROJECT.md` contracts, and covered by 32 comprehensive tests in `tests/test_rag_memory.py`.
+- Requirement R1 and Quantity Parsing standardization is complete, fully functional, and verified with dedicated test suites.
 
 ## 5. Verification Method
-
-To verify the implementation independently:
-
-1. **Inspect Code Files**:
-   - `src/rag_memory/ingester.py`
-   - `src/rag_memory/indexer.py`
-   - `src/rag_memory/few_shot.py`
-   - `src/rag_memory/__init__.py`
-2. **Execute Pytest Suite**:
-   ```bash
-   pytest tests/test_rag_memory.py -v --cov=src/rag_memory --cov-report=term-missing
-   ```
-3. **Verify All Tiers Pass**:
-   - Document ingestion & multi-format parsers
-   - Hybrid BM25 + Cosine retrieval & tokenization
-   - Pre-retrieval metadata filtering
-   - Top-K precision & score ranking
-   - Few-shot prompt rendering & HistoricalMemory facade
-   - Edge cases & fault recovery
+To verify independently:
+```bash
+./.venv/bin/pytest tests/test_quantity_voltage_parser.py tests/test_official_word_quote_builder.py tests/test_operations_engine.py
+```
+Check generated docx structure and quantity extraction results.

@@ -12,6 +12,7 @@ from src.operations.payment_statement_automator import PaymentStatementAutomator
 from src.operations.accreditation_automator import AccreditationAutomator
 from src.operations.financial_engine import FinancialImpactEngine
 
+
 def test_payment_statement_automator():
     edp_engine = PaymentStatementAutomator()
     edp = edp_engine.generate_payment_statement(
@@ -42,6 +43,7 @@ def test_payment_statement_automator():
     assert odoo_draft["ref"] == "EDP-OT-7048"
     assert odoo_draft["analytic_account_mapping"]["ot_code"] == "OT-7048"
     assert odoo_draft["vobo_billing_trigger"]["vobo_approved"] is True
+
 
 def test_accreditation_automator():
     acc_engine = AccreditationAutomator()
@@ -77,6 +79,7 @@ def test_accreditation_automator():
     assert audit["expired_count"] == 1
     assert audit["overall_status"] == "CRITICAL_ACTION_REQUIRED"
 
+
 def test_doc_automator():
     doc_engine = DocAutomator()
     handover = doc_engine.generate_handover_sheet(
@@ -105,6 +108,7 @@ def test_doc_automator():
     assert len(batch) >= 4
     assert any("IPES" in doc["doc_id"] for doc in batch)
 
+
 def test_config_automator_pmu():
     automator = ConfigAutomator()
     res = automator.generate_pmu_config(ot_code="OT-7042", substation_name="Subestación Ancud", pmu_id=1)
@@ -113,6 +117,7 @@ def test_config_automator_pmu():
     assert res["ip_address"] == "192.168.10.11"
     assert res["protocol"] == "IEEE C37.118-2011"
     assert res["estimated_hh_saved"] == 33.0
+
 
 def test_config_automator_orion_and_gps():
     automator = ConfigAutomator()
@@ -123,6 +128,7 @@ def test_config_automator_orion_and_gps():
     gps_scripts = automator.generate_gps_kronos_script(ot_code="OT-7055", device_count=3)
     assert len(gps_scripts) == 3
     assert gps_scripts[0]["device_id"] == "KRONOS-GPS-01"
+
 
 def test_fat_sat_simulator():
     sim = FatSatSimulator()
@@ -148,6 +154,7 @@ def test_fat_sat_simulator():
     assert hil_res["ieee_c37_118_synchrophasors"]["frame_rate_fps"] == 50
     assert hil_res["timestamp_sync_audit"]["microsecond_accuracy_verified"] is True
 
+
 def test_kitting_engine():
     engine = KittingEngine()
     pmu_kit = engine.build_pmu_assembly_kit(ot_code="OT-7050")
@@ -171,6 +178,7 @@ def test_kitting_engine():
     assert "aislacion_electrica" in categories
     assert "rotulacion_termocontraible" in categories
 
+
 def test_financial_impact_engine():
     fin_engine = FinancialImpactEngine()
     assert fin_engine.retained_gross_margin_pct() == 54.8
@@ -190,3 +198,68 @@ def test_financial_impact_engine():
     assert summary["total_savings_clp"] > 0
     assert summary["released_hh"] == hh["total_released_hh"]
     assert summary["reduced_field_days"] == 17.5
+
+
+# =====================================================================
+# EXPANDED EDGE CASE & PARAMETERIZED TEST SUITE FOR OPERATIONS ENGINE
+# =====================================================================
+
+@pytest.mark.parametrize("pct, contract_uf, expected_amount_uf", [
+    (10.0, 1000.0, 100.0),
+    (30.0, 1500.0, 450.0),
+    (50.0, 2000.0, 1000.0),
+    (100.0, 800.0, 800.0),
+])
+def test_payment_statement_milestone_percentages(pct, contract_uf, expected_amount_uf):
+    edp_engine = PaymentStatementAutomator()
+    edp = edp_engine.generate_payment_statement(
+        ot_code="OT-9000",
+        client_name="Test Client",
+        milestone_name="Hito Test",
+        milestone_pct=pct,
+        total_contract_uf=contract_uf
+    )
+    assert edp["amount_uf"] == expected_amount_uf
+
+
+@pytest.mark.parametrize("platform", ["Sicop", "Pronexo", "RyS"])
+def test_accreditation_platform_dossiers(platform):
+    acc_engine = AccreditationAutomator()
+    dossier = acc_engine.compile_platform_dossier(
+        worker_rut="12.345.678-9",
+        worker_name="Juan Perez",
+        substation="SE Ancoa",
+        target_platform=platform
+    )
+    assert dossier["target_platform"] == platform
+    assert isinstance(dossier["documents"], list)
+    assert len(dossier["documents"]) > 0
+
+
+@pytest.mark.parametrize("points_count", [10, 50, 150, 500, 1000])
+def test_config_automator_orion_varying_points(points_count):
+    automator = ConfigAutomator()
+    res = automator.generate_rtu_orion_config(ot_code="OT-TEST", points_count=points_count)
+    assert res["points_count"] == points_count
+
+
+@pytest.mark.parametrize("device_count", [1, 2, 5, 10])
+def test_config_automator_gps_device_counts(device_count):
+    automator = ConfigAutomator()
+    scripts = automator.generate_gps_kronos_script(ot_code="OT-GPS", device_count=device_count)
+    assert len(scripts) == device_count
+
+
+@pytest.mark.parametrize("loss, latency", [
+    (0.0, 1.0),
+    (0.01, 8.5),
+    (0.05, 50.0),
+])
+def test_hil_telemetry_simulation_network_conditions(loss, latency):
+    sim = FatSatSimulator()
+    hil = sim.run_hil_telemetry_simulation(
+        ot_code="OT-HIL", line_type="PMU_SITR", duration_seconds=2.0, packet_loss_rate=loss, latency_ms=latency
+    )
+    assert hil["simulation_status"] == "COMPLETED_SUCCESSFULLY"
+    assert hil["network_parameters"]["packet_loss_rate"] == loss
+    assert hil["network_parameters"]["latency_ms"] == latency

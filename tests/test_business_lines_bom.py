@@ -39,6 +39,22 @@ class TestBusinessLineClassification:
         assert BusinessLineClassifier.classify("Mantenimiento de PDCE 2026 e Inyección Relés") == BusinessLineType.MAINTENANCE_LICENSES
 
 
+@pytest.mark.parametrize("prompt_str, expected_line", [
+    ("Suministro e instalación PMUs Vizimax con concentrador PDC", BusinessLineType.PMU_PDC),
+    ("Monitoreo Synchrophasor PMU en 500kV Ancoa", BusinessLineType.PMU_PDC),
+    ("Conexión SITR PMGD medidores SEL-735 en 13.8kV", BusinessLineType.SITR_PMGD),
+    ("Acceso mediciones distribucion SITR Coordinador", BusinessLineType.SITR_PMGD),
+    ("Modernización RTU NovaTech Orion LX+ protocolo DNP3.0", BusinessLineType.SCADA_RETROFIT),
+    ("Integración IEC 61850 GOOSE en subestación", BusinessLineType.SCADA_RETROFIT),
+    ("Esquema de Desconexión de Carga EDAC / ERAG CEN", BusinessLineType.EDAC_ERAG_STUDIES),
+    ("Ajuste y selectividad de relés de distancia SEL-421", BusinessLineType.EDAC_ERAG_STUDIES),
+    ("Mantenimiento preventivo anual relés y SCADA", BusinessLineType.MAINTENANCE_LICENSES),
+    ("Soporte técnico y licencias software openPDC", BusinessLineType.MAINTENANCE_LICENSES),
+])
+def test_business_line_classification_parameterized(prompt_str, expected_line):
+    assert BusinessLineClassifier.classify(prompt_str) == expected_line
+
+
 class TestBOMTemplates:
     """Tests for standard BOM templates and items structure."""
 
@@ -54,6 +70,20 @@ class TestBOMTemplates:
         assert BOMItemCategory.SOFTWARE_LICENSE in categories
         assert BOMItemCategory.ENGINEERING_HOURS in categories
         assert BOMItemCategory.REGULATORY_CERTIFICATION in categories
+
+
+@pytest.mark.parametrize("b_type", [
+    BusinessLineType.PMU_PDC,
+    BusinessLineType.SITR_PMGD,
+    BusinessLineType.SCADA_RETROFIT,
+    BusinessLineType.EDAC_ERAG_STUDIES,
+    BusinessLineType.MAINTENANCE_LICENSES,
+])
+def test_all_standard_bom_templates_exist(b_type):
+    assert b_type in STANDARD_BOM_TEMPLATES
+    tmpl = STANDARD_BOM_TEMPLATES[b_type]
+    assert len(tmpl.items) > 0
+    assert len(tmpl.guided_questions) > 0
 
 
 class TestGuidedQuotationAgent:

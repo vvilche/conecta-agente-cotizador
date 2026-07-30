@@ -16,6 +16,8 @@ from .doc_automator import DocAutomator
 from .payment_statement_automator import PaymentStatementAutomator
 from .accreditation_automator import AccreditationAutomator
 from .financial_engine import FinancialImpactEngine
+from .quantity_parser import QuantityParser, parse_quantities, extract_device_quantity
+from .official_word_quote_builder import OfficialWordQuoteBuilder
 
 __all__ = [
     "ConfigAutomator",
@@ -24,6 +26,12 @@ __all__ = [
     "DocAutomator",
     "PaymentStatementAutomator",
     "AccreditationAutomator",
-    "FinancialImpactEngine"
+    "FinancialImpactEngine",
+    "QuantityParser",
+    "parse_quantities",
+    "extract_device_quantity",
+    "OfficialWordQuoteBuilder"
 ]
+
+
 

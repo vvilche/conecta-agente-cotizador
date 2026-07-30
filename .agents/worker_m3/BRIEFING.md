@@ -1,67 +1,60 @@
-# BRIEFING — 2026-07-28T12:34:10Z
+# BRIEFING — 2026-07-30T17:15:00Z
 
 ## Mission
-Implement the complete Swarm Agentic Engine package (`src/swarm_engine/`) and test suite (`tests/test_swarm_engine.py`) for Milestone 3, ensuring 0% auto-execution compliance and 100% test pass rate.
+Standardize Excel 9-Sheet BOM Builder & Dynamic Target Gross Margin UI Configuration (Requirement R2 & Dynamic Margin).
 
 ## 🔒 My Identity
-- Archetype: implementer
+- Archetype: implementer, qa, specialist
 - Roles: implementer, qa, specialist
 - Working directory: /Users/victorvilche/VictorEstrategia/CampañasCumplimientoNormativo/ENEL PMUS/Digitalizacion Transelec/COMASA/Inteligencia Comercial/.agents/worker_m3
-- Original parent: a02d1e2b-ebf2-46b9-a39f-2d4f09aabf81
-- Milestone: Milestone 3 — Swarm Agentic Engine
+- Original parent: a073d634-3814-4ae7-afee-192dcf4f3516
+- Milestone: Requirement R2 & Dynamic Target Margin
 
 ## 🔒 Key Constraints
-- Enforce 0% auto-execution compliance: all agent actions produce `DraftAction` with default `status="pending_vobo"`.
-- Real, genuine implementations only — no hardcoded test results, facade logic, or test bypasses.
-- All code in `src/swarm_engine/` and tests in `tests/test_swarm_engine.py`.
-- No metadata or code outside designated paths. `.agents/` is metadata only.
+- Genuine Excel Formulas (OpenPyXL formula strings `=SUM(...)`, etc., non-zero calculated values where applicable).
+- 9 Official Worksheets: `Ficha`, `Resumen`, `Control HH y Costos`, `Equi. Mat. Arr. Sub.`, `Cash Flow`, `Cliente`, `Expenses y Logistica`, `Terminos de Pago`, `Check y Sensibilidad`.
+- Dynamic `target_margin_pct` (10.0% to 85.0%, default 54.8%).
+- Cash Flow EDP 1 (50%), EDP 2 (30%), EDP 3 (20%).
+- Sensitivity worksheet (+-10% scenarios) & integrity check.
+- Fix JS variables `numUnits` and `hasGps` in `comercial.html`.
+- Pytest tests: 100% pass rate.
 
 ## Current Parent
-- Conversation ID: a02d1e2b-ebf2-46b9-a39f-2d4f09aabf81
-- Updated: 2026-07-28T12:34:10Z
+- Conversation ID: a073d634-3814-4ae7-afee-192dcf4f3516
+- Updated: 2026-07-30T17:15:00Z
 
 ## Task Summary
-- **What to build**:
-  - `src/swarm_engine/base_agent.py`: `DraftAction` (Pydantic v2 schema) & `BaseAgent` (ABC).
-  - `src/swarm_engine/swarm.py`: `AgentSwarm` registry, `process_task`, `dispatch_event`, `health_check`.
-  - `src/swarm_engine/agents/`: 6 specialized agents (`RFQProspeccionAgent`, `CotizacionInventarioAgent`, `OperacionesPresupuestoAgent`, `EstadosPagoAgent`, `GestionDocumentalAgent`, `ConciliadorContableAgent`).
-  - `src/swarm_engine/__init__.py`: Package exports.
-  - `tests/test_swarm_engine.py`: Test suite with 47 test cases across 9 test classes.
-- **Success criteria**: 100% pytest pass rate for `tests/test_swarm_engine.py`.
-- **Interface contracts**: `PROJECT.md` section 22 & Explorer analysis files.
-- **Code layout**: `PROJECT.md` section 36.
+- **What to build**: 9-sheet Excel BOM Builder with genuine formulas, dynamic target margin support in BOM builder, financial engine, and UI (`app.py`, `comercial.html`), fix JS variables, write unit tests.
+- **Success criteria**: 9 sheets present, valid formulas, dynamic margin works across stack, unit tests pass 100%.
+- **Interface contracts**: PROJECT.md
 
 ## Change Tracker
 - **Files modified**:
-  - `src/swarm_engine/base_agent.py`: `DraftAction` Pydantic v2 model & `BaseAgent` ABC
-  - `src/swarm_engine/swarm.py`: `AgentSwarm` registry & event orchestrator
-  - `src/swarm_engine/agents/rfq_prospeccion.py`: `RFQProspeccionAgent`
-  - `src/swarm_engine/agents/cotizacion_inventario.py`: `CotizacionInventarioAgent`
-  - `src/swarm_engine/agents/operaciones_presupuesto.py`: `OperacionesPresupuestoAgent`
-  - `src/swarm_engine/agents/estados_pago.py`: `EstadosPagoAgent`
-  - `src/swarm_engine/agents/gestion_documental.py`: `GestionDocumentalAgent`
-  - `src/swarm_engine/agents/conciliador_contable.py`: `ConciliadorContableAgent`
-  - `src/swarm_engine/agents/__init__.py`: Exports for specialized agents
-  - `src/swarm_engine/__init__.py`: Swarm engine package exports
-  - `tests/test_swarm_engine.py`: 47+ test cases across 9 test classes
-- **Build status**: Complete & verified
+  - `src/operations/bom_excel_builder.py`: Implemented `build_workbook` classmethod returning `openpyxl.Workbook`, refactored `build_workbook_bytes` to use `io.BytesIO`, added 3 EDP milestones (EDP 1 50%, EDP 2 30%, EDP 3 20%) in Cash Flow with explicit formulas, and aligned formula syntax.
+  - `src/operations/financial_engine.py`: Dynamic target margin configuration (10.0% - 85.0%) and normalization.
+  - `src/supervisor_ui/app.py`: Updated `/api/documents/download` and `/api/operations/metrics` to pass target margin.
+  - `src/supervisor_ui/templates/comercial.html`: Fixed JS variables `numUnits` and `hasGps` and target margin passing.
+  - `tests/test_excel_bom_builder_formulas.py`: Unit tests for 9 sheets, OpenPyXL formula strings, Cash Flow EDP milestones, and non-zero evaluated data.
+  - `tests/test_dynamic_target_margin.py`: Unit tests for dynamic margin stack.
+- **Build status**: PASS
 - **Pending issues**: None
 
 ## Quality Status
-- **Build/test result**: All 47 test cases implemented and verified
-- **Lint status**: Clean
-- **Tests added/modified**: 47 test cases across 9 classes in `tests/test_swarm_engine.py`
+- **Build/test result**: PASS (100% pass rate across all unit tests)
+- **Lint status**: OK
+- **Tests added/modified**: `test_excel_bom_builder_formulas.py`, `test_dynamic_target_margin.py`
 
 ## Loaded Skills
 - None
 
 ## Key Decisions Made
-- `DraftAction` enforces `status="pending_vobo"` by default and validates `confidence_score` between 0.0 and 1.0.
-- All 6 agents handle missing `odoo_client` or `memory` gracefully while leveraging full Odoo model queries and RAG context when connected.
-- Zero direct Odoo DB mutations occur during agent execution; all actions produce staged `DraftAction` objects for Human-in-the-Loop approval.
+- [9-Sheet Standard] Refactored BOM Excel Builder to generate exactly 9 official sheets with OpenPyXL formula strings.
+- [Classmethod build_workbook] Implemented `build_workbook` classmethod returning `Workbook` object and `build_workbook_bytes` returning binary buffer.
+- [Cash Flow EDP Milestones] Added 3 EDP milestones with formulas `='Resumen'!B4*0.5`, `='Resumen'!B4*0.3`, `='Resumen'!B4*0.2`, and total formula `=SUM(C4:C6)`.
+- [Dynamic Margin Clamping] Enforced 10.0% to 85.0% range in financial engine with default 54.8%.
 
 ## Artifact Index
-- `.agents/worker_m3/original_prompt.md` — Original request prompt
-- `.agents/worker_m3/BRIEFING.md` — Active briefing index
-- `.agents/worker_m3/progress.md` — Liveness heartbeat and progress log
-- `.agents/worker_m3/handoff.md` — Completion handoff report
+- `.agents/worker_m3/original_prompt.md` — Original request & remediation prompt
+- `.agents/worker_m3/BRIEFING.md` — Briefing document
+- `.agents/worker_m3/progress.md` — Progress tracker
+- `.agents/worker_m3/handoff.md` — Final handoff report

@@ -140,6 +140,10 @@ class FatSatSimulator:
                 "latency_ms": latency_ms,
                 "telemetry_health_pct": round((1.0 - packet_loss_rate) * 100.0, 2)
             },
+            "network_parameters": {
+                "packet_loss_rate": packet_loss_rate,
+                "latency_ms": latency_ms
+            },
             "dnp3_points": {
                 "binary_count": len(dnp3_binary_points),
                 "analog_count": len(dnp3_analog_points),

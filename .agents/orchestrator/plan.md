@@ -1,21 +1,22 @@
-# Master Orchestration Plan: Operational Automation Package for Conecta Ingeniería S.A.
+# Master Orchestration Plan — Audit & Document Format Standardization
 
-## Executive Summary
-This plan details the full implementation and verification of the Operational Automation Package (`src/operations/`), Profitability & Financial Impact Engine, Integrated Supervision Console (`src/supervisor_ui/app.py`), and comprehensive Pytest Test Suite (200+ tests passing with 0 errors) as specified in `ORIGINAL_REQUEST.md`.
+## Mission
+Audit and standardize all generated project documents (Word .docx proposals, Excel .xlsx 9-sheet workbooks, PDF technical reports) to ensure 100% fidelity to historical Conecta S.A. project standards (`ot_7000` / `ot_8000_smart_extracted`), support voltage rating filtering and Spanish number word parsing, provide dynamic configurable target gross margin (10.0% to 85.0%), and achieve 300+ passing pytest tests with zero broken contracts and clean forensic audit.
 
-## Milestones & Decompositions
+## Milestones & Work Breakdown Structure
 
-| Milestone | Scope | Deliverables | Status |
-|-----------|-------|--------------|--------|
-| **M1: Discovery & Gap Assessment** | Full inspection of `src/operations/`, `src/supervisor_ui/`, `src/rag_memory/`, `src/odoo_ecosystem/`, and `tests/` | Detailed gap analysis report, execution environment check, current test count & passing status | IN-PROGRESS |
-| **M2: Core Operations Package & Financial Engine** | `src/operations/`: DocAutomator, FatSatSimulator, KittingEngine, AccreditationAutomator, PaymentStatementAutomator, and Profitability Matrix | Full 5 operational modules + financial matrix engine calculation (54.8% gross margin, released man-hours, reduced field days) | PLANNED |
-| **M3: Supervisor UI Integration** | `src/supervisor_ui/app.py` & web interface templates/controllers | Interactive control panel with audit logging, manual controls, VoBo triggers, and execution buttons for all 5 automations | PLANNED |
-| **M4: Test Suite & Coverage Hardening** | `tests/`: Unit, integration, stress, and E2E tests across all modules | 200+ pytest tests passing 100% with 0 errors | PLANNED |
-| **M5: Executive Report & Forensic Verification** | Markdown report (`OPERATIONS_EXECUTIVE_REPORT.md`) & Forensic Audit | Executive Markdown report for operations team, zero-cheating forensic verification audit | PLANNED |
+| Milestone | Task Description | Primary Deliverable | Target Agents | Status |
+|-----------|------------------|---------------------|---------------|--------|
+| M1 | Deep Audit & Gap Analysis of Document Generators & Test Suite | Gap analysis reports for Word builder, Excel builder, UI margin config, and test suite | 3 Explorers | IN_PROGRESS |
+| M2 | Word Quotation Builder & Quantity Parser Standardization | `src/operations/official_word_quote_builder.py` & quantity parser updated with 6 headings, metadata block, table formatting, voltage filtering, Spanish words | Worker + 2 Reviewers | PLANNED |
+| M3 | Excel 9-Sheet BOM Builder & Dynamic Gross Margin Standardization | `src/operations/bom_excel_builder.py` updated with all 9 sheets, formulas, cash flow, risk matrix, margin sensitivity + UI/Engine dynamic margin (10.0%-85.0%) | Worker + 2 Reviewers | PLANNED |
+| M4 | Comprehensive Test Hardening (300+ Pytest Suite) | Comprehensive test suite in `tests/` with 300+ passing tests, 0 failures, 100% contract compliance | Worker + Challenger + Reviewer | PLANNED |
+| M5 | Forensic Integrity Audit & Sentinel Handoff | Forensic audit report (CLEAN verdict) + Executive summary of document standardization | Auditor | PLANNED |
 
-## Subagent Orchestration Strategy
-1. **Explorer Phase**: Spawn 3 `teamwork_preview_explorer` subagents to analyze existing code, identify gaps against requirements, check test runner environment, and define exact interfaces.
-2. **Worker Phase**: Spawn `teamwork_preview_worker` subagents to implement/harden `src/operations/`, `src/supervisor_ui/`, financial matrix, and test cases in `tests/`.
-3. **Reviewer & Challenger Phase**: Spawn `teamwork_preview_reviewer` and `teamwork_preview_challenger` to verify code quality, functional correctness, and run test suites.
-4. **Forensic Auditor Phase**: Spawn `teamwork_preview_auditor` to audit codebase for genuine implementation without cheating or hardcoded mocks.
-5. **Sentinel Handoff**: Synthesize results, ensure executive report is written, report to parent.
+## Quality Gate & Verification Standards
+- Word .docx: valid 6 official sections, metadata block, summary table, CLP/USD prices.
+- Excel .xlsx: valid 9 official worksheets, non-zero formulas, cash flow, margin sensitivity, risk matrix.
+- Quantity parser: filters `220kV`/`110kV` voltage ratings and parses Spanish words (`una PMU` -> 1).
+- Dynamic Margin: 10.0% to 85.0% dynamically configurable via UI/Engine.
+- Pytest: 300+ tests passing 100% with 0 failures.
+- Audit: Forensic Auditor CLEAN verdict (zero facade/mock cheating).

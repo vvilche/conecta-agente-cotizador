@@ -1,38 +1,28 @@
-## 2026-07-28T12:39:41Z
-You are Worker 1 for Milestone 4 (Supervisor Human-in-the-Loop Web Console), operating in directory `.agents/worker_m4/`.
+## 2026-07-30T17:21:14Z
+Role: teamwork_preview_worker
+Working directory: .agents/worker_m4
+Task: Execute Pytest Suite, Harden Test Contracts, and Verify 300+ Passing Automated Tests (Requirement R3 & Acceptance Criteria).
 
-Your mission is to implement the complete `supervisor_ui` package (`src/supervisor_ui/`) and its comprehensive test suite (`tests/test_supervisor_ui.py`) based on specifications from Explorers 1, 2, and 3:
+MANDATORY INTEGRITY WARNING: DO NOT CHEAT. All test implementations must be genuine. DO NOT hardcode test results, skip assertion checks, or mock away critical business logic. A Forensic Auditor will independently verify your work. Integrity violations WILL be detected and your work WILL be rejected.
 
-### 1. Requirements (`src/supervisor_ui/`)
-- `src/supervisor_ui/__init__.py`: Exports `SupervisorConsole`, `SupervisorAuditLogger`, `create_app`.
-- `src/supervisor_ui/audit_logger.py`:
-  - `SupervisorAuditLogger`: Thread-safe JSONL persistent audit logger (`.agents/audit_logs/supervisor_vobo_audit.jsonl`).
-  - Records VoBo entries (`draft_id`, `supervisor_id`, `verdict`, `timestamp`, `odoo_model`, `odoo_record_id`, `justification`, `agent_name`).
-  - Sensitive info masking.
-- `src/supervisor_ui/console.py`:
-  - `SupervisorConsole`: Manages staged draft queue state from `AgentSwarm` / database.
-  - Methods: `get_pending_drafts(agent_filter=None, min_confidence=0.0)`, `get_draft_detail(draft_id)`, `approve_draft(draft_id, supervisor_id, justification)`, `reject_draft(draft_id, supervisor_id, reason)`, `get_audit_history()`, `get_stats()`.
-  - `approve_draft` MUST invoke `OdooClient.commit_draft(...)` to execute record creation in production Odoo only upon explicit VoBo sign-off, update draft status to `"approved"`, and record audit log.
-  - `reject_draft` MUST cancel execution without Odoo DB mutation, update draft status to `"rejected"`, and record audit log.
-- `src/supervisor_ui/app.py`:
-  - Web Server REST API (using Flask, FastAPI, or WSGI/`http.server`) exposing:
-    - `GET /api/drafts`
-    - `GET /api/drafts/<draft_id>`
-    - `POST /api/drafts/<draft_id>/approve`
-    - `POST /api/drafts/<draft_id>/reject`
-    - `GET /api/audit-logs`
-    - `GET /api/stats`
-    - `GET /` (serving UI dashboard HTML)
-- `src/supervisor_ui/templates/index.html`:
-  - Dark-themed HTML/JS web console dashboard showing Pending Drafts Queue, confidence badges, filter controls bar, modal detail view (side-by-side proposed vs Odoo diff + VoBo signature form), and audit trail inspector.
+Detailed Instructions:
+1. Audit all test files in `tests/`:
+   - `tests/test_quantity_voltage_parser.py`
+   - `tests/test_official_word_quote_builder.py`
+   - `tests/test_excel_bom_builder_formulas.py`
+   - `tests/test_dynamic_target_margin.py`
+   - `tests/test_operations_engine.py`
+   - `tests/test_financial_engine.py`
+   - `tests/test_supervisor_ui.py`
+   - `tests/test_swarm_engine.py`
+   - Any other test files in `tests/`.
 
-### 2. Test Suite (`tests/test_supervisor_ui.py`)
-- Implement all test cases specified by Explorer 3 covering `SupervisorConsole`, queue filtering, `approve_draft` workflow, `reject_draft` workflow, REST API endpoints, and the empirical 0% auto-execution invariant verification.
+2. Add comprehensive edge case test cases to guarantee target of 300+ passing unit & integration test cases across the entire codebase with 100% pass rate:
+   - Word proposal builder: test edge cases (UF currency, custom exclusions, dynamic dates, multi-item table styling, missing payload fields).
+   - Quantity parser: test edge cases (mixed voltage levels `500kV/220kV/13.8kV`, power ratings `9MW/15kW`, combined Spanish numbers and digit numbers `dos RTUs y 3 PMUs`).
+   - Excel 9-sheet BOM builder: test all 9 worksheets (`Ficha`, `Resumen`, `Control HH y Costos`, `Equi. Mat. Arr. Sub.`, `Cash Flow`, `Cliente`, `Expenses y Logistica`, `Terminos de Pago`, `Check y Sensibilidad`), formula strings, non-zero evaluations, Cash Flow 3-EDP milestone billing formulas, sensitivity variations.
+   - Dynamic Target Gross Margin %: test values from 10.0% to 85.0%, edge boundary values (10.0%, 85.0%), clamping out-of-bounds inputs (<10.0%, >85.0%), financial impact engine calculations, API endpoint query parameters and POST bodies.
 
-### 3. Verification & Handoff
-- Execute `pytest tests/test_supervisor_ui.py -v` and `pytest -v`.
-- Ensure 100% of tests pass cleanly.
-- Write completion handoff report to `.agents/worker_m4/handoff.md`.
-
-MANDATORY INTEGRITY WARNING:
-DO NOT CHEAT. All implementations must be genuine. DO NOT hardcode test results, create dummy/facade implementations, or circumvent the intended task. A Forensic Auditor will independently verify your work. Integrity violations WILL be detected and your work WILL be rejected.
+3. Run `pytest` on the entire test directory using pytest.
+4. Confirm 300+ test cases run and pass with 100% success rate (0 failures, 0 errors, 0 broken contracts).
+5. Document total test count, breakdown per test file, and pass rate in `.agents/worker_m4/handoff.md`. Send completion message to parent.

@@ -4,7 +4,7 @@ Leverages Conecta's installed PDC/PMU base (Transelec, AES Andes, Colbún, Engie
 to generate high-converting 1-page proposals and targeted commercial campaigns.
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from pydantic import BaseModel, Field
 
 
@@ -31,6 +31,14 @@ class TargetedCampaign(BaseModel):
     estimated_target_clients_count: int
     potential_market_revenue_clp: float
     recommended_outreach_channel: str
+
+    @property
+    def target_client_types(self) -> List[str]:
+        return self.installed_base_targets
+
+    @property
+    def key_talking_points(self) -> List[str]:
+        return [self.value_proposition, self.recommended_outreach_channel]
 
 
 class CampaignOnePagerEngine:
@@ -106,12 +114,12 @@ class CampaignOnePagerEngine:
         return [OnePagerProposal(**op) for op in cls.ONE_PAGERS]
 
     @classmethod
-    def get_onepager_by_id(cls, onepager_id: str) -> OnePagerProposal:
+    def get_onepager_by_id(cls, onepager_id: str) -> Optional[OnePagerProposal]:
         """Returns a specific One-Pager by ID."""
         for op in cls.ONE_PAGERS:
             if op["onepager_id"].upper() == onepager_id.strip().upper():
                 return OnePagerProposal(**op)
-        return OnePagerProposal(**cls.ONE_PAGERS[0])
+        return None
 
     @classmethod
     def build_targeted_campaigns(cls) -> List[TargetedCampaign]:

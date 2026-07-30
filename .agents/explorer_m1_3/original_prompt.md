@@ -1,11 +1,13 @@
-## 2026-07-28T07:59:57Z
-You are Explorer 3 for Milestone 1 (Odoo Core Connector & Models - odoo_ecosystem).
-Your working directory is `.agents/explorer_m1_3`. Create `.agents/explorer_m1_3` directory if needed.
-Read `PROJECT.md`, `ORIGINAL_REQUEST.md`, and `.agents/orchestrator/plan.md`.
-
-Your mission is to perform a detailed test design specification for:
-1. `tests/test_odoo_ecosystem.py`: Unit and integration test suite structure for testing XML-RPC/JSON-RPC/REST clients, model validations, mock server responses, error handling, retries, and audit logging.
-2. Verification criteria, assertion strategies, and mock setup fixtures to ensure 100% robust test execution.
-
-Write your comprehensive findings and implementation strategy report to `.agents/explorer_m1_3/analysis.md` and `.agents/explorer_m1_3/handoff.md`.
-Send a message back to the main agent when done.
+## 2026-07-30T17:00:44Z
+Role: teamwork_preview_explorer
+Working directory: .agents/explorer_m1_3
+Task: Audit Pytest Automated Test Suite & Contract Integrity (Requirement R3 & Acceptance Criteria).
+1. Inspect test suite in `tests/` directory.
+2. Run/examine all test files using pytest to evaluate current test count, pass/fail status, coverage, and contract integrity.
+3. Identify existing test files, test functions, and missing coverage for:
+   - Word quotation builder sections, cover metadata, summary table, and CLP/USD pricing.
+   - Quantity parser voltage rating filtering (`220kV`, `110kV`) and Spanish number word parsing.
+   - Excel 9-sheet builder sheet verification, non-zero formulas, cash flow, and risk matrix.
+   - Dynamic Target Gross Margin % configuration from UI (10.0% to 85.0%).
+4. Target: 300+ pytest unit & integration tests passing with 100% success rate and 0 failures/broken contracts.
+5. Document current test count, gaps to reach 300+ passing tests, and specific test cases needed. Write handoff report in `.agents/explorer_m1_3/handoff.md`. Notify the orchestrator via message when complete.

@@ -8,12 +8,14 @@ import pytest
 from src.operations.financial_engine import FinancialImpactEngine
 
 
+@pytest.fixture
+def engine():
+    return FinancialImpactEngine()
+
+
 class TestFinancialImpactEngine:
     """Test suite for FinancialImpactEngine operational and financial calculations."""
 
-    @pytest.fixture
-    def engine(self):
-        return FinancialImpactEngine()
 
     def test_retained_gross_margin_pct(self, engine):
         """Verify the strictly required gross margin retention percentage (54.8%)."""
@@ -161,3 +163,40 @@ class TestFinancialImpactEngine:
             "released_hh", "reduced_field_days", "released_man_hours_breakdown", "reduced_field_days_breakdown"
         }
         assert expected_keys.issubset(res.keys())
+
+
+# =====================================================================
+# EXPANDED EDGE CASE & PARAMETERIZED TEST SUITE FOR FINANCIAL ENGINE
+# =====================================================================
+
+@pytest.mark.parametrize("uf_rate", [35000.0, 38000.0, 38377.09, 40000.0, 45000.0])
+def test_uf_clp_rate_variations(engine, uf_rate):
+    res = engine.calculate_financial_summary(
+        num_ots=1,
+        total_contract_uf=1000.0,
+        uf_value_clp=uf_rate
+    )
+    assert res["total_contract_clp"] == 1000.0 * uf_rate
+    assert res["retained_gross_margin_clp"] == round((1000.0 * uf_rate) * 0.548, 2)
+
+
+@pytest.mark.parametrize("num_ots, num_devices, num_workers, expected_total_hh", [
+    (1, 1, 1, 66.5),
+    (2, 2, 2, 133.0),
+    (5, 10, 4, 375.0),
+    (10, 20, 8, 750.0),
+])
+def test_released_man_hours_parameterized(engine, num_ots, num_devices, num_workers, expected_total_hh):
+    res = engine.calculate_released_man_hours(num_ots=num_ots, num_devices=num_devices, num_workers=num_workers)
+    assert res["total_released_hh"] == expected_total_hh
+
+
+@pytest.mark.parametrize("num_ots, num_subs, expected_days", [
+    (1, 1, 3.5),
+    (2, 2, 7.0),
+    (5, 3, 17.5),
+    (10, 5, 35.0),
+])
+def test_reduced_field_days_parameterized(engine, num_ots, num_subs, expected_days):
+    res = engine.calculate_reduced_field_days(num_ots=num_ots, num_substations=num_subs)
+    assert res["total_reduced_field_days"] == expected_days

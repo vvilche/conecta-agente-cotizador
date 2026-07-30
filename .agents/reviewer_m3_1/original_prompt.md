@@ -1,17 +1,29 @@
-## 2026-07-28T12:34:08Z
-You are Reviewer 1 for Milestone 3 (Swarm Agentic Engine), operating in directory `.agents/reviewer_m3_1/`.
+## 2026-07-30T13:13:38Z
+Role: teamwork_preview_reviewer
+Working directory: .agents/reviewer_m3_1
+Task: Perform independent code review and test verification of Worker M3's implementation of Requirement R2 (Excel 9-Sheet BOM Builder) and Dynamic Target Gross Margin % (10.0% - 85.0%).
+Target Files:
+- `src/operations/bom_excel_builder.py`
+- `src/operations/financial_engine.py`
+- `src/supervisor_ui/app.py`
+- `src/supervisor_ui/templates/comercial.html`
+- `tests/test_excel_bom_builder_formulas.py`
+- `tests/test_dynamic_target_margin.py`
+- `tests/test_financial_engine.py`
+- `tests/test_supervisor_ui.py`
 
-Your mission is to perform a comprehensive code and quality review of:
-- `src/swarm_engine/base_agent.py` (`DraftAction`, `BaseAgent`)
-- `src/swarm_engine/swarm.py` (`AgentSwarm`, event routing, broadcast audit, health check)
-- `src/swarm_engine/agents/rfq_prospeccion.py`, `cotizacion_inventario.py`, `operaciones_presupuesto.py`
-- `tests/test_swarm_engine.py`
-
-Inspect code for:
-1. `PROJECT.md` interface compliance (`AgentSwarm.process_task`, `DraftAction`).
-2. Correct subclassing of `BaseAgent` and proper injection/usage of `OdooClient` and `HistoricalMemory`.
-3. Pydantic v2 validation rules (e.g. `confidence_score` [0.0, 1.0], `status="pending_vobo"` default).
-4. Robustness of event routing map and broadcast error isolation.
-5. Run `pytest tests/test_swarm_engine.py -v` and `pytest -v` to verify 100% pass rate.
-
-Write your review report to `.agents/reviewer_m3_1/review.md` with explicit findings and final verdict (**PASS** or **REQUEST_CHANGES**).
+Verification Checklist:
+1. Verify `MultiTabBOMExcelBuilder`:
+   - Exact 9 official Conecta worksheets generated: `Ficha`, `Resumen`, `Control HH y Costos`, `Equi. Mat. Arr. Sub.`, `Cash Flow`, `Cliente`, `Expenses y Logistica`, `Terminos de Pago`, `Check y Sensibilidad`.
+   - Genuine OpenPyXL formulas populated in cells (starting with `=`), computing non-zero values.
+   - Cash Flow sheet contains milestone billing formulas (`EDP 1 Pre-kitting 50%`, `EDP 2 SAT 30%`, `EDP 3 Handover 20%`).
+   - Sensitivity sheet calculates risk matrix and margin variations around `target_margin_pct`.
+2. Verify Dynamic Target Gross Margin % (10.0% to 85.0%):
+   - Configurable in `FinancialImpactEngine`, `MultiTabBOMExcelBuilder`, `/api/operations/metrics`, `/api/documents/download`.
+   - Out-of-bounds inputs (<10% or >85%) are correctly clamped to [10.0, 85.0].
+3. Verify Frontend UI (`comercial.html`):
+   - JS variables `numUnits` and `hasGps` are properly declared inside `generateQuote()`.
+4. Run pytest test suite:
+   - Execute `pytest` command on `tests/test_excel_bom_builder_formulas.py`, `tests/test_dynamic_target_margin.py`, `tests/test_financial_engine.py`, `tests/test_supervisor_ui.py`.
+   - Confirm 100% pass rate.
+5. Report verdict: PASS or FAIL with rationale in `.agents/reviewer_m3_1/handoff.md`. Send completion message to parent.

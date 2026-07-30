@@ -1,19 +1,37 @@
 """
 Financial Impact & Operations ROI Engine.
-Calculates retained gross margin (54.8%), released man-hours (HH),
+Calculates retained gross margin (configurable 10.0% - 85.0%, default 54.8%), released man-hours (HH),
 reduced field commissioning days, and total financial impact in CLP.
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 class FinancialImpactEngine:
     """Calculates financial ROI, retained gross margin, and operational savings for OT projects."""
 
+    DEFAULT_RETAINED_GROSS_MARGIN_PCT: float = 54.8
     RETAINED_GROSS_MARGIN_PCT: float = 54.8
 
-    def retained_gross_margin_pct(self) -> float:
-        """Returns the strictly required gross margin retention percentage (54.8%)."""
-        return self.RETAINED_GROSS_MARGIN_PCT
+    def __init__(self, target_margin_pct: float = 54.8):
+        self.target_margin_pct = self._normalize_margin(target_margin_pct)
+
+    @staticmethod
+    def _normalize_margin(val: Any) -> float:
+        if val is None:
+            return 54.8
+        try:
+            v = float(val)
+            if 0.0 < v <= 1.0:
+                v = v * 100.0
+            return max(10.0, min(85.0, v))
+        except (ValueError, TypeError):
+            return 54.8
+
+    def retained_gross_margin_pct(self, target_margin_pct: Optional[float] = None) -> float:
+        """Returns the configurable gross margin retention percentage (10.0% to 85.0%)."""
+        if target_margin_pct is not None:
+            return self._normalize_margin(target_margin_pct)
+        return self.target_margin_pct
 
     def calculate_released_man_hours(self, num_ots: int, num_devices: int = 1, num_workers: int = 1) -> Dict[str, Any]:
         """
@@ -73,12 +91,14 @@ class FinancialImpactEngine:
         uf_value_clp: float = 38377.09,
         num_devices: int = 1,
         num_workers: int = 1,
-        num_substations: int = 1
+        num_substations: int = 1,
+        target_margin_pct: Optional[float] = None,
+        target_gross_margin: Optional[float] = None
     ) -> Dict[str, Any]:
         """
         Returns financial summary:
         - Total contract in CLP
-        - Retained gross margin in CLP (at 54.8%)
+        - Retained gross margin in CLP (at configurable target_margin_pct, default 54.8%)
         - Total savings in CLP (engineering HH savings + field logistic savings)
         - Released man-hours (HH)
         - Reduced field commissioning days
@@ -90,8 +110,10 @@ class FinancialImpactEngine:
         num_workers = max(0, int(num_workers))
         num_substations = max(0, int(num_substations))
 
+        margin = target_margin_pct if target_margin_pct is not None else target_gross_margin
+        retained_margin_pct = self.retained_gross_margin_pct(margin)
+
         contract_clp = total_contract_uf * uf_value_clp
-        retained_margin_pct = self.retained_gross_margin_pct()
         retained_gross_margin_clp = contract_clp * (retained_margin_pct / 100.0)
 
         released_hh_data = self.calculate_released_man_hours(num_ots, num_devices, num_workers)
@@ -120,3 +142,4 @@ class FinancialImpactEngine:
             "released_man_hours_breakdown": released_hh_data,
             "reduced_field_days_breakdown": reduced_days_data
         }
+

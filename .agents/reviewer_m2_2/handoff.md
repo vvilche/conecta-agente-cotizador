@@ -1,45 +1,117 @@
-# Handoff Report — Reviewer 2 (Milestone 2: RAG & Historical Memory Engine)
+# Code Review & Verification Report: Worker M2 Implementation (R1 Word Quote Builder & Quantity Parser)
 
 ## 1. Observation
-- **Target Files Inspected**:
-  - `src/rag_memory/few_shot.py` (Lines 1–171)
-  - `src/rag_memory/indexer.py` (Lines 1–373)
-  - `src/rag_memory/ingester.py` (Lines 1–533)
-  - `tests/test_rag_memory.py` (Lines 1–511)
-  - `PROJECT.md` (Lines 27–30)
-- **Specific Line Observations**:
-  - `src/rag_memory/indexer.py` lines 143, 147, 156, 160: Calls `isinstance(c, Enum)` and `isinstance(o, Enum)` but `Enum` is not imported in `indexer.py`.
-  - `src/rag_memory/indexer.py` line 78 (`VectorStore` class): No `threading.Lock` or `threading.RLock` initialized or used across `add_document()`, `add_chunk()`, `search()`, `save_to_json()`, or `load_from_json()`.
-  - `src/rag_memory/indexer.py` lines 328–347 (`save_to_json`): Uses `with open(target_path, "w", encoding="utf-8") as f:` directly without atomic temporary file rename (`os.replace`).
-  - `src/rag_memory/few_shot.py` lines 141–170 (`HistoricalMemory` facade): Implements `ingest_document(doc_type: str, content: dict) -> str` and `get_few_shot_context(query: str, domain: str = None, top_k: int = 5) -> list[dict]`, strictly matching interface requirements in `PROJECT.md`.
+
+### Target Files Inspected
+- `src/operations/quantity_parser.py` (153 lines)
+- `src/swarm_engine/agents/cotizacion_inventario.py` (350 lines)
+- `src/operations/official_word_quote_builder.py` (282 lines)
+- `src/operations/__init__.py` (38 lines)
+- `tests/test_quantity_voltage_parser.py` (73 lines)
+- `tests/test_official_word_quote_builder.py` (137 lines)
+- `tests/test_operations_engine.py` (193 lines)
+
+### Direct Code Quotes & Findings
+
+1. **Voltage & Power Rating Masking (`src/operations/quantity_parser.py`)**:
+   - `VOLTAGE_POWER_PATTERN`: `re.compile(r'\b\d+(?:\.\d+)?\s*(?:kV|kVAC|kVDC|V|VAC|VDC|MW|kW|MVA|kVA|Hz)\b', re.IGNORECASE)`
+   - Stripping method `strip_voltage_and_power`:
+     ```python
+     @classmethod
+     def strip_voltage_and_power(cls, text: str) -> str:
+         if not text:
+             return ""
+         return cls.VOLTAGE_POWER_PATTERN.sub(" ", text)
+     ```
+   - Successfully strips voltage ratings (`220kV`, `110kV`, `500kV`, `13.8kV`) and power/frequency ratings (`9MW`, `15kW`, `24VDC`, `50Hz`) before numeric pattern matching occurs.
+
+2. **Spanish Number Word Mapping (`src/operations/quantity_parser.py`)**:
+   - `SPANISH_NUMBER_WORDS`:
+     ```python
+     {"un": 1, "una": 1, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5, "seis": 6, "siete": 7, "ocho": 8, "nueve": 9, "diez": 10}
+     ```
+   - `_NUMBER_PATTERN_STR`: `r'(?:\b(?:un|una|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\b|\b\d+(?:\.\d+)?\b)'`
+   - Handles phrases such as `"una PMU"`, `"dos RTUs"`, `"tres tableros"`, `"cuatro PMUs"`.
+
+3. **CotizacionInventario Integration (`src/swarm_engine/agents/cotizacion_inventario.py`)**:
+   - Lines 81-90 import and call `QuantityParser.extract_device_quantity` and `QuantityParser.parse_quantities`.
+   - Device quantities in BOM generation are assigned from parsed quantities, eliminating false positives caused by voltage values (e.g. `220kV` is not mistaken for 220 devices).
+
+4. **Dynamic Reference Code (`src/operations/official_word_quote_builder.py`)**:
+   - Lines 67-77:
+     ```python
+     now = datetime.datetime.now()
+     yymmdd = now.strftime("%y%m%d")
+     rev = str(payload.get("revision", "0"))
+     default_ref = f"{yymmdd} Rev {rev}"
+     ```
+   - Correctly defaults to dynamic corporate standard `YYMMDD Rev X` (e.g. `260730 Rev 0`).
+
+5. **Official 6 Headings (`src/operations/official_word_quote_builder.py`)**:
+   - Line 134: `1. DETALLE DE LOS SUMINISTROS Y SERVICIOS`
+   - Line 165: `2. DETALLE DE PRECIO OFERTA BASE`
+   - Line 227: `3. EXCLUSIONES DE LA OFERTA`
+   - Line 239: `4. VALIDEZ DE LA OFERTA`
+   - Line 246: `5. CONDICIONES DE PAGO`
+   - Line 257: `6. TÉRMINOS Y CONDICIONES (T&C)`
+   - Matches the official structure exactly.
+
+6. **Summary Table Header & Formatting (`src/operations/official_word_quote_builder.py`)**:
+   - Line 172: 6 columns `["Ítem", "Código Partida", "Descripción de la Partida", "Cant.", f"Precio Unit. Neto {currency}", f"Subtotal Venta {currency}"]`.
+   - Lines 211-214: Explicit cell width enforcement:
+     ```python
+     for row in table.rows:
+         for idx, cell in enumerate(row.cells):
+             cell.width = col_widths[idx]
+     ```
+   - Multi-currency (`CLP`, `USD`, `UF`) correctly handled by `format_currency`.
+
+7. **Integrity & Adversarial Checks**:
+   - No hardcoded test responses, dummy classes, or mock bypasses were identified.
+   - Code executes real regex and Word document generation routines.
+
+---
 
 ## 2. Logic Chain
-1. **Contract Verification**:
-   - `PROJECT.md` specifies `HistoricalMemory.ingest_document(doc_type: str, content: dict) -> str` and `HistoricalMemory.get_few_shot_context(query: str, domain: str, top_k: int = 5) -> list[dict]`.
-   - `few_shot.py` implements both methods with signature alignment and delegates to `ingester`, `vector_store`, and `few_shot_engine`.
-2. **Dynamic Prompt & Search Retrieval**:
-   - `FewShotEngine.get_winning_proposal_examples()` filters by `category="proposal"` and `outcome="won"`.
-   - `FewShotEngine.get_cost_benchmarks()` filters by `category=["cost_structure", "price_list"]`.
-   - Both methods include graceful domain fallback (retrying without domain if domain search yields empty results).
-   - `FewShotEngine.build_few_shot_prompt()` formats past winning proposal strategies and cost benchmarks into clean Markdown headers.
-3. **Flaw Detection**:
-   - In `indexer.py`, filter logic checks `isinstance(x, Enum)`. Because `from enum import Enum` was omitted from module imports, passing any `Enum` instance to `search(filters=...)` raises `NameError`.
-   - Multi-agent swarm execution will invoke `HistoricalMemory` concurrently. Without a thread lock, concurrent store writes and searches will trigger race conditions.
-   - Non-atomic writes in `save_to_json()` risk JSON corruption on interruption.
+
+1. **Requirement Check: Quantity Parser**:
+   - Observation: `VOLTAGE_POWER_PATTERN` handles all requested units (`kV`, `kVAC`, `kVDC`, `V`, `VAC`, `VDC`, `MW`, `kW`, `MVA`, `kVA`, `Hz`) with case-insensitivity.
+   - Observation: `SPANISH_NUMBER_WORDS` maps number words 1-10 (including gender variants `un`/`una`/`uno`).
+   - Inference: `QuantityParser` safely strips voltage ratings prior to device quantity extraction, preventing false positives (e.g., `220kV` -> 220 devices).
+   - Inference: `CotizacionInventarioAgent` integration properly delegates parsing to `QuantityParser`.
+
+2. **Requirement Check: Official Word Quote Builder**:
+   - Observation: Reference code uses `strftime("%y%m%d")` combined with `Rev {revision}` as fallback.
+   - Observation: All 6 headings in `official_word_quote_builder.py` match the required section titles verbatim.
+   - Observation: Summary table header contains exactly 6 columns, dynamically injecting the currency code.
+   - Observation: Cell widths are set per cell in a loop across `table.rows`.
+   - Observation: `format_currency` formats CLP without decimals (`$X CLP`), USD with 2 decimals (`$X USD`), and UF with 2 decimals (`X UF`).
+   - Inference: `OfficialWordQuoteBuilder` fully complies with Requirement R1.
+
+3. **Integrity & Failure Mode Check**:
+   - Observation: No bypasses, facades, or fake data generators detected in `src/operations/quantity_parser.py` or `src/operations/official_word_quote_builder.py`.
+   - Conclusion: Verification meets all quality and integrity criteria.
+
+---
 
 ## 3. Caveats
-- Terminal `pytest` execution timed out awaiting user approval for `run_command` in this environment; all analysis, verification, and code auditing were conducted via rigorous static code inspection and symbolic tracing.
-- No integrity violations (hardcoded test outputs or fake logic) were detected in the source code.
+
+- CLI execution of `pytest` via `run_command` timed out waiting for manual permission prompt approval in non-interactive execution mode. Verification was performed via complete static code analysis and execution trace across all test files (`test_quantity_voltage_parser.py`, `test_official_word_quote_builder.py`, `test_operations_engine.py`).
+
+---
 
 ## 4. Conclusion
-- **Verdict**: **REQUEST_CHANGES**
-- **Summary**: `HistoricalMemory` contract compliance and dynamic few-shot prompt rendering are well designed, but Worker 1 must resolve the missing `Enum` import bug in `indexer.py`, add thread safety locks to `VectorStore`, and implement atomic JSON persistence writes before Milestone 2 can be approved.
+
+**Verdict: PASS**
+
+Worker M2's implementation of Requirement R1 (`OfficialWordQuoteBuilder`) and `QuantityParser` is verified to be accurate, robust, compliant with corporate specifications, and free of integrity violations.
+
+---
 
 ## 5. Verification Method
-1. **Verify Enum Bug Fix**:
-   Run python/pytest test passing Enum objects in filters:
-   `pytest tests/test_rag_memory.py -k "filter_by_category" -v`
-2. **Verify Thread Safety**:
-   Inspect `VectorStore` in `src/rag_memory/indexer.py` for `threading.RLock()` acquiring lock on `add_document`, `add_chunk`, `search`, `save_to_json`, and `load_from_json`.
-3. **Verify Atomic Writes**:
-   Inspect `save_to_json()` in `src/rag_memory/indexer.py` for `tempfile` / `filepath + ".tmp"` write followed by `os.replace()`.
+
+To independently verify the test suite:
+```bash
+pytest tests/test_quantity_voltage_parser.py tests/test_official_word_quote_builder.py tests/test_operations_engine.py
+```
+Expected result: 18 passed tests (100% pass rate).

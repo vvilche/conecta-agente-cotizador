@@ -80,6 +80,13 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
                 ]
             }
 
+        margin_arg = request.args.get("target_margin_pct") or request.args.get("target_gross_margin") or request.args.get("margin_pct")
+        if margin_arg:
+            try:
+                payload["target_margin_pct"] = float(margin_arg)
+            except (ValueError, TypeError):
+                pass
+
         client_name = payload.get("partner_id", "Cliente")
         lines = payload.get("order_line", [])
 
@@ -128,6 +135,7 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
                 mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 headers={"Content-Disposition": f"attachment;filename=Propuesta_Comercial_{client_name.replace(' ', '_')}.docx"}
             )
+
 
     @app.route("/api/drafts", methods=["GET"])
     def get_drafts():
@@ -641,42 +649,59 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
             "result": statement
         }), 201
 
-    @app.route("/api/operations/metrics", methods=["GET"])
+    @app.route("/api/operations/metrics", methods=["GET", "POST"])
     def ops_metrics():
-        """Returns financial impact metrics with 54.8% gross margin retention."""
+        """Returns financial impact metrics with configurable gross margin retention."""
+        data = request.get_json(silent=True) or {}
         try:
-            num_ots = int(request.args.get("num_ots", 5))
-        except ValueError:
+            num_ots = int(request.args.get("num_ots") or data.get("num_ots") or 5)
+        except (ValueError, TypeError):
             num_ots = 5
         try:
-            total_contract_uf = float(request.args.get("total_contract_uf", 3500.0))
-        except ValueError:
+            total_contract_uf = float(request.args.get("total_contract_uf") or data.get("total_contract_uf") or 3500.0)
+        except (ValueError, TypeError):
             total_contract_uf = 3500.0
         try:
-            uf_value_clp = float(request.args.get("uf_value_clp", 38377.09))
-        except ValueError:
+            uf_value_clp = float(request.args.get("uf_value_clp") or data.get("uf_value_clp") or 38377.09)
+        except (ValueError, TypeError):
             uf_value_clp = 38377.09
         try:
-            num_devices = int(request.args.get("num_devices", 10))
-        except ValueError:
+            num_devices = int(request.args.get("num_devices") or data.get("num_devices") or 10)
+        except (ValueError, TypeError):
             num_devices = 10
         try:
-            num_workers = int(request.args.get("num_workers", 4))
-        except ValueError:
+            num_workers = int(request.args.get("num_workers") or data.get("num_workers") or 4)
+        except (ValueError, TypeError):
             num_workers = 4
         try:
-            num_substations = int(request.args.get("num_substations", 3))
-        except ValueError:
+            num_substations = int(request.args.get("num_substations") or data.get("num_substations") or 3)
+        except (ValueError, TypeError):
             num_substations = 3
 
-        fin_engine = FinancialImpactEngine()
+        margin_arg = (
+            request.args.get("target_margin_pct") or 
+            request.args.get("target_gross_margin") or 
+            request.args.get("margin_pct") or
+            data.get("target_margin_pct") or 
+            data.get("target_gross_margin") or
+            data.get("margin_pct")
+        )
+        target_margin_pct = None
+        if margin_arg is not None:
+            try:
+                target_margin_pct = float(margin_arg)
+            except (ValueError, TypeError):
+                target_margin_pct = None
+
+        fin_engine = FinancialImpactEngine(target_margin_pct=target_margin_pct or 54.8)
         metrics = fin_engine.calculate_financial_summary(
             num_ots=num_ots,
             total_contract_uf=total_contract_uf,
             uf_value_clp=uf_value_clp,
             num_devices=num_devices,
             num_workers=num_workers,
-            num_substations=num_substations
+            num_substations=num_substations,
+            target_margin_pct=target_margin_pct
         )
 
         return jsonify({
@@ -684,6 +709,7 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
             "metrics": metrics,
             **metrics
         }), 200
+
 
     return app
 

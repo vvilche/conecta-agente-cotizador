@@ -48,3 +48,31 @@ class TestBeldenSwitchesAndOptionalGPS:
         lines = draft_needs_gps.proposed_payload["order_line"]
         item_codes = [l["item_code"] for l in lines]
         assert "HW-GPS-CLOCK" in item_codes
+
+
+@pytest.mark.parametrize("prompt_str", [
+    "Cotizar switch Belden Hirschmann 8 puertos RJ45",
+    "Instalar switches Belden en gabinete SCADA",
+    "Requiero 2 switches Hirschmann RS20 DIN-Rail",
+    "Proveer switch industrial Belden con redundancia PRP/HSR",
+])
+def test_belden_hirschmann_prompt_parsing(prompt_str):
+    from src.operations.quantity_parser import parse_quantities
+    res = parse_quantities(prompt_str)
+    assert res.get("num_switches", 0) >= 1.0 or res.get("switches", 0) >= 1.0
+
+
+@pytest.mark.parametrize("has_gps_flag", [True, False])
+def test_gps_clock_inclusion_boolean_flag(has_gps_flag):
+    agent = CotizacionInventarioAgent()
+    draft = agent.guide_quotation(
+        "Medición Fasorial PMU",
+        {"has_existing_gps": has_gps_flag}
+    )
+    lines = draft.proposed_payload["order_line"]
+    item_codes = [l["item_code"] for l in lines]
+
+    if has_gps_flag:
+        assert "HW-GPS-CLOCK" not in item_codes
+    else:
+        assert "HW-GPS-CLOCK" in item_codes

@@ -578,22 +578,21 @@ class TestSupervisorAdversarialAndAudit:
 
 class TestDedicatedPortalsAndDocumentDownloads:
 
-    def test_comercial_portal_route_returns_200(self, api_test_client):
-        res = api_test_client.get("/comercial")
+    @pytest.mark.parametrize("route, expected_text", [
+        ("/comercial", b"Portal Comercial"),
+        ("/operaciones", b"Portal de Operaciones"),
+    ])
+    def test_portal_routes(self, api_test_client, route, expected_text):
+        res = api_test_client.get(route)
         assert res.status_code == 200
-        assert b"Portal Comercial" in res.data
+        assert expected_text in res.data
 
-    def test_operaciones_portal_route_returns_200(self, api_test_client):
-        res = api_test_client.get("/operaciones")
-        assert res.status_code == 200
-        assert b"Portal de Operaciones" in res.data
-
-    def test_download_commercial_proposal_document(self, api_test_client):
-        res = api_test_client.get("/api/documents/download?doc_type=propuesta_comercial")
+    @pytest.mark.parametrize("doc_type", [
+        "propuesta_comercial",
+        "bom_xlsx",
+    ])
+    def test_download_documents_parameterized(self, api_test_client, doc_type):
+        res = api_test_client.get(f"/api/documents/download?doc_type={doc_type}")
         assert res.status_code == 200
         assert res.data.startswith(b"PK\x03\x04")
 
-    def test_download_bom_xlsx_document(self, api_test_client):
-        res = api_test_client.get("/api/documents/download?doc_type=bom_xlsx")
-        assert res.status_code == 200
-        assert res.data.startswith(b"PK\x03\x04")

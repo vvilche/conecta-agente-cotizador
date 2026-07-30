@@ -350,6 +350,8 @@
       const client = document.getElementById('clientInput').value.trim();
       const modality = document.getElementById('modalityInput').value;
       const marginPct = parseFloat(document.getElementById('marginInput').value || 54.8);
+      const numUnits = parseInt(document.getElementById('unitsInput')?.value || 1, 10);
+      const hasGps = (document.getElementById('gpsInput')?.value === 'true');
 
       try {
         const res = await fetch('/api/request-quote', {
@@ -362,6 +364,8 @@
             num_pmus: numUnits,
             num_rtus: numUnits,
             margin_pct: marginPct,
+            target_margin_pct: marginPct,
+            target_gross_margin: marginPct,
             include_gps: hasGps,
             include_gps_clock: hasGps,
             has_existing_gps: !hasGps
@@ -394,7 +398,7 @@
       document.getElementById('dispAmountTax').innerText = '$' + payload.amount_tax.toLocaleString('es-CL') + ' CLP';
       document.getElementById('dispAmountTotal').innerText = '$' + payload.amount_total.toLocaleString('es-CL') + ' CLP';
       
-      const marginPct = payload.margin_analysis ? payload.margin_analysis.boosted_margin_pct : 54.8;
+      const marginPct = payload.target_margin_pct || (payload.margin_analysis ? payload.margin_analysis.boosted_margin_pct : 54.8);
       document.getElementById('dispMarginPct').innerText = marginPct + '%';
       
       const winRate = payload.win_rate_prediction ? payload.win_rate_prediction.estimated_win_rate_pct : 78;
@@ -421,8 +425,10 @@
         return;
       }
       const draftId = currentDraftData.draft_id;
-      window.open(`/api/documents/download?draft_id=${draftId}&doc_type=${docType}`, '_blank');
+      const marginPct = parseFloat(document.getElementById('marginInput')?.value || 54.8);
+      window.open(`/api/documents/download?draft_id=${draftId}&doc_type=${docType}&target_margin_pct=${marginPct}`, '_blank');
     }
+
   </script>
 </body>
 </html>

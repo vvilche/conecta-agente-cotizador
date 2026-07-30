@@ -351,8 +351,8 @@ class BusinessLineClassifier:
         
         t = text.lower()
         
-        # 1. Maintenance & Relays Calibration (Higher priority if explicitly Maintenance)
-        if any(k in t for k in ["mantenimiento", "inyeccion", "calibracion", "contrato marco"]):
+        # 1. Maintenance & Relays Calibration (Higher priority if explicitly Maintenance / Support / Licenses)
+        if any(k in t for k in ["mantenimiento", "inyeccion", "calibracion", "contrato marco", "soporte", "licencia", "licencias"]):
             return BusinessLineType.MAINTENANCE_LICENSES
 
         # 2. PMU / PDC (Specific to Synchrophasors / WAPMS)
@@ -368,7 +368,7 @@ class BusinessLineClassifier:
             return BusinessLineType.SITR_PMGD
 
         # 5. EDAC / ERAG / Protecciones / Estudios
-        if any(k in t for k in ["edac", "erag", "digsilent", "cortocircuito", "protecciones", "estudio", "ajustes"]):
+        if any(k in t for k in ["edac", "erag", "digsilent", "cortocircuito", "protecciones", "estudio", "estudios", "ajuste", "ajustes", "selectividad"]):
             return BusinessLineType.EDAC_ERAG_STUDIES
             
         return BusinessLineType.GENERAL

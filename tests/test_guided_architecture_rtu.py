@@ -37,7 +37,7 @@ class TestGuidedArchitectureEngineAndRTU:
         assert guidance["business_line"] == "scada_retrofit"
         assert "Medidor Fasorial PMU" in guidance["architecture"]["excluded_questions"]
         assert "Servidor PDC" in guidance["architecture"]["excluded_questions"]
-        
+
         # Check questions contain RTU specific terms
         questions_str = " ".join(guidance["guided_questions"]).lower()
         assert "remotas" in questions_str or "rtu" in questions_str
@@ -63,3 +63,18 @@ class TestGuidedArchitectureEngineAndRTU:
         # PMU specific item should NOT be present
         assert "HW-PMU-SEL735" not in item_codes
         assert "SW-PDC-LIC" not in item_codes
+
+
+@pytest.mark.parametrize("b_line_str", [
+    "pmu_pdc",
+    "sitr_pmgd",
+    "scada_retrofit",
+    "edac_erag",
+    "mantenimiento",
+])
+def test_guided_architecture_engine_all_lines(b_line_str):
+    guidance = GuidedArchitectureEngine.get_architecture_guidance(b_line_str)
+    assert guidance is not None
+    assert "business_line" in guidance
+    assert "guided_questions" in guidance
+    assert "architecture" in guidance
