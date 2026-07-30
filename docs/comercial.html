@@ -410,6 +410,9 @@
         `;
         tbody.appendChild(tr);
       });
+
+      document.getElementById('quoteResultContainer').scrollIntoView({ behavior: 'smooth' });
+      alert(`✅ Cotización Generada con Éxito para ${client}\nTotal Neto: $${amount_untaxed.toLocaleString('es-CL')} CLP\nTotal Bruto con IVA: $${amount_total.toLocaleString('es-CL')} CLP`);
     }
 
     function downloadDocText(type) {
