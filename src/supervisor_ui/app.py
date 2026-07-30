@@ -229,6 +229,38 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
             logger.error("Error generating quote: %s", e, exc_info=True)
             return jsonify({"success": False, "error": str(e)}), 500
 
+    @app.route("/api/infotecnica/search", methods=["GET"])
+    def infotecnica_search():
+        """Searches Coordinador Eléctrico Nacional (CEN) InfoTécnica API for substations / plants."""
+        query = request.args.get("q") or request.args.get("search") or ""
+        try:
+            from operations.infotecnica_client import InfoTecnicaClient
+            results = InfoTecnicaClient.search_substations_and_plants(query, limit=10)
+            return jsonify({
+                "success": True,
+                "query": query,
+                "count": len(results),
+                "results": results
+            }), 200
+        except Exception as e:
+            logger.error("InfoTécnica search error: %s", e, exc_info=True)
+            return jsonify({"success": False, "error": str(e)}), 500
+
+    @app.route("/api/infotecnica/enrich", methods=["GET"])
+    def infotecnica_enrich():
+        """Enriches quotation context with InfoTécnica CEN technical metadata and documents."""
+        query = request.args.get("q") or request.args.get("substation") or ""
+        try:
+            from operations.infotecnica_client import InfoTecnicaClient
+            context = InfoTecnicaClient.enrich_quotation_context(query)
+            return jsonify({
+                "success": True,
+                "context": context
+            }), 200
+        except Exception as e:
+            logger.error("InfoTécnica enrich error: %s", e, exc_info=True)
+            return jsonify({"success": False, "error": str(e)}), 500
+
 
 
 

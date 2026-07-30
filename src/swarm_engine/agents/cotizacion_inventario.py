@@ -213,6 +213,13 @@ class CotizacionInventarioAgent(BaseAgent):
         win_prediction = WinRateEstimator.predict_win_rate(partner_id, boosted_margin_pct)
         cross_sells = CrossSellEngine.find_opportunities(partner_id, b_type.value, total_sale_untaxed)
 
+        # Query InfoTécnica CEN API for technical substation/plant metadata and documents
+        try:
+            from operations.infotecnica_client import InfoTecnicaClient
+            infotecnica_context = InfoTecnicaClient.enrich_quotation_context(prompt_or_line)
+        except Exception:
+            infotecnica_context = {"found": False, "matches": []}
+
         proposed_payload = {
             "partner_id": partner_id,
             "business_line": b_type.value,
@@ -225,7 +232,8 @@ class CotizacionInventarioAgent(BaseAgent):
             "margin_analysis": margin_report.model_dump(),
             "regulatory_audit": reg_audit.model_dump(),
             "win_rate_prediction": win_prediction.model_dump(),
-            "cross_sell_opportunities": [cs.model_dump() for cs in cross_sells]
+            "cross_sell_opportunities": [cs.model_dump() for cs in cross_sells],
+            "infotecnica_cen": infotecnica_context
         }
 
         if tender_info:

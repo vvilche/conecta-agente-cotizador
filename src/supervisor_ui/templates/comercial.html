@@ -189,6 +189,18 @@
         <input type="text" id="clientInput" value="Chilquinta Distribución S.A.">
       </div>
 
+      <!-- InfoTécnica CEN API Search Widget -->
+      <div style="background: rgba(59,130,246,0.1); border: 1px dashed var(--primary-blue); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+        <label style="color: var(--primary-blue); font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+          <span>🔍 Búsqueda InfoTécnica CEN (Subestación / Central)</span>
+        </label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="cenSearchInput" placeholder="Ej: Topacio, Degañ, Mantos Blancos, Mayaca..." style="font-size: 0.8rem; padding: 6px 10px;">
+          <button type="button" class="btn btn-secondary" onclick="searchInfoTecnicaCEN()" style="font-size: 0.75rem; padding: 6px 12px; white-space: nowrap;">🔍 Buscar CEN</button>
+        </div>
+        <div id="cenSearchResults" style="margin-top: 8px; font-size: 0.75rem; color: var(--text-muted);"></div>
+      </div>
+
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
         <div class="form-group">
           <label>Modalidad Comercial:</label>
@@ -436,6 +448,51 @@
       const draftId = currentDraftData.draft_id;
       const marginPct = parseFloat(document.getElementById('marginInput')?.value || 54.8);
       window.open(`/api/documents/download?draft_id=${draftId}&doc_type=${docType}&target_margin_pct=${marginPct}`, '_blank');
+    }
+
+    async function searchInfoTecnicaCEN() {
+      const query = document.getElementById('cenSearchInput').value.trim();
+      const resDiv = document.getElementById('cenSearchResults');
+      if (!query) { resDiv.innerHTML = '<span style="color:var(--accent-amber);">Ingresa un nombre de subestación o central para buscar en el CEN.</span>'; return; }
+      resDiv.innerHTML = '<i>Buscando en API pública InfoTécnica CEN...</i>';
+      try {
+        const resp = await fetch(`/api/infotecnica/search?q=${encodeURIComponent(query)}`);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        const items = data.results || [];
+        if (items.length === 0) {
+          resDiv.innerHTML = `<span style="color:var(--accent-amber);">No se encontraron centrales con "${query}" en InfoTécnica CEN.</span>`;
+          return;
+        }
+        let html = `<div style="margin-top:6px; background:#0f172a; padding:8px; border-radius:6px; border: 1px solid var(--primary-blue);"><strong>Resultados InfoTécnica CEN (${items.length}):</strong><ul style="margin:4px 0 0 16px; padding:0;">`;
+        items.slice(0, 4).forEach(item => {
+          const name = item.name || 'Sin nombre';
+          const nemo = item.nemotecnico || 'N/A';
+          const owner = item.owner || 'N/A';
+          const id = item.id;
+          const cleanName = name.replace(/'/g, "\\'");
+          const cleanOwner = owner.replace(/'/g, "\\'");
+          html += `<li style="margin-bottom:6px;">
+            <strong style="color:#fff;">${name}</strong> (${nemo}) — <em style="color:var(--text-muted);">${owner}</em>
+            <br>
+            <button type="button" class="btn btn-secondary" style="margin-top:4px; padding:2px 8px; font-size:0.7rem;" onclick="applyCENCentral('${cleanName}', '${nemo}', '${cleanOwner}', ${id})">⚡ Usar Información Técnica CEN</button>
+          </li>`;
+        });
+        html += '</ul></div>';
+        resDiv.innerHTML = html;
+      } catch (err) {
+        resDiv.innerHTML = `<span style="color:#ef4444;">Error conectando a API InfoTécnica CEN: ${err.message}</span>`;
+      }
+    }
+
+    async function applyCENCentral(name, nemo, owner, centralId) {
+      const promptInput = document.getElementById('promptInput');
+      const clientInput = document.getElementById('clientInput');
+      if (owner && owner !== 'N/A') { clientInput.value = owner; }
+      
+      promptInput.value = `Cotización para ${name} (${nemo}) de ${owner}. Suministro e integración de remota RTU Orion LX+, PMU VIZIMAX, switches Belden y pruebas FAT/SAT HIL CEN.`;
+      const resDiv = document.getElementById('cenSearchResults');
+      resDiv.innerHTML = `<div style="color:var(--accent-green); padding:6px; background:rgba(16,185,129,0.1); border-radius:4px; margin-top:4px;">✅ Datos técnicos de <strong>${name} (${nemo})</strong> aplicados al cotizador.</div>`;
     }
 
   </script>
