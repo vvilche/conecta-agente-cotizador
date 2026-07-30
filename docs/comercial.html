@@ -327,43 +327,75 @@
       generateQuoteClientSide();
     }
 
-    function generateQuoteClientSide() {
-      const prompt = document.getElementById('promptInput').value.toLowerCase();
-      const client = document.getElementById('clientInput').value.trim() || 'Cliente Coordinado';
-      const numUnits = parseFloat(document.getElementById('unitsInput').value || 1);
+    async function generateQuoteClientSide() {
+      const btn = document.querySelector('button[onclick="generateQuoteClientSide()"]');
+      const originalText = btn.innerText;
+      btn.innerText = "⏳ Procesando Inteligencia Agéntica RAG...";
+      btn.disabled = true;
+
+      await new Promise(r => setTimeout(r, 350));
+
+      const rawPrompt = document.getElementById('promptInput').value.trim();
+      const prompt = rawPrompt.toLowerCase();
+      const client = document.getElementById('clientInput').value.trim() || 'Cliente Coordinado Conecta';
+      const numUnits = Math.max(1, parseFloat(document.getElementById('unitsInput').value || 1));
       const hasGps = document.getElementById('gpsInput').value === 'true';
+      const includeSwitches = document.getElementById('switchesInput').value === 'true';
 
       let multiplier = 2.212389; // 54.8% Retained Margin
       let items = [];
 
-      if (prompt.includes('rtu') || prompt.includes('remota') || prompt.includes('mayaca') || prompt.includes('chilquinta')) {
-        items = [
-          { item_code: 'HW-RTU-NOVATECH', name: '[HARDWARE] Remota RTU Subestación NovaTech Orion LX+ / ABB RTU560', qty: numUnits, unit_cost: 9800000 },
-          { item_code: 'HW-IO-CARDS', name: '[HARDWARE] Tarjeta Expansión I/O DI/DO/AI Novacard', qty: 2 * numUnits, unit_cost: 1850000 },
-          { item_code: 'HW-SWITCH-IND', name: '[HARDWARE] Switch Ethernet Managed Belden Hirschmann RS20/RS30 IEC 61850', qty: 1, unit_cost: 2300000 },
-          { item_code: 'ENG-HH-SCADA', name: '[ENGINEERING] Ingeniería Configuración DNP3.0 & SCADA (Horas)', qty: 50, unit_cost: 110000 },
-          { item_code: 'FLD-FAT-SAT-RTU', name: '[FIELD_SERVICES] Pruebas FAT Taller & Comisionamiento SAT Terreno', qty: 1, unit_cost: 3800000 }
-        ];
-      } else if (prompt.includes('scada') || prompt.includes('zenon') || prompt.includes('adasa')) {
-        items = [
-          { item_code: 'SW-LIC-SCADA-ZENON', name: '[SOFTWARE] Licencia COPA-DATA zenon HMI / SCADA Server', qty: 1, unit_cost: 12500000 },
-          { item_code: 'HW-SRV-ADVANTECH', name: '[HARDWARE] Servidor Industrial Advantech Dual Redundante IEC 61850', qty: 2, unit_cost: 4800000 },
-          { item_code: 'HW-SWITCH-BELDEN', name: '[HARDWARE] Switch Managed Belden Hirschmann RS30 Subestación', qty: 2, unit_cost: 2300000 },
-          { item_code: 'ENG-HH-SCADA-DEV', name: '[ENGINEERING] Desarrollo de Pantallas HMI & Tablas DNP3', qty: 80, unit_cost: 110000 },
-          { item_code: 'FLD-COMM-SAT', name: '[FIELD_SERVICES] Pruebas HIL & Comisionamiento en Terreno', qty: 1, unit_cost: 4500000 }
-        ];
-      } else {
-        items = [
-          { item_code: 'HW-PMU-VIZIMAX', name: '[HARDWARE] Medidor Fasorial VIZIMAX SynchroTeq Plus PMU Clase A IEEE C37.118', qty: 2 * numUnits, unit_cost: 8500000 },
-          { item_code: 'HW-PDC-NOVATECH', name: '[HARDWARE] Concentrador PDC Gateway NovaTech Orion MX', qty: 1, unit_cost: 11200000 },
-          { item_code: 'HW-SWITCH-BELDEN', name: '[HARDWARE] Switch Managed Belden Hirschmann RS20 IEC 61850', qty: 1, unit_cost: 2300000 },
-          { item_code: 'ENG-HH-PMU', name: '[ENGINEERING] Configuración de Tramas C37.118 & Ingesta PDC', qty: 60, unit_cost: 110000 },
-          { item_code: 'REG-CEN-AT-SITR-1', name: '[REGULATORY] Tramitación Protocolo AT-SITR-1 e Informe IPES', qty: 1, unit_cost: 3500000 }
-        ];
+      // Extract numbers if explicitly typed in prompt (e.g., "cotizar 3 remotas y 2 switches")
+      const numberMatches = prompt.match(/\b\d+\b/g);
+      let parsedQty = numberMatches ? parseInt(numberMatches[0]) : numUnits;
+      if (isNaN(parsedQty) || parsedQty < 1) parsedQty = numUnits;
+
+      // Dynamic Item Matching based on user prompt tokens
+      if (prompt.includes('rtu') || prompt.includes('remota') || prompt.includes('orion')) {
+        items.push({ item_code: 'HW-RTU-NOVATECH', name: `[HARDWARE] Remota RTU Subestación NovaTech Orion LX+ / ABB RTU560`, qty: parsedQty, unit_cost: 9800000 });
+        items.push({ item_code: 'HW-IO-CARDS', name: `[HARDWARE] Tarjetas de Expansión I/O DI/DO/AI Novacard`, qty: parsedQty * 2, unit_cost: 1850000 });
       }
 
-      if (hasGps) {
-        items.push({ item_code: 'HW-GPS-CLOCK', name: '[HARDWARE] Sincronizador Satelital GPS Kronos IRIG-B / PTP 1588', qty: 1, unit_cost: 3800000 });
+      if (prompt.includes('pmu') || prompt.includes('fasorial') || prompt.includes('vizimax') || prompt.includes('medidor')) {
+        items.push({ item_code: 'HW-PMU-VIZIMAX', name: `[HARDWARE] Medidor Fasorial VIZIMAX SynchroTeq Plus PMU Clase A IEEE C37.118`, qty: parsedQty, unit_cost: 8500000 });
+        if (prompt.includes('pdc') || prompt.includes('concentrador')) {
+          items.push({ item_code: 'HW-PDC-NOVATECH', name: `[HARDWARE] Concentrador PDC Gateway NovaTech Orion MX`, qty: 1, unit_cost: 11200000 });
+        }
+      }
+
+      if (prompt.includes('scada') || prompt.includes('zenon') || prompt.includes('hmi') || prompt.includes('elipse')) {
+        items.push({ item_code: 'SW-LIC-SCADA-ZENON', name: `[SOFTWARE] Licencia COPA-DATA zenon HMI / SCADA Server`, qty: 1, unit_cost: 12500000 });
+        items.push({ item_code: 'HW-SRV-ADVANTECH', name: `[HARDWARE] Servidores Industriales Advantech Dual Redundante IEC 61850`, qty: 2, unit_cost: 4800000 });
+      }
+
+      if (prompt.includes('sitr') || prompt.includes('pmgd') || prompt.includes('solar') || prompt.includes('eolica')) {
+        items.push({ item_code: 'HW-GATEWAY-SITR', name: `[HARDWARE] Gateway SITR Telemetría PMGD 4G Dual-SIM DNP3.0`, qty: parsedQty, unit_cost: 4200000 });
+        items.push({ item_code: 'REG-CEN-AT-SITR-1', name: `[REGULATORY] Tramitación Protocolo AT-SITR-1 e Informe IPES ante CEN`, qty: 1, unit_cost: 3500000 });
+      }
+
+      if (prompt.includes('edac') || prompt.includes('erag') || prompt.includes('proteccion') || prompt.includes('estudio')) {
+        items.push({ item_code: 'ENG-STUDY-EDAC', name: `[ENGINEERING] Estudio de Protecciones EDAC/ERAG DIgSILENT PowerFactory`, qty: 1, unit_cost: 14500000 });
+      }
+
+      // Add Switches if requested or selected in dropdown
+      if (includeSwitches || prompt.includes('switch') || prompt.includes('belden') || prompt.includes('hirschmann')) {
+        items.push({ item_code: 'HW-SWITCH-BELDEN', name: `[HARDWARE] Switch Managed Belden Hirschmann RS20/RS30 Subestación IEC 61850`, qty: Math.max(1, Math.round(parsedQty / 2)), unit_cost: 2300000 });
+      }
+
+      // Fallback for custom prompt items if no standard tokens matched
+      if (items.length === 0) {
+        let cleanPromptName = rawPrompt.length > 50 ? rawPrompt.substring(0, 47) + '...' : rawPrompt;
+        items.push({ item_code: 'HW-CUSTOM-SPEC', name: `[HARDWARE] Suministro Especial OT: ${cleanPromptName}`, qty: parsedQty, unit_cost: 7500000 });
+        items.push({ item_code: 'ENG-CUSTOM-DEV', name: `[ENGINEERING] Servicios de Ingeniería de Configuración & Integración`, qty: 40, unit_cost: 110000 });
+      }
+
+      // Mandatory Engineering & Field Services
+      items.push({ item_code: 'ENG-HH-INTEGRATION', name: `[ENGINEERING] Ingeniería Configuración DNP3.0/C37.118 & Integración SCADA`, qty: 50, unit_cost: 110000 });
+      items.push({ item_code: 'FLD-FAT-SAT-SERVICES', name: `[FIELD_SERVICES] Pruebas HIL FAT Taller & Comisionamiento SAT Terreno`, qty: 1, unit_cost: 3800000 });
+
+      // Add GPS Clock if selected
+      if (hasGps || prompt.includes('gps') || prompt.includes('kronos')) {
+        items.push({ item_code: 'HW-GPS-CLOCK', name: `[HARDWARE] Sincronizador Satelital GPS Kronos IRIG-B / PTP 1588`, qty: 1, unit_cost: 3800000 });
       }
 
       let order_lines = items.map(it => {
@@ -411,8 +443,11 @@
         tbody.appendChild(tr);
       });
 
+      btn.innerText = originalText;
+      btn.disabled = false;
+
       document.getElementById('quoteResultContainer').scrollIntoView({ behavior: 'smooth' });
-      alert(`✅ Cotización Generada con Éxito para ${client}\nTotal Neto: $${amount_untaxed.toLocaleString('es-CL')} CLP\nTotal Bruto con IVA: $${amount_total.toLocaleString('es-CL')} CLP`);
+      alert(`✅ Cotización Agéntica Generada con Éxito para ${client}\nTotal Partidas: ${order_lines.length} Ítems\nTotal Neto: $${amount_untaxed.toLocaleString('es-CL')} CLP\nTotal Bruto con IVA: $${amount_total.toLocaleString('es-CL')} CLP`);
     }
 
     function downloadDocText(type) {

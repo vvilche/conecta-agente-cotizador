@@ -328,6 +328,11 @@
     }
 
     async function generateQuote() {
+      const btn = document.querySelector('button[onclick="generateQuote()"]');
+      const originalText = btn.innerText;
+      btn.innerText = "⏳ Procesando Inteligencia Agéntica RAG...";
+      btn.disabled = true;
+
       const prompt = document.getElementById('promptInput').value.trim();
       const client = document.getElementById('clientInput').value.trim();
       const modality = document.getElementById('modalityInput').value;
@@ -354,11 +359,16 @@
         if (data.success && data.draft) {
           currentDraftData = data.draft;
           renderQuoteResult(data.draft);
+          document.getElementById('quoteResultContainer').scrollIntoView({ behavior: 'smooth' });
+          alert(`✅ Cotización Agéntica Generada con Éxito para ${client}\nStaging Odoo ID: ${data.draft.draft_id}`);
         } else {
           alert("Error generando cotización: " + (data.error || "Desconocido"));
         }
       } catch (err) {
         alert("Error en la solicitud: " + err);
+      } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
       }
     }
 
