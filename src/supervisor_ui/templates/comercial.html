@@ -377,7 +377,6 @@
           currentDraftData = data.draft;
           renderQuoteResult(data.draft);
           document.getElementById('quoteResultContainer').scrollIntoView({ behavior: 'smooth' });
-          alert(`✅ Cotización Agéntica Generada con Éxito para ${client}\nStaging Odoo ID: ${data.draft.draft_id}`);
         } else {
           alert("Error generando cotización: " + (data.error || "Desconocido"));
         }

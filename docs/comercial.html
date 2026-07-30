@@ -225,10 +225,10 @@
         <div style="display: flex; gap: 10px; align-items: center;">
           <input type="number" id="marginInput" min="10" max="85" step="0.5" value="54.8" style="width: 120px; font-weight: 800; color: var(--accent-green);">
           <div class="preset-badges" style="margin-bottom: 0;">
-            <button class="badge-btn" onclick="document.getElementById('marginInput').value=54.8; generateQuoteClientSide();">54.8% Estándar</button>
-            <button class="badge-btn" onclick="document.getElementById('marginInput').value=68.5; generateQuoteClientSide();">68.5% SLA</button>
-            <button class="badge-btn" onclick="document.getElementById('marginInput').value=40.0; generateQuoteClientSide();">40.0% Licitación</button>
-            <button class="badge-btn" onclick="document.getElementById('marginInput').value=30.0; generateQuoteClientSide();">30.0% Volumen</button>
+            <button class="badge-btn" onclick="document.getElementById('marginInput').value=54.8;">54.8% Estándar</button>
+            <button class="badge-btn" onclick="document.getElementById('marginInput').value=68.5;">68.5% SLA</button>
+            <button class="badge-btn" onclick="document.getElementById('marginInput').value=40.0;">40.0% Licitación</button>
+            <button class="badge-btn" onclick="document.getElementById('marginInput').value=30.0;">30.0% Volumen</button>
           </div>
         </div>
       </div>
@@ -341,7 +341,6 @@
         clientText.value = "Transelec S.A.";
         gpsSelect.value = "false";
       }
-      generateQuoteClientSide();
     }
 
     async function generateQuoteClientSide() {
@@ -475,7 +474,6 @@
       btn.disabled = false;
 
       document.getElementById('quoteResultContainer').scrollIntoView({ behavior: 'smooth' });
-      alert(`✅ Cotización Agéntica Generada con Éxito para ${client}\nTotal Partidas: ${order_lines.length} Ítems\nTotal Neto: $${amount_untaxed.toLocaleString('es-CL')} CLP\nTotal Bruto con IVA: $${amount_total.toLocaleString('es-CL')} CLP`);
     }
 
     // ── Real .docx generator — Propuesta Comercial (6 secciones Conecta S.A.) ──────────
@@ -847,8 +845,6 @@
 
       XLSX.writeFile(wb, `Anexos_Licitacion_${p.partner_id.replace(/[^a-zA-Z0-9]/g,'_')}.xlsx`);
     }
-
-    window.onload = generateQuoteClientSide;
   </script>
 </body>
 </html>
