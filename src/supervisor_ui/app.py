@@ -97,35 +97,28 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
             return Response(
                 excel_bytes,
                 mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                headers={"Content-Disposition": f"attachment;filename=BOM_{client_name.replace(' ', '_')}.xlsx"}
+                headers={"Content-Disposition": f"attachment;filename=Ficha_Traspaso_OT_{client_name.replace(' ', '_')}.xlsx"}
             )
         elif doc_type == "especificacion_tecnica":
-            content = f"# ESPECIFICACIÓN TÉCNICA DE ARQUITECTURA - {client_name}\n\n"
-            content += "## 1. ESTÁNDAR DE EQUIPAMIENTO OT SUBESTACIÓN\n"
-            content += "- **Medidores Fasoriales**: VIZIMAX SynchroTeq Plus PMU (Clase A IEEE C37.118-2011).\n"
-            content += "- **Switches Industriales Managed**: Belden Hirschmann RS20/RS30 (Redundancia RSTP/MRP, IEC 61850-3).\n"
-            content += "- **Remotas RTU / Concentradores**: NovaTech Orion LX+ / Orion MX Gateway.\n"
-            content += "- **Software SCADA HMI**: COPA-DATA zenon / Elipse Power HMI Redundante.\n\n"
-            content += "## 2. PARÁMETROS ELÉCTRICOS Y COMUNICACIÓN\n"
-            content += f"- Monto Neto Cotizado: ${payload.get('amount_untaxed', 0):,.0f} CLP.\n"
-            content += f"- Protocolos Soportados: DNP3.0 TCP/IP, IEEE C37.118.2, IEC 61850, Modbus TCP.\n"
-            content += "- Garantía de Integración: 100% prueba HIL FAT/SAT en laboratorio Conecta S.A.\n"
-            mimetype = "text/markdown"
-            filename = f"Especificacion_Tecnica_{client_name.replace(' ', '_')}.md"
+            from operations.official_word_quote_builder import OfficialWordQuoteBuilder
+            eett_payload = dict(payload)
+            eett_payload["subject_ref"] = f"ESPECIFICACIÓN TÉCNICA DE ARQUITECTURA OT SUBESTACIÓN — {client_name}"
+            docx_bytes = OfficialWordQuoteBuilder.build_quote_docx_bytes(eett_payload)
+            from flask import Response
+            return Response(
+                docx_bytes,
+                mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                headers={"Content-Disposition": f"attachment;filename=Especificacion_Tecnica_{client_name.replace(' ', '_')}.docx"}
+            )
         elif doc_type == "anexos_licitacion":
-            content = f"# FORMULARIOS ANEXOS DE LICITACIÓN - {client_name}\n\n"
-            content += "## ANEXO A: FORMULARIO DE OFERTA ECONÓMICA\n"
-            content += f"- Monto Neto Oferta: ${payload.get('amount_untaxed', 0):,.0f} CLP\n"
-            content += f"- IVA (19%): ${payload.get('amount_tax', 0):,.0f} CLP\n"
-            content += f"- Monto Total Bruto: ${payload.get('amount_total', 0):,.0f} CLP\n\n"
-            content += "## ANEXO B: DECLARACIÓN JURADA DE EQUIPAMIENTO BOM\n"
-            content += "- Suministro de Hardware original de fábrica (Belden Hirschmann, VIZIMAX, NovaTech).\n"
-            content += "- Certificados de Origen y Protocolos de Pruebas de Calidad FAT Taller.\n\n"
-            content += "## ANEXO C: CERTIFICACIÓN DE CUMPLIMIENTO NORMAS CEN / SEC\n"
-            content += "- Cumplimiento Guía AT-SITR-1 del Coordinador Eléctrico Nacional.\n"
-            content += "- Tramitación de Informe IPES Puesta en Servicio en 3 segundos.\n"
-            mimetype = "text/markdown"
-            filename = f"Anexos_Licitacion_{client_name.replace(' ', '_')}.md"
+            from operations.bom_excel_builder import MultiTabBOMExcelBuilder
+            excel_bytes = MultiTabBOMExcelBuilder.build_workbook_bytes(payload)
+            from flask import Response
+            return Response(
+                excel_bytes,
+                mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                headers={"Content-Disposition": f"attachment;filename=Anexos_Licitacion_{client_name.replace(' ', '_')}.xlsx"}
+            )
         else:
             from operations.official_word_quote_builder import OfficialWordQuoteBuilder
             docx_bytes = OfficialWordQuoteBuilder.build_quote_docx_bytes(payload)
