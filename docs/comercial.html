@@ -399,31 +399,60 @@
       let parsedQty = deviceQtyMatch ? parseInt(deviceQtyMatch[1], 10) : numUnits;
       if (isNaN(parsedQty) || parsedQty < 1) parsedQty = numUnits;
 
-      // Dynamic Item Matching based on user prompt tokens
+      // ── Dynamic Item Matching based on user prompt tokens ──────────────────────────────
+      // Precios base calibrados con 35 deals ganados 2026 (meta_ventas_2026.xlsx)
+
       if (prompt.includes('rtu') || prompt.includes('remota') || prompt.includes('orion')) {
+        // Calibrado: RTU Chilquinta M$31/2 = M$15,5 por unidad (HW+ENG+FAT)
         items.push({ item_code: 'HW-RTU-NOVATECH', name: `[HARDWARE] Remota RTU Subestación NovaTech Orion LX+ / ABB RTU560`, qty: parsedQty, unit_cost: 9800000 });
         items.push({ item_code: 'HW-IO-CARDS', name: `[HARDWARE] Tarjetas de Expansión I/O DI/DO/AI Novacard`, qty: parsedQty * 2, unit_cost: 1850000 });
+        items.push({ item_code: 'SW-CFG-DNP3', name: `[SOFTWARE] Configuración DNP3.0 / IEC 61850 Base RTU`, qty: parsedQty, unit_cost: 1200000 });
       }
 
       if (prompt.includes('pmu') || prompt.includes('fasorial') || prompt.includes('vizimax') || prompt.includes('medidor')) {
-        items.push({ item_code: 'HW-PMU-VIZIMAX', name: `[HARDWARE] Medidor Fasorial VIZIMAX SynchroTeq Plus PMU Clase A IEEE C37.118`, qty: parsedQty, unit_cost: 8500000 });
+        // Calibrado: AES 10 PMU = M$120 → M$12/PMU total; Pacific Hydro 2 PMU = M$50 → M$25/PMU
+        // Precio base HW PMU ajustado para cubrir kit completo (tablero+cablería+docs CEN)
+        items.push({ item_code: 'HW-PMU-VIZIMAX', name: `[HARDWARE] Medidor Fasorial VIZIMAX SynchroTeq Plus PMU Clase A IEEE C37.118`, qty: parsedQty, unit_cost: 10900000 });
+        items.push({ item_code: 'ENG-PMU-CONFIG', name: `[ENGINEERING] Configuración IEEE C37.118.2 / Synchrophasor PMU + Pruebas CEN`, qty: parsedQty, unit_cost: 2100000 });
         if (prompt.includes('pdc') || prompt.includes('concentrador')) {
           items.push({ item_code: 'HW-PDC-NOVATECH', name: `[HARDWARE] Concentrador PDC Gateway NovaTech Orion MX`, qty: 1, unit_cost: 11200000 });
+          items.push({ item_code: 'SW-PDC-LIC-CORP', name: `[SOFTWARE] Licencias PDC Corporativo + Soporte Anual`, qty: 1, unit_cost: 8000000 });
         }
       }
 
-      if (prompt.includes('scada') || prompt.includes('zenon') || prompt.includes('hmi') || prompt.includes('elipse')) {
+      if (prompt.includes('scada') || prompt.includes('zenon') || prompt.includes('hmi') || prompt.includes('elipse') || prompt.includes('reconectador')) {
+        // Calibrado: Reconectadores SCADA Chilquinta M$50
         items.push({ item_code: 'SW-LIC-SCADA-ZENON', name: `[SOFTWARE] Licencia COPA-DATA zenon HMI / SCADA Server`, qty: 1, unit_cost: 12500000 });
         items.push({ item_code: 'HW-SRV-ADVANTECH', name: `[HARDWARE] Servidores Industriales Advantech Dual Redundante IEC 61850`, qty: 2, unit_cost: 4800000 });
+        items.push({ item_code: 'ENG-SCADA-INTEG', name: `[ENGINEERING] Integración Protocolos SCADA / Drivers Comunicación`, qty: 1, unit_cost: 4500000 });
       }
 
-      if (prompt.includes('sitr') || prompt.includes('pmgd') || prompt.includes('solar') || prompt.includes('eolica')) {
+      if (prompt.includes('sitr') || prompt.includes('pmgd') || prompt.includes('solar') || prompt.includes('eolica') || prompt.includes('acondicionamiento')) {
+        // Calibrado: SITR Mantoverde M$25; Enlight PMU La Huayca M$35
         items.push({ item_code: 'HW-GATEWAY-SITR', name: `[HARDWARE] Gateway SITR Telemetría PMGD 4G Dual-SIM DNP3.0`, qty: parsedQty, unit_cost: 4200000 });
-        items.push({ item_code: 'REG-CEN-AT-SITR-1', name: `[REGULATORY] Tramitación Protocolo AT-SITR-1 e Informe IPES ante CEN`, qty: 1, unit_cost: 3500000 });
+        items.push({ item_code: 'REG-CEN-AT-SITR-1', name: `[REGULATORY] Tramitación Protocolo AT-SITR-1 e Informe IPES ante CEN`, qty: 1, unit_cost: 5500000 });
+        items.push({ item_code: 'ENG-SITR-PARAM', name: `[ENGINEERING] Parametrización SITR + Pruebas Comunicación CEN`, qty: 1, unit_cost: 3800000 });
       }
 
       if (prompt.includes('edac') || prompt.includes('erag') || prompt.includes('proteccion') || prompt.includes('estudio')) {
+        // Calibrado: Estudio EDAC basado en precios ENG DIgSILENT
         items.push({ item_code: 'ENG-STUDY-EDAC', name: `[ENGINEERING] Estudio de Protecciones EDAC/ERAG DIgSILENT PowerFactory`, qty: 1, unit_cost: 14500000 });
+        items.push({ item_code: 'ENG-COORD-PROT', name: `[ENGINEERING] Coordinación de Protecciones + Ajuste Relés + Documentación`, qty: 1, unit_cost: 7500000 });
+      }
+
+      if (prompt.includes('pac') || prompt.includes('rele') || prompt.includes('relé') || prompt.includes('sas') || prompt.includes('retrofit protecciones')) {
+        // Calibrado: Retrofit Protecciones Transelec M$120
+        items.push({ item_code: 'HW-RELE-SEL', name: `[HARDWARE] Relé Protección SEL / GE Multilin / Schneider Cortec`, qty: parsedQty * 2, unit_cost: 5000000 });
+        items.push({ item_code: 'ENG-PAC-COORD', name: `[ENGINEERING] Ingeniería PAC / Coordinación de Protecciones DIgSILENT`, qty: 1, unit_cost: 14000000 });
+        items.push({ item_code: 'FLD-PAC-COMM', name: `[FIELD_SERVICES] Comisionamiento PAC In-Situ + Pruebas Primarias`, qty: 8, unit_cost: 550000 });
+      }
+
+      if (prompt.includes('slrp') || prompt.includes('pdc') || prompt.includes('centro de control') || prompt.includes('servidor') || prompt.includes('modernizacion') || prompt.includes('modernización')) {
+        // Calibrado: PDC Modernización Transelec M$206; SLRP+PDC Grenergy M$130
+        items.push({ item_code: 'SW-PDC-CORP-LIC', name: `[SOFTWARE] Licencias PDC Corporativo Multi-Nodo + Soporte 2 años`, qty: parsedQty, unit_cost: 12000000 });
+        items.push({ item_code: 'HW-SRV-PDC', name: `[HARDWARE] Servidor PDC Redundante Industrial`, qty: 2, unit_cost: 5000000 });
+        items.push({ item_code: 'REG-SLRP-CEN', name: `[REGULATORY] Coordinación SLRP / Integración Centro Control CEN`, qty: 1, unit_cost: 15000000 });
+        items.push({ item_code: 'ENG-PDC-CONFIG', name: `[ENGINEERING] Configuración PDC + Integración Fasoriales + Pruebas`, qty: 1, unit_cost: 8000000 });
       }
 
       // Add Switches if requested or selected in dropdown
@@ -435,16 +464,16 @@
       if (items.length === 0) {
         let cleanPromptName = rawPrompt.length > 50 ? rawPrompt.substring(0, 47) + '...' : rawPrompt;
         items.push({ item_code: 'HW-CUSTOM-SPEC', name: `[HARDWARE] Suministro Especial OT: ${cleanPromptName}`, qty: parsedQty, unit_cost: 7500000 });
-        items.push({ item_code: 'ENG-CUSTOM-DEV', name: `[ENGINEERING] Servicios de Ingeniería de Configuración & Integración`, qty: 40, unit_cost: 110000 });
+        items.push({ item_code: 'ENG-CUSTOM-DEV', name: `[ENGINEERING] Servicios de Ingeniería de Configuración & Integración`, qty: 40, unit_cost: 160000 });
       }
 
-      // Mandatory Engineering & Field Services
-      items.push({ item_code: 'ENG-HH-INTEGRATION', name: `[ENGINEERING] Ingeniería Configuración DNP3.0/C37.118 & Integración SCADA`, qty: 50, unit_cost: 110000 });
-      items.push({ item_code: 'FLD-FAT-SAT-SERVICES', name: `[FIELD_SERVICES] Pruebas HIL FAT Taller & Comisionamiento SAT Terreno`, qty: 1, unit_cost: 3800000 });
+      // Mandatory Engineering & Field Services (calibrado con datos reales)
+      items.push({ item_code: 'ENG-HH-INTEGRATION', name: `[ENGINEERING] Ingeniería Configuración DNP3.0/C37.118 & Integración SCADA`, qty: 50, unit_cost: 160000 });
+      items.push({ item_code: 'FLD-FAT-SAT-SERVICES', name: `[FIELD_SERVICES] Pruebas HIL FAT Taller & Comisionamiento SAT Terreno + IPES`, qty: 1, unit_cost: 5500000 });
 
       // Add GPS Clock if selected
-      if (hasGps || prompt.includes('gps') || prompt.includes('kronos')) {
-        items.push({ item_code: 'HW-GPS-CLOCK', name: `[HARDWARE] Sincronizador Satelital GPS Kronos IRIG-B / PTP 1588`, qty: 1, unit_cost: 3800000 });
+      if (hasGps || prompt.includes('gps') || prompt.includes('kronos') || prompt.includes('irig')) {
+        items.push({ item_code: 'HW-GPS-CLOCK', name: `[HARDWARE] Sincronizador Satelital GPS Kronos IRIG-B / PTP 1588`, qty: 1, unit_cost: 4500000 });
       }
 
       let order_lines = items.map(it => {
