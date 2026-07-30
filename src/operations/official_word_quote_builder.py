@@ -1,6 +1,12 @@
 """
 Official Word (.docx) Commercial Proposal Builder for Conecta Ingeniería S.A.
-Generates formatted Microsoft Word proposal documents.
+Generates formatted Microsoft Word proposal documents following exact historical Conecta S.A. sections:
+1. DETALLE DE LOS SUMINISTROS Y SERVICIOS
+2. DETALLE DE PRECIO OFERTA BASE
+3. EXCLUSIONES DE LA OFERTA
+4. VALIDEZ DE LA OFERTA
+5. CONDICIONES DE PAGO
+6. TÉRMINOS Y CONDICIONES (T&C)
 """
 import io
 import docx
@@ -34,10 +40,10 @@ class OfficialWordQuoteBuilder:
         amount_untaxed = payload.get("amount_untaxed", 58628319)
         amount_tax = payload.get("amount_tax", 11139381)
         amount_total = payload.get("amount_total", 69767700)
+        margin_pct = payload.get("margin_analysis", {}).get("boosted_margin_pct", 54.8)
         lines = payload.get("order_line", [])
 
-        # Color Palette
-        navy_color = RGBColor(0x1E, 0x29, 0x3B)
+        # Corporate Colors
         blue_color = RGBColor(0x1E, 0x3A, 0x8A)
         muted_color = RGBColor(0x47, 0x55, 0x69)
 
@@ -58,16 +64,16 @@ class OfficialWordQuoteBuilder:
 
         # Info Box Block
         p_meta = doc.add_paragraph()
-        p_meta.add_run("Nuestra Ref: ").bold = True
+        p_meta.add_run("Nuestra Ref.: ").bold = True
         p_meta.add_run("OF-2026-CONECTA-REV0\n")
         p_meta.add_run("Fecha: ").bold = True
-        p_meta.add_run("30 de Julio de 2026 (Santiago, Chile)\n")
+        p_meta.add_run("Santiago, 30 de Julio de 2026\n")
         p_meta.add_run("Señores: ").bold = True
         p_meta.add_run(f"{client_name}\n")
         p_meta.add_run("Atención: ").bold = True
         p_meta.add_run("Departamento de Ingeniería & Proyectos / Gerencia de Operaciones\n")
         p_meta.add_run("Ref.: ").bold = True
-        p_meta.add_run("Suministro, Ingeniería, Pruebas HIL y Puesta en Servicio de Equipamiento OT")
+        p_meta.add_run(f"PROPUESTA COMERCIAL INTEGRAL DE AUTOMATIZACIÓN OT — {client_name}")
 
         # Letter Greeting
         p_body = doc.add_paragraph()
@@ -76,12 +82,12 @@ class OfficialWordQuoteBuilder:
         p_body.add_run(
             "Estimados Señores:\n\n"
             "Basados en vuestros requerimientos técnicos y normativos del Sistema Eléctrico Nacional (SEN), "
-            "tenemos el agrado de presentar nuestra propuesta técnico-económica para el suministro, pre-kitting en taller, "
+            "tenemos el placer de presentar nuestra oferta para el suministro, pre-kitting en taller, "
             "configuración de comunicaciones e integración de hardware industrial en subestación."
         )
 
-        # Section 1: Scope
-        h1 = doc.add_heading("1. ALCANCE TÉCNICO DE LA OFERTA Y ARQUITECTURA", level=1)
+        # 1. DETALLE DE LOS SUMINISTROS Y SERVICIOS
+        h1 = doc.add_heading("1. DETALLE DE LOS SUMINISTROS Y SERVICIOS", level=1)
         h1.runs[0].font.color.rgb = blue_color
 
         bullet_points = [
@@ -97,15 +103,15 @@ class OfficialWordQuoteBuilder:
             r_bt.bold = True
             bp.add_run(b_desc)
 
-        # Section 2: Economics Table
-        h2 = doc.add_heading("2. OFERTA ECONÓMICA Y DESGLOSE DE PARTIDAS", level=1)
+        # 2. DETALLE DE PRECIO OFERTA BASE
+        h2 = doc.add_heading("2. DETALLE DE PRECIO OFERTA BASE", level=1)
         h2.runs[0].font.color.rgb = blue_color
 
         # Create Styled Table
         table = doc.add_table(rows=1, cols=5)
         table.alignment = WD_TABLE_ALIGNMENT.CENTER
         hdr_cells = table.rows[0].cells
-        hdr_titles = ["Item", "Código Partida", "Descripción de la Partida", "Cant.", "Subtotal Venta CLP"]
+        hdr_titles = ["Ítem", "Código Partida", "Descripción de la Partida", "Cant.", "Subtotal Venta CLP"]
 
         for idx, text in enumerate(hdr_titles):
             hdr_cells[idx].text = text
@@ -125,7 +131,6 @@ class OfficialWordQuoteBuilder:
             row_cells[4].text = f"${line.get('price_subtotal', 0):,.0f} CLP"
             row_cells[4].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.RIGHT
 
-            # Alternate row background
             if idx % 2 == 0:
                 for cell in row_cells:
                     set_cell_background(cell, "F8FAFC")
@@ -138,21 +143,46 @@ class OfficialWordQuoteBuilder:
         p_fin.add_run(f"• Monto Neto Total (Sin IVA): ${amount_untaxed:,.0f} CLP\n").bold = True
         p_fin.add_run(f"• Impuesto IVA (19%): ${amount_tax:,.0f} CLP\n")
         p_fin.add_run(f"• Monto Total Bruto (Con IVA): ${amount_total:,.0f} CLP\n").bold = True
-        p_fin.add_run("• Margen Bruto Retenido Target: 54.80%\n")
+        p_fin.add_run(f"• Margen Bruto Retenido Target: {margin_pct:.1f}%\n")
 
-        # Section 3: Schedule & Terms
-        h3 = doc.add_heading("3. CRONOGRAMA Y CONDICIONES COMERCIALES (T&C)", level=1)
+        # 3. EXCLUSIONES DE LA OFERTA
+        h3 = doc.add_heading("3. EXCLUSIONES DE LA OFERTA", level=1)
         h3.runs[0].font.color.rgb = blue_color
+        p_exc = doc.add_paragraph()
+        p_exc.add_run(
+            "Se excluye expresamente cualquier suministro o actividad distinta a las mencionadas en esta propuesta, en particular:\n"
+            "• Obras civiles mayores, canalizaciones subterráneas de fuerza o tendido de cables de AT/MT.\n"
+            "• Suministro de relojes satelitales GPS adicionales si el cliente optó por usar infraestructura existente en subestación.\n"
+            "• Modificaciones a la lógica de protecciones de marcas no especificadas en la lista de materiales."
+        )
 
-        p_terms = doc.add_paragraph()
-        p_terms.add_run("• Plazo de Entrega: ").bold = True
-        p_terms.add_run("4 a 6 semanas tras recepción de la Orden de Compra.\n")
-        p_terms.add_run("• Estructura de Hitos EDP: ").bold = True
-        p_terms.add_run("EDP 1 (50%) al kitting de tableros en taller; EDP 2 (50%) a la entrega del Certificado FAT/SAT HIL e Informe IPES.\n")
-        p_terms.add_run("• Validez de la Oferta: ").bold = True
-        p_terms.add_run("30 días corridos.\n")
-        p_terms.add_run("• Garantía Técnica: ").bold = True
-        p_terms.add_run("12 meses contados desde la puesta en servicio comercial.")
+        # 4. VALIDEZ DE LA OFERTA
+        h4 = doc.add_heading("4. VALIDEZ DE LA OFERTA", level=1)
+        h4.runs[0].font.color.rgb = blue_color
+        p_val = doc.add_paragraph()
+        p_val.add_run("La presente oferta técnico-económica tiene una validez de ").bold = False
+        p_val.add_run("30 días corridos").bold = True
+        p_val.add_run(" a contar de la fecha de su presentación.")
+
+        # 5. CONDICIONES DE PAGO
+        h5 = doc.add_heading("5. CONDICIONES DE PAGO", level=1)
+        h5.runs[0].font.color.rgb = blue_color
+        p_pago = doc.add_paragraph()
+        p_pago.add_run(
+            "El pago del precio ofertado se efectuará mediante Estados de Pago (EDP) contra emisión de factura a 30 días:\n"
+            "• EDP N° 1 (50% del Total Neto): Al completar el pre-kitting y armado de tableros en taller Conecta S.A.\n"
+            "• EDP N° 2 (50% del Total Neto): A la entrega del Certificado FAT/SAT HIL e Informe IPES registrado ante el CEN."
+        )
+
+        # 6. TÉRMINOS Y CONDICIONES (T&C)
+        h6 = doc.add_heading("6. TÉRMINOS Y CONDICIONES (T&C)", level=1)
+        h6.runs[0].font.color.rgb = blue_color
+        p_tc = doc.add_paragraph()
+        p_tc.add_run(
+            "• Garantía Técnica: 12 meses a contar de la recepción conforme de la puesta en servicio comercial.\n"
+            "• Multas y Penalizaciones: Limitadas a un techo máximo acumulado del 5% del valor neto del contrato.\n"
+            "• Fuerza Mayor: Suspensión de plazos en caso de eventos climáticos desfavorables en faena o indisponibilidad de la red eléctrica."
+        )
 
         # Signature Block
         p_sig = doc.add_paragraph()
