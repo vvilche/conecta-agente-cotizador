@@ -34,12 +34,93 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
 
     @app.route("/", methods=["GET"])
     def index():
-        """Serves the single-page supervisor web console interface."""
+        """Serves the executive hub main console interface."""
         try:
             return render_template("index.html")
         except Exception as e:
-            logger.warning("Template rendering failed, falling back to string HTML: %s", e)
-            return "<h1>Odoo Agentic Swarm - Supervisor HITL Console</h1>", 200
+            logger.warning("Template rendering failed: %s", e)
+            return "<h1>Odoo Agentic Swarm - Hub Principal</h1>", 200
+
+    @app.route("/comercial", methods=["GET"])
+    def portal_comercial():
+        """Serves the dedicated Commercial Portal for estimators and proposals engineers."""
+        try:
+            return render_template("comercial.html")
+        except Exception as e:
+            logger.warning("Commercial template rendering failed: %s", e)
+            return "<h1>Portal Comercial Conecta S.A.</h1>", 200
+
+    @app.route("/operaciones", methods=["GET"])
+    def portal_operaciones():
+        """Serves the dedicated Operations Portal for project engineers and field managers."""
+        try:
+            return render_template("operaciones.html")
+        except Exception as e:
+            logger.warning("Operations template rendering failed: %s", e)
+            return "<h1>Portal de Operaciones Conecta S.A.</h1>", 200
+
+    @app.route("/api/documents/download", methods=["GET"])
+    def download_document():
+        """Generates and serves downloadable commercial and project documentation."""
+        draft_id = request.args.get("draft_id", "draft_demo")
+        doc_type = request.args.get("doc_type", "propuesta_comercial")
+
+        try:
+            draft = app.console.get_draft_detail(draft_id)
+            payload = draft.proposed_payload
+        except Exception:
+            payload = {
+                "partner_id": "Cliente Coordinado Conecta",
+                "amount_untaxed": 58628319.0,
+                "amount_tax": 11139381.0,
+                "amount_total": 69767700.0,
+                "order_line": [
+                    {"item_code": "HW-RTU-SUBSTATION", "name": "Remota RTU NovaTech Orion LX+", "product_uom_qty": 1, "price_unit": 21681416, "price_subtotal": 21681416},
+                    {"item_code": "HW-SWITCH-IND", "name": "Switch Belden Hirschmann RS20", "product_uom_qty": 1, "price_unit": 5088496, "price_subtotal": 5088496}
+                ]
+            }
+
+        client_name = payload.get("partner_id", "Cliente")
+        lines = payload.get("order_line", [])
+
+        if doc_type == "bom_xlsx":
+            content = f"# LISTA DE MATERIALES (BOM) - CLIENTE: {client_name}\n\n"
+            content += "Código\tDescripción\tCantidad\tPrecio Unitario CLP\tSubtotal CLP\n"
+            for item in lines:
+                content += f"{item.get('item_code')}\t{item.get('name')}\t{item.get('product_uom_qty')}\t{item.get('price_unit')}\t{item.get('price_subtotal')}\n"
+            mimetype = "text/plain"
+            filename = f"BOM_{client_name.replace(' ', '_')}.txt"
+        elif doc_type == "especificacion_tecnica":
+            content = f"# ESPECIFICACIÓN TÉCNICA DE ARQUITECTURA - {client_name}\n\n"
+            content += "Estándar de Equipamiento: Belden Hirschmann RS20/RS30, NovaTech Orion LX+, VIZIMAX SynchroTeq Plus.\n"
+            content += f"Monto Neto Propuesto: ${payload.get('amount_untaxed', 0):,.0f} CLP.\n"
+            mimetype = "text/markdown"
+            filename = f"Especificacion_Tecnica_{client_name.replace(' ', '_')}.md"
+        elif doc_type == "anexos_licitacion":
+            content = f"# FORMULARIOS ANEXOS DE LICITACIÓN - {client_name}\n\n"
+            content += "ANEXO A: Oferta Económica Neto: $" + f"{payload.get('amount_untaxed', 0):,.0f} CLP.\n"
+            content += "ANEXO B: Formulario de Lista de Equipamiento BOM.\n"
+            content += "ANEXO C: Certificación de Cumplimiento Normativo CEN/SEC.\n"
+            mimetype = "text/markdown"
+            filename = f"Anexos_Licitacion_{client_name.replace(' ', '_')}.md"
+        else:
+            content = f"# PROPUESTA COMERCIAL OFICIAL - CONECTA INGENIERÍA S.A.\n\n"
+            content += f"**Cliente**: {client_name}\n"
+            content += f"**Monto Neto**: ${payload.get('amount_untaxed', 0):,.0f} CLP\n"
+            content += f"**IVA (19%)**: ${payload.get('amount_tax', 0):,.0f} CLP\n"
+            content += f"**Total Bruto**: ${payload.get('amount_total', 0):,.0f} CLP\n\n"
+            content += "## Desglose de Partidas:\n"
+            for item in lines:
+                content += f"- [{item.get('item_code')}] {item.get('name')} x{item.get('product_uom_qty')}: ${item.get('price_subtotal'):,.0f} CLP\n"
+            mimetype = "text/markdown"
+            filename = f"Propuesta_Comercial_{client_name.replace(' ', '_')}.md"
+
+        from flask import Response
+        return Response(
+            content,
+            mimetype=mimetype,
+            headers={"Content-Disposition": f"attachment;filename={filename}"}
+        )
 
     @app.route("/api/drafts", methods=["GET"])
     def get_drafts():

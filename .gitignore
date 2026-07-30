@@ -8,6 +8,8 @@ venv/
 onedrive_4_extracted/
 ot_8000_extracted/
 ot_8000_smart_extracted/
+ot_7000/
+2025/
 *.sqlite
 matriz_conocimiento_2026.json
 rag_store_2026.json

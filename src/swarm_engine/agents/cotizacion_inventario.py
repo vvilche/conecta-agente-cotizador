@@ -58,6 +58,9 @@ class CotizacionInventarioAgent(BaseAgent):
         if event_type not in supported_events:
             logger.warning("Agent '%s' received unmapped event type '%s'", self.agent_name, event_type)
 
+        if payload.get("items") or payload.get("product_id"):
+            return self._handle_quote_request(payload)
+
         prompt = payload.get("prompt") or payload.get("title") or payload.get("query") or ""
         return self.guide_quotation(prompt_or_line=prompt or payload.get("business_line", "scada_retrofit"), user_params=payload)
 
@@ -68,7 +71,7 @@ class CotizacionInventarioAgent(BaseAgent):
         b_type = BusinessLineClassifier.classify(prompt_or_line)
         template: BOMTemplate = STANDARD_BOM_TEMPLATES.get(b_type, STANDARD_BOM_TEMPLATES[BusinessLineType.PMU_PDC])
 
-        partner_id = user_params.get("partner_id") or user_params.get("client") or "Cliente Coordinado 2026"
+        partner_id = str(user_params.get("partner_id") or user_params.get("client") or "Cliente Coordinado 2026")
         num_devices = float(user_params.get("num_rtus") or user_params.get("num_remotas") or user_params.get("num_pmus") or user_params.get("qty") or 1.0)
         modality_str = user_params.get("modality") or ("licitacion" if "licitacion" in prompt_or_line.lower() or "rfp" in prompt_or_line.lower() else "compra_directa")
         modality = CommercialModality.LICITACION if modality_str == "licitacion" else CommercialModality.COMPRA_DIRECTA

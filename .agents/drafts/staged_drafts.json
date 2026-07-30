@@ -1,0 +1,5112 @@
+{
+  "draft_39682a251504": {
+    "draft_id": "draft_39682a251504",
+    "created_at": "2026-07-28T19:22:59.774264+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_36b11c435c14": {
+    "draft_id": "draft_36b11c435c14",
+    "created_at": "2026-07-28T19:22:59.775488+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-28T19:22:59.775663+00:00"
+    },
+    "committed_at": "2026-07-28T19:22:59Z",
+    "odoo_record_id": 100
+  },
+  "draft_bc0d269ff38e": {
+    "draft_id": "draft_bc0d269ff38e",
+    "created_at": "2026-07-28T19:22:59.776979+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_4ad3e9fa35bb": {
+    "draft_id": "draft_4ad3e9fa35bb",
+    "created_at": "2026-07-28T19:25:51.742166+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_1eab973d0e34": {
+    "draft_id": "draft_1eab973d0e34",
+    "created_at": "2026-07-28T19:25:51.743405+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-28T19:25:51.743699+00:00"
+    },
+    "committed_at": "2026-07-28T19:25:51Z",
+    "odoo_record_id": 100
+  },
+  "draft_98f841134870": {
+    "draft_id": "draft_98f841134870",
+    "created_at": "2026-07-28T19:25:51.745349+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_c6f029cd2b27": {
+    "draft_id": "draft_c6f029cd2b27",
+    "created_at": "2026-07-29T11:42:17.546502+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_afc88243f998": {
+    "draft_id": "draft_afc88243f998",
+    "created_at": "2026-07-29T11:42:17.548094+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T11:42:17.548545+00:00"
+    },
+    "committed_at": "2026-07-29T11:42:17Z",
+    "odoo_record_id": 100
+  },
+  "draft_8c7410a157b7": {
+    "draft_id": "draft_8c7410a157b7",
+    "created_at": "2026-07-29T11:42:17.550470+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_88e6afe11791": {
+    "draft_id": "draft_88e6afe11791",
+    "created_at": "2026-07-29T12:48:26.045878+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_293a95a654fc": {
+    "draft_id": "draft_293a95a654fc",
+    "created_at": "2026-07-29T12:48:26.047731+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T12:48:26.048359+00:00"
+    },
+    "committed_at": "2026-07-29T12:48:26Z",
+    "odoo_record_id": 100
+  },
+  "draft_d86d49e390ef": {
+    "draft_id": "draft_d86d49e390ef",
+    "created_at": "2026-07-29T12:48:26.050754+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_97a1a09667ca": {
+    "draft_id": "draft_97a1a09667ca",
+    "created_at": "2026-07-29T12:49:03.879981+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_3c9365d4b8f6": {
+    "draft_id": "draft_3c9365d4b8f6",
+    "created_at": "2026-07-29T12:49:03.881686+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T12:49:03.882409+00:00"
+    },
+    "committed_at": "2026-07-29T12:49:03Z",
+    "odoo_record_id": 100
+  },
+  "draft_545a4a280cac": {
+    "draft_id": "draft_545a4a280cac",
+    "created_at": "2026-07-29T12:49:03.884871+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_3072d2078765": {
+    "draft_id": "draft_3072d2078765",
+    "created_at": "2026-07-29T12:49:13.747212+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_0ca1cbedb101": {
+    "draft_id": "draft_0ca1cbedb101",
+    "created_at": "2026-07-29T12:49:13.749106+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T12:49:13.750028+00:00"
+    },
+    "committed_at": "2026-07-29T12:49:13Z",
+    "odoo_record_id": 100
+  },
+  "draft_5e538c658684": {
+    "draft_id": "draft_5e538c658684",
+    "created_at": "2026-07-29T12:49:13.753328+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_7ef1fd15cade": {
+    "draft_id": "draft_7ef1fd15cade",
+    "created_at": "2026-07-29T13:12:33.957578+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_308b7a793a4c": {
+    "draft_id": "draft_308b7a793a4c",
+    "created_at": "2026-07-29T13:12:33.959671+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T13:12:33.960694+00:00"
+    },
+    "committed_at": "2026-07-29T13:12:33Z",
+    "odoo_record_id": 100
+  },
+  "draft_113528b67ed1": {
+    "draft_id": "draft_113528b67ed1",
+    "created_at": "2026-07-29T13:12:33.964170+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_0d3e372d8fcc": {
+    "draft_id": "draft_0d3e372d8fcc",
+    "created_at": "2026-07-29T13:13:02.263023+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_63391e9db2ef": {
+    "draft_id": "draft_63391e9db2ef",
+    "created_at": "2026-07-29T13:13:02.265358+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T13:13:02.266484+00:00"
+    },
+    "committed_at": "2026-07-29T13:13:02Z",
+    "odoo_record_id": 100
+  },
+  "draft_1d186fad9d00": {
+    "draft_id": "draft_1d186fad9d00",
+    "created_at": "2026-07-29T13:13:02.269812+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_56a761a98548": {
+    "draft_id": "draft_56a761a98548",
+    "created_at": "2026-07-29T16:44:27.750097+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_a7a34304ebd7": {
+    "draft_id": "draft_a7a34304ebd7",
+    "created_at": "2026-07-29T16:44:27.752686+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T16:44:27.753945+00:00"
+    },
+    "committed_at": "2026-07-29T16:44:27Z",
+    "odoo_record_id": 100
+  },
+  "draft_e38664e28857": {
+    "draft_id": "draft_e38664e28857",
+    "created_at": "2026-07-29T16:44:27.757590+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_102a271f583b": {
+    "draft_id": "draft_102a271f583b",
+    "created_at": "2026-07-29T17:52:04.398032+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_9f6b2cd6bf96": {
+    "draft_id": "draft_9f6b2cd6bf96",
+    "created_at": "2026-07-29T17:52:04.400452+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T17:52:04.401821+00:00"
+    },
+    "committed_at": "2026-07-29T17:52:04Z",
+    "odoo_record_id": 100
+  },
+  "draft_577d5138a9c9": {
+    "draft_id": "draft_577d5138a9c9",
+    "created_at": "2026-07-29T17:52:04.406096+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_ff5a53c2878c": {
+    "draft_id": "draft_ff5a53c2878c",
+    "created_at": "2026-07-29T17:59:14.086718+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_a6b093c7db26": {
+    "draft_id": "draft_a6b093c7db26",
+    "created_at": "2026-07-29T17:59:14.089467+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T17:59:14.091017+00:00"
+    },
+    "committed_at": "2026-07-29T17:59:14Z",
+    "odoo_record_id": 100
+  },
+  "draft_7fa9325d93e9": {
+    "draft_id": "draft_7fa9325d93e9",
+    "created_at": "2026-07-29T17:59:14.095559+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_8320300048bd": {
+    "draft_id": "draft_8320300048bd",
+    "created_at": "2026-07-29T17:59:22.923480+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_bd6bdddd3b83": {
+    "draft_id": "draft_bd6bdddd3b83",
+    "created_at": "2026-07-29T17:59:22.926256+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T17:59:22.927953+00:00"
+    },
+    "committed_at": "2026-07-29T17:59:22Z",
+    "odoo_record_id": 100
+  },
+  "draft_d010b7ee9e36": {
+    "draft_id": "draft_d010b7ee9e36",
+    "created_at": "2026-07-29T17:59:22.932618+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_7e8a42410f63": {
+    "draft_id": "draft_7e8a42410f63",
+    "created_at": "2026-07-29T17:59:40.276368+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_aa29cf5b69de": {
+    "draft_id": "draft_aa29cf5b69de",
+    "created_at": "2026-07-29T17:59:40.279236+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T17:59:40.281045+00:00"
+    },
+    "committed_at": "2026-07-29T17:59:40Z",
+    "odoo_record_id": 100
+  },
+  "draft_71059165dd11": {
+    "draft_id": "draft_71059165dd11",
+    "created_at": "2026-07-29T17:59:40.286052+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_9a880844c277": {
+    "draft_id": "draft_9a880844c277",
+    "created_at": "2026-07-29T18:12:41.423146+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_0e73ae3d943e": {
+    "draft_id": "draft_0e73ae3d943e",
+    "created_at": "2026-07-29T18:12:41.426648+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T18:12:41.428623+00:00"
+    },
+    "committed_at": "2026-07-29T18:12:41Z",
+    "odoo_record_id": 100
+  },
+  "draft_246b58c08831": {
+    "draft_id": "draft_246b58c08831",
+    "created_at": "2026-07-29T18:12:41.434017+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_7291386ca0d0": {
+    "draft_id": "draft_7291386ca0d0",
+    "created_at": "2026-07-29T18:14:53.752374+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_862d9edc0709": {
+    "draft_id": "draft_862d9edc0709",
+    "created_at": "2026-07-29T18:14:53.755841+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T18:14:53.758906+00:00"
+    },
+    "committed_at": "2026-07-29T18:14:53Z",
+    "odoo_record_id": 100
+  },
+  "draft_8eed3d51b04f": {
+    "draft_id": "draft_8eed3d51b04f",
+    "created_at": "2026-07-29T18:14:53.764867+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_ecd01208d634": {
+    "draft_id": "draft_ecd01208d634",
+    "created_at": "2026-07-29T20:03:52.406993+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_2682191e7710": {
+    "draft_id": "draft_2682191e7710",
+    "created_at": "2026-07-29T20:03:52.410755+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:03:52.413024+00:00"
+    },
+    "committed_at": "2026-07-29T20:03:52Z",
+    "odoo_record_id": 100
+  },
+  "draft_0648f9c266bb": {
+    "draft_id": "draft_0648f9c266bb",
+    "created_at": "2026-07-29T20:03:52.418763+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_a5557641306a": {
+    "draft_id": "draft_a5557641306a",
+    "created_at": "2026-07-29T20:07:53.741810+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_4f30a5a1a506": {
+    "draft_id": "draft_4f30a5a1a506",
+    "created_at": "2026-07-29T20:07:53.745377+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:07:53.747807+00:00"
+    },
+    "committed_at": "2026-07-29T20:07:53Z",
+    "odoo_record_id": 100
+  },
+  "draft_8f583b936058": {
+    "draft_id": "draft_8f583b936058",
+    "created_at": "2026-07-29T20:07:53.754006+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_d632b9d92f6b": {
+    "draft_id": "draft_d632b9d92f6b",
+    "created_at": "2026-07-29T20:10:10.411524+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_0aa9e1d19793": {
+    "draft_id": "draft_0aa9e1d19793",
+    "created_at": "2026-07-29T20:10:10.415303+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:10:10.418107+00:00"
+    },
+    "committed_at": "2026-07-29T20:10:10Z",
+    "odoo_record_id": 100
+  },
+  "draft_1e579eb40c1d": {
+    "draft_id": "draft_1e579eb40c1d",
+    "created_at": "2026-07-29T20:10:10.424946+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_394adff0269b": {
+    "draft_id": "draft_394adff0269b",
+    "created_at": "2026-07-29T20:12:20.033051+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_1a79b11ea344": {
+    "draft_id": "draft_1a79b11ea344",
+    "created_at": "2026-07-29T20:12:20.037191+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:12:20.039986+00:00"
+    },
+    "committed_at": "2026-07-29T20:12:20Z",
+    "odoo_record_id": 100
+  },
+  "draft_1ab6b9f0fa00": {
+    "draft_id": "draft_1ab6b9f0fa00",
+    "created_at": "2026-07-29T20:12:20.046981+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_529ca0877e66": {
+    "draft_id": "draft_529ca0877e66",
+    "created_at": "2026-07-29T20:16:51.821285+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_ff752ddc2007": {
+    "draft_id": "draft_ff752ddc2007",
+    "created_at": "2026-07-29T20:16:51.825663+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:16:51.828779+00:00"
+    },
+    "committed_at": "2026-07-29T20:16:51Z",
+    "odoo_record_id": 100
+  },
+  "draft_4cd9fc23cf78": {
+    "draft_id": "draft_4cd9fc23cf78",
+    "created_at": "2026-07-29T20:16:51.837289+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_e5fd65f1bfb4": {
+    "draft_id": "draft_e5fd65f1bfb4",
+    "created_at": "2026-07-29T20:18:37.418107+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_8a3a81108471": {
+    "draft_id": "draft_8a3a81108471",
+    "created_at": "2026-07-29T20:18:37.424015+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:18:37.427882+00:00"
+    },
+    "committed_at": "2026-07-29T20:18:37Z",
+    "odoo_record_id": 100
+  },
+  "draft_55f3da49679d": {
+    "draft_id": "draft_55f3da49679d",
+    "created_at": "2026-07-29T20:18:37.439537+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_8fc94333a810": {
+    "draft_id": "draft_8fc94333a810",
+    "created_at": "2026-07-29T20:21:36.750937+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_9e0657a841f4": {
+    "draft_id": "draft_9e0657a841f4",
+    "created_at": "2026-07-29T20:21:36.755518+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:21:36.758914+00:00"
+    },
+    "committed_at": "2026-07-29T20:21:36Z",
+    "odoo_record_id": 100
+  },
+  "draft_41c0538c5f1b": {
+    "draft_id": "draft_41c0538c5f1b",
+    "created_at": "2026-07-29T20:21:36.767077+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_3696c8618e2f": {
+    "draft_id": "draft_3696c8618e2f",
+    "created_at": "2026-07-29T20:30:33.723698+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_54d90fcddc01": {
+    "draft_id": "draft_54d90fcddc01",
+    "created_at": "2026-07-29T20:30:33.728049+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:30:33.731275+00:00"
+    },
+    "committed_at": "2026-07-29T20:30:33Z",
+    "odoo_record_id": 100
+  },
+  "draft_5ccc72fa92bc": {
+    "draft_id": "draft_5ccc72fa92bc",
+    "created_at": "2026-07-29T20:30:33.739007+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_e85cb4baf56b": {
+    "draft_id": "draft_e85cb4baf56b",
+    "created_at": "2026-07-29T20:35:08.742250+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_160bce0c38ed": {
+    "draft_id": "draft_160bce0c38ed",
+    "created_at": "2026-07-29T20:35:08.746996+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:35:08.750369+00:00"
+    },
+    "committed_at": "2026-07-29T20:35:08Z",
+    "odoo_record_id": 100
+  },
+  "draft_ccc79cad3388": {
+    "draft_id": "draft_ccc79cad3388",
+    "created_at": "2026-07-29T20:35:08.758395+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_065264738229": {
+    "draft_id": "draft_065264738229",
+    "created_at": "2026-07-29T20:36:01.069299+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_cfc1fd17c751": {
+    "draft_id": "draft_cfc1fd17c751",
+    "created_at": "2026-07-29T20:36:01.074308+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:36:01.078345+00:00"
+    },
+    "committed_at": "2026-07-29T20:36:01Z",
+    "odoo_record_id": 100
+  },
+  "draft_f40de725ff4d": {
+    "draft_id": "draft_f40de725ff4d",
+    "created_at": "2026-07-29T20:36:01.087368+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_6df2940d14f9": {
+    "draft_id": "draft_6df2940d14f9",
+    "created_at": "2026-07-29T20:55:46.605872+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_d6e5c5c003bd": {
+    "draft_id": "draft_d6e5c5c003bd",
+    "created_at": "2026-07-29T20:55:46.610901+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T20:55:46.614533+00:00"
+    },
+    "committed_at": "2026-07-29T20:55:46Z",
+    "odoo_record_id": 100
+  },
+  "draft_34e738cd646b": {
+    "draft_id": "draft_34e738cd646b",
+    "created_at": "2026-07-29T20:55:46.623215+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_62659e34d17e": {
+    "draft_id": "draft_62659e34d17e",
+    "created_at": "2026-07-29T21:00:44.597373+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_38bd25062b4f": {
+    "draft_id": "draft_38bd25062b4f",
+    "created_at": "2026-07-29T21:00:44.602687+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T21:00:44.606501+00:00"
+    },
+    "committed_at": "2026-07-29T21:00:44Z",
+    "odoo_record_id": 100
+  },
+  "draft_ba2aeb582116": {
+    "draft_id": "draft_ba2aeb582116",
+    "created_at": "2026-07-29T21:00:44.615257+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_025aa92f6c77": {
+    "draft_id": "draft_025aa92f6c77",
+    "created_at": "2026-07-29T21:01:09.571449+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_db467abfd486": {
+    "draft_id": "draft_db467abfd486",
+    "created_at": "2026-07-29T21:01:09.576765+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T21:01:09.580853+00:00"
+    },
+    "committed_at": "2026-07-29T21:01:09Z",
+    "odoo_record_id": 100
+  },
+  "draft_0d3bb02a5926": {
+    "draft_id": "draft_0d3bb02a5926",
+    "created_at": "2026-07-29T21:01:09.590350+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_de4bd8198efa": {
+    "draft_id": "draft_de4bd8198efa",
+    "created_at": "2026-07-29T21:01:20.321861+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_1f29e511f2fb": {
+    "draft_id": "draft_1f29e511f2fb",
+    "created_at": "2026-07-29T21:01:20.333337+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T21:01:20.340950+00:00"
+    },
+    "committed_at": "2026-07-29T21:01:20Z",
+    "odoo_record_id": 100
+  },
+  "draft_4d661e9ca995": {
+    "draft_id": "draft_4d661e9ca995",
+    "created_at": "2026-07-29T21:01:20.358326+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_2510ffdd3861": {
+    "draft_id": "draft_2510ffdd3861",
+    "created_at": "2026-07-29T21:05:01.679706+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_d739cc7267c1": {
+    "draft_id": "draft_d739cc7267c1",
+    "created_at": "2026-07-29T21:05:01.685280+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T21:05:01.689548+00:00"
+    },
+    "committed_at": "2026-07-29T21:05:01Z",
+    "odoo_record_id": 100
+  },
+  "draft_4e6f20db6f1b": {
+    "draft_id": "draft_4e6f20db6f1b",
+    "created_at": "2026-07-29T21:05:01.699642+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_13fd78ca5d38": {
+    "draft_id": "draft_13fd78ca5d38",
+    "created_at": "2026-07-29T21:05:12.370836+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_03bb53131790": {
+    "draft_id": "draft_03bb53131790",
+    "created_at": "2026-07-29T21:05:12.376774+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-29T21:05:12.381231+00:00"
+    },
+    "committed_at": "2026-07-29T21:05:12Z",
+    "odoo_record_id": 100
+  },
+  "draft_33a925be786f": {
+    "draft_id": "draft_33a925be786f",
+    "created_at": "2026-07-29T21:05:12.391419+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_e4b71413216c": {
+    "draft_id": "draft_e4b71413216c",
+    "created_at": "2026-07-30T02:01:37.339197+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_4426f0c4000d": {
+    "draft_id": "draft_4426f0c4000d",
+    "created_at": "2026-07-30T02:01:37.346482+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T02:01:37.352491+00:00"
+    },
+    "committed_at": "2026-07-30T02:01:37Z",
+    "odoo_record_id": 100
+  },
+  "draft_858d730a8070": {
+    "draft_id": "draft_858d730a8070",
+    "created_at": "2026-07-30T02:01:37.365962+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_e5d081e9e4a0": {
+    "draft_id": "draft_e5d081e9e4a0",
+    "created_at": "2026-07-30T02:10:50.102110+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_d76c47191d3c": {
+    "draft_id": "draft_d76c47191d3c",
+    "created_at": "2026-07-30T02:10:50.108049+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T02:10:50.112602+00:00"
+    },
+    "committed_at": "2026-07-30T02:10:50Z",
+    "odoo_record_id": 100
+  },
+  "draft_cbf855e355cc": {
+    "draft_id": "draft_cbf855e355cc",
+    "created_at": "2026-07-30T02:10:50.123775+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_06da9ea2341d": {
+    "draft_id": "draft_06da9ea2341d",
+    "created_at": "2026-07-30T02:53:19.770147+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_dfe0dd894001": {
+    "draft_id": "draft_dfe0dd894001",
+    "created_at": "2026-07-30T02:53:19.776559+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T02:53:19.781266+00:00"
+    },
+    "committed_at": "2026-07-30T02:53:19Z",
+    "odoo_record_id": 100
+  },
+  "draft_b43a96be8a1c": {
+    "draft_id": "draft_b43a96be8a1c",
+    "created_at": "2026-07-30T02:53:19.792539+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_7c5998be6c53": {
+    "draft_id": "draft_7c5998be6c53",
+    "created_at": "2026-07-30T02:53:32.462826+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_769343ed0b67": {
+    "draft_id": "draft_769343ed0b67",
+    "created_at": "2026-07-30T02:53:32.469216+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T02:53:32.474090+00:00"
+    },
+    "committed_at": "2026-07-30T02:53:32Z",
+    "odoo_record_id": 100
+  },
+  "draft_875852ef04aa": {
+    "draft_id": "draft_875852ef04aa",
+    "created_at": "2026-07-30T02:53:32.485462+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_8715f2f4893e": {
+    "draft_id": "draft_8715f2f4893e",
+    "created_at": "2026-07-30T02:55:02.941551+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_21bddbeca0b2": {
+    "draft_id": "draft_21bddbeca0b2",
+    "created_at": "2026-07-30T02:55:02.949753+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T02:55:02.956488+00:00"
+    },
+    "committed_at": "2026-07-30T02:55:02Z",
+    "odoo_record_id": 100
+  },
+  "draft_966bb1ee5111": {
+    "draft_id": "draft_966bb1ee5111",
+    "created_at": "2026-07-30T02:55:02.969773+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_5d0d26fd4a1a": {
+    "draft_id": "draft_5d0d26fd4a1a",
+    "created_at": "2026-07-30T02:57:46.653838+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_177ac57977a8": {
+    "draft_id": "draft_177ac57977a8",
+    "created_at": "2026-07-30T02:57:46.660324+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T02:57:46.665754+00:00"
+    },
+    "committed_at": "2026-07-30T02:57:46Z",
+    "odoo_record_id": 100
+  },
+  "draft_8f3e7e96daa9": {
+    "draft_id": "draft_8f3e7e96daa9",
+    "created_at": "2026-07-30T02:57:46.678160+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_2c9727db5be9": {
+    "draft_id": "draft_2c9727db5be9",
+    "created_at": "2026-07-30T03:02:35.671778+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_3bae97f49db4": {
+    "draft_id": "draft_3bae97f49db4",
+    "created_at": "2026-07-30T03:02:35.678517+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:02:35.684124+00:00"
+    },
+    "committed_at": "2026-07-30T03:02:35Z",
+    "odoo_record_id": 100
+  },
+  "draft_b49e83075af5": {
+    "draft_id": "draft_b49e83075af5",
+    "created_at": "2026-07-30T03:02:35.696247+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_a8b087e431a4": {
+    "draft_id": "draft_a8b087e431a4",
+    "created_at": "2026-07-30T03:04:14.264856+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_4f29d69f0d1a": {
+    "draft_id": "draft_4f29d69f0d1a",
+    "created_at": "2026-07-30T03:04:14.272437+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:04:14.278067+00:00"
+    },
+    "committed_at": "2026-07-30T03:04:14Z",
+    "odoo_record_id": 100
+  },
+  "draft_7a536856e937": {
+    "draft_id": "draft_7a536856e937",
+    "created_at": "2026-07-30T03:04:14.290746+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_d5c2d9ff9364": {
+    "draft_id": "draft_d5c2d9ff9364",
+    "created_at": "2026-07-30T03:07:26.450187+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_10e8e409f147": {
+    "draft_id": "draft_10e8e409f147",
+    "created_at": "2026-07-30T03:07:26.457596+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:07:26.463213+00:00"
+    },
+    "committed_at": "2026-07-30T03:07:26Z",
+    "odoo_record_id": 100
+  },
+  "draft_62dcce3a6b64": {
+    "draft_id": "draft_62dcce3a6b64",
+    "created_at": "2026-07-30T03:07:26.476765+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_08424d0897f5": {
+    "draft_id": "draft_08424d0897f5",
+    "created_at": "2026-07-30T03:09:05.269640+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_df6ccaa56941": {
+    "draft_id": "draft_df6ccaa56941",
+    "created_at": "2026-07-30T03:09:05.276565+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:09:05.282820+00:00"
+    },
+    "committed_at": "2026-07-30T03:09:05Z",
+    "odoo_record_id": 100
+  },
+  "draft_0a3383fbd712": {
+    "draft_id": "draft_0a3383fbd712",
+    "created_at": "2026-07-30T03:09:05.296184+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_39930293b795": {
+    "draft_id": "draft_39930293b795",
+    "created_at": "2026-07-30T03:14:24.820679+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_5be1de7efc04": {
+    "draft_id": "draft_5be1de7efc04",
+    "created_at": "2026-07-30T03:14:24.828053+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:14:24.833889+00:00"
+    },
+    "committed_at": "2026-07-30T03:14:24Z",
+    "odoo_record_id": 100
+  },
+  "draft_4597b2c4bffd": {
+    "draft_id": "draft_4597b2c4bffd",
+    "created_at": "2026-07-30T03:14:24.846890+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_51200fbb41b4": {
+    "draft_id": "draft_51200fbb41b4",
+    "created_at": "2026-07-30T03:14:37.074264+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_9b995e054676": {
+    "draft_id": "draft_9b995e054676",
+    "created_at": "2026-07-30T03:14:37.081609+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:14:37.087848+00:00"
+    },
+    "committed_at": "2026-07-30T03:14:37Z",
+    "odoo_record_id": 100
+  },
+  "draft_085e5e6d520e": {
+    "draft_id": "draft_085e5e6d520e",
+    "created_at": "2026-07-30T03:14:37.101431+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_5d9c7620e9ad": {
+    "draft_id": "draft_5d9c7620e9ad",
+    "created_at": "2026-07-30T03:14:48.802091+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_781e20da2519": {
+    "draft_id": "draft_781e20da2519",
+    "created_at": "2026-07-30T03:14:48.809338+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:14:48.815459+00:00"
+    },
+    "committed_at": "2026-07-30T03:14:48Z",
+    "odoo_record_id": 100
+  },
+  "draft_deb85596370b": {
+    "draft_id": "draft_deb85596370b",
+    "created_at": "2026-07-30T03:14:48.828946+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_e686bf0515a9": {
+    "draft_id": "draft_e686bf0515a9",
+    "created_at": "2026-07-30T03:47:29.916123+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_25cbdd02711a": {
+    "draft_id": "draft_25cbdd02711a",
+    "created_at": "2026-07-30T03:47:29.924165+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:47:29.930619+00:00"
+    },
+    "committed_at": "2026-07-30T03:47:29Z",
+    "odoo_record_id": 100
+  },
+  "draft_db9eee5f7afe": {
+    "draft_id": "draft_db9eee5f7afe",
+    "created_at": "2026-07-30T03:47:29.945152+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_2fe2cc1b3be1": {
+    "draft_id": "draft_2fe2cc1b3be1",
+    "created_at": "2026-07-30T03:47:44.313583+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_18a3d5d89158": {
+    "draft_id": "draft_18a3d5d89158",
+    "created_at": "2026-07-30T03:47:44.321570+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:47:44.328303+00:00"
+    },
+    "committed_at": "2026-07-30T03:47:44Z",
+    "odoo_record_id": 100
+  },
+  "draft_735a57996eda": {
+    "draft_id": "draft_735a57996eda",
+    "created_at": "2026-07-30T03:47:44.343120+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_c9ed4f7b6a6f": {
+    "draft_id": "draft_c9ed4f7b6a6f",
+    "created_at": "2026-07-30T03:49:20.967153+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_5a137162ebaf": {
+    "draft_id": "draft_5a137162ebaf",
+    "created_at": "2026-07-30T03:49:20.974817+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:49:20.981292+00:00"
+    },
+    "committed_at": "2026-07-30T03:49:20Z",
+    "odoo_record_id": 100
+  },
+  "draft_db8787c06f3b": {
+    "draft_id": "draft_db8787c06f3b",
+    "created_at": "2026-07-30T03:49:20.995924+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_4c2b0b041917": {
+    "draft_id": "draft_4c2b0b041917",
+    "created_at": "2026-07-30T03:50:00.889409+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_a917a60fc504": {
+    "draft_id": "draft_a917a60fc504",
+    "created_at": "2026-07-30T03:50:00.897493+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:50:00.904016+00:00"
+    },
+    "committed_at": "2026-07-30T03:50:00Z",
+    "odoo_record_id": 100
+  },
+  "draft_4c389c25a014": {
+    "draft_id": "draft_4c389c25a014",
+    "created_at": "2026-07-30T03:50:00.925733+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_bf218ff7d1a7": {
+    "draft_id": "draft_bf218ff7d1a7",
+    "created_at": "2026-07-30T03:52:28.828540+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_240b337074ea": {
+    "draft_id": "draft_240b337074ea",
+    "created_at": "2026-07-30T03:52:28.836456+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:52:28.843120+00:00"
+    },
+    "committed_at": "2026-07-30T03:52:28Z",
+    "odoo_record_id": 100
+  },
+  "draft_21380341db6d": {
+    "draft_id": "draft_21380341db6d",
+    "created_at": "2026-07-30T03:52:28.857721+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_f28baac36d06": {
+    "draft_id": "draft_f28baac36d06",
+    "created_at": "2026-07-30T03:56:43.237638+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_531f35649503": {
+    "draft_id": "draft_531f35649503",
+    "created_at": "2026-07-30T03:56:43.246391+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T03:56:43.253480+00:00"
+    },
+    "committed_at": "2026-07-30T03:56:43Z",
+    "odoo_record_id": 100
+  },
+  "draft_7160c5199811": {
+    "draft_id": "draft_7160c5199811",
+    "created_at": "2026-07-30T03:56:43.269161+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_4178c630e2d7": {
+    "draft_id": "draft_4178c630e2d7",
+    "created_at": "2026-07-30T11:58:53.066484+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_40c79d44f8d5": {
+    "draft_id": "draft_40c79d44f8d5",
+    "created_at": "2026-07-30T11:58:53.074822+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T11:58:53.082036+00:00"
+    },
+    "committed_at": "2026-07-30T11:58:53Z",
+    "odoo_record_id": 100
+  },
+  "draft_1e5cbf8ec8bb": {
+    "draft_id": "draft_1e5cbf8ec8bb",
+    "created_at": "2026-07-30T11:58:53.099666+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_27dbebca9dfc": {
+    "draft_id": "draft_27dbebca9dfc",
+    "created_at": "2026-07-30T12:19:26.940146+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_9bdf849bb5c1": {
+    "draft_id": "draft_9bdf849bb5c1",
+    "created_at": "2026-07-30T12:19:26.951100+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:19:26.959088+00:00"
+    },
+    "committed_at": "2026-07-30T12:19:26Z",
+    "odoo_record_id": 100
+  },
+  "draft_08e54c293de3": {
+    "draft_id": "draft_08e54c293de3",
+    "created_at": "2026-07-30T12:19:26.977150+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_e89928818a93": {
+    "draft_id": "draft_e89928818a93",
+    "created_at": "2026-07-30T12:23:43.056266+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_5ae1f9c55edb": {
+    "draft_id": "draft_5ae1f9c55edb",
+    "created_at": "2026-07-30T12:23:43.066444+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:23:43.074320+00:00"
+    },
+    "committed_at": "2026-07-30T12:23:43Z",
+    "odoo_record_id": 100
+  },
+  "draft_6ff823b6c442": {
+    "draft_id": "draft_6ff823b6c442",
+    "created_at": "2026-07-30T12:23:43.092060+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_410ea333cab8": {
+    "draft_id": "draft_410ea333cab8",
+    "created_at": "2026-07-30T12:23:54.529330+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_8bcbc68ff17a": {
+    "draft_id": "draft_8bcbc68ff17a",
+    "created_at": "2026-07-30T12:23:54.540162+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:23:54.549213+00:00"
+    },
+    "committed_at": "2026-07-30T12:23:54Z",
+    "odoo_record_id": 100
+  },
+  "draft_76da06c4c348": {
+    "draft_id": "draft_76da06c4c348",
+    "created_at": "2026-07-30T12:23:54.568341+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_4beba4e7470b": {
+    "draft_id": "draft_4beba4e7470b",
+    "created_at": "2026-07-30T12:26:19.211571+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_3e6befd9c424": {
+    "draft_id": "draft_3e6befd9c424",
+    "created_at": "2026-07-30T12:26:19.222756+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:26:19.231850+00:00"
+    },
+    "committed_at": "2026-07-30T12:26:19Z",
+    "odoo_record_id": 100
+  },
+  "draft_429f9d282d76": {
+    "draft_id": "draft_429f9d282d76",
+    "created_at": "2026-07-30T12:26:19.254701+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_683b524e17b4": {
+    "draft_id": "draft_683b524e17b4",
+    "created_at": "2026-07-30T12:30:40.464634+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_db969b6f1fee": {
+    "draft_id": "draft_db969b6f1fee",
+    "created_at": "2026-07-30T12:30:40.475077+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:30:40.483317+00:00"
+    },
+    "committed_at": "2026-07-30T12:30:40Z",
+    "odoo_record_id": 100
+  },
+  "draft_0f8539081f6f": {
+    "draft_id": "draft_0f8539081f6f",
+    "created_at": "2026-07-30T12:30:40.503204+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_f85b258ae6f7": {
+    "draft_id": "draft_f85b258ae6f7",
+    "created_at": "2026-07-30T12:33:26.446118+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_364384a219b8": {
+    "draft_id": "draft_364384a219b8",
+    "created_at": "2026-07-30T12:33:26.460128+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:33:26.470152+00:00"
+    },
+    "committed_at": "2026-07-30T12:33:26Z",
+    "odoo_record_id": 100
+  },
+  "draft_d0429f04c09f": {
+    "draft_id": "draft_d0429f04c09f",
+    "created_at": "2026-07-30T12:33:26.494130+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_e10b912277e3": {
+    "draft_id": "draft_e10b912277e3",
+    "created_at": "2026-07-30T12:33:39.328111+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_6dfa3e0aee66": {
+    "draft_id": "draft_6dfa3e0aee66",
+    "created_at": "2026-07-30T12:33:39.339477+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:33:39.349014+00:00"
+    },
+    "committed_at": "2026-07-30T12:33:39Z",
+    "odoo_record_id": 100
+  },
+  "draft_6591eceef932": {
+    "draft_id": "draft_6591eceef932",
+    "created_at": "2026-07-30T12:33:39.370488+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_7c427ab74163": {
+    "draft_id": "draft_7c427ab74163",
+    "created_at": "2026-07-30T12:33:50.504680+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_fc009fb79a2c": {
+    "draft_id": "draft_fc009fb79a2c",
+    "created_at": "2026-07-30T12:33:50.519457+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:33:50.530231+00:00"
+    },
+    "committed_at": "2026-07-30T12:33:50Z",
+    "odoo_record_id": 100
+  },
+  "draft_35e50f073e1a": {
+    "draft_id": "draft_35e50f073e1a",
+    "created_at": "2026-07-30T12:33:50.555773+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_f5b67db52c74": {
+    "draft_id": "draft_f5b67db52c74",
+    "created_at": "2026-07-30T12:34:02.250634+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_895712d5a022": {
+    "draft_id": "draft_895712d5a022",
+    "created_at": "2026-07-30T12:34:02.261748+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:34:02.270857+00:00"
+    },
+    "committed_at": "2026-07-30T12:34:02Z",
+    "odoo_record_id": 100
+  },
+  "draft_8e6bd6ae81e4": {
+    "draft_id": "draft_8e6bd6ae81e4",
+    "created_at": "2026-07-30T12:34:02.291100+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_cc90c0575686": {
+    "draft_id": "draft_cc90c0575686",
+    "created_at": "2026-07-30T12:54:43.139734+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_70e973a0c7c6": {
+    "draft_id": "draft_70e973a0c7c6",
+    "created_at": "2026-07-30T12:54:43.150024+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:54:43.158697+00:00"
+    },
+    "committed_at": "2026-07-30T12:54:43Z",
+    "odoo_record_id": 100
+  },
+  "draft_20c04584d960": {
+    "draft_id": "draft_20c04584d960",
+    "created_at": "2026-07-30T12:54:43.177941+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_172ec726c2e7": {
+    "draft_id": "draft_172ec726c2e7",
+    "created_at": "2026-07-30T12:54:57.998776+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_79872c1b53e9": {
+    "draft_id": "draft_79872c1b53e9",
+    "created_at": "2026-07-30T12:54:58.009275+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:54:58.018638+00:00"
+    },
+    "committed_at": "2026-07-30T12:54:58Z",
+    "odoo_record_id": 100
+  },
+  "draft_5f263688c5a5": {
+    "draft_id": "draft_5f263688c5a5",
+    "created_at": "2026-07-30T12:54:58.038778+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_d952db0aa282": {
+    "draft_id": "draft_d952db0aa282",
+    "created_at": "2026-07-30T12:59:32.949903+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_e499370c567b": {
+    "draft_id": "draft_e499370c567b",
+    "created_at": "2026-07-30T12:59:32.960434+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T12:59:32.969375+00:00"
+    },
+    "committed_at": "2026-07-30T12:59:32Z",
+    "odoo_record_id": 100
+  },
+  "draft_33cefd7c83f7": {
+    "draft_id": "draft_33cefd7c83f7",
+    "created_at": "2026-07-30T12:59:32.988924+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_8b72e5eead65": {
+    "draft_id": "draft_8b72e5eead65",
+    "created_at": "2026-07-30T13:03:59.014105+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_f0401e662aa5": {
+    "draft_id": "draft_f0401e662aa5",
+    "created_at": "2026-07-30T13:03:59.025735+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T13:03:59.035558+00:00"
+    },
+    "committed_at": "2026-07-30T13:03:59Z",
+    "odoo_record_id": 100
+  },
+  "draft_4f4987e4ca4c": {
+    "draft_id": "draft_4f4987e4ca4c",
+    "created_at": "2026-07-30T13:03:59.062012+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_8ce3026646e8": {
+    "draft_id": "draft_8ce3026646e8",
+    "created_at": "2026-07-30T13:06:29.963400+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_68ce8f0e75ed": {
+    "draft_id": "draft_68ce8f0e75ed",
+    "created_at": "2026-07-30T13:06:29.975657+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T13:06:29.985248+00:00"
+    },
+    "committed_at": "2026-07-30T13:06:29Z",
+    "odoo_record_id": 100
+  },
+  "draft_a812b1044fb4": {
+    "draft_id": "draft_a812b1044fb4",
+    "created_at": "2026-07-30T13:06:30.005810+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_74429908a283": {
+    "draft_id": "draft_74429908a283",
+    "created_at": "2026-07-30T13:08:53.010513+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_986defe38a13": {
+    "draft_id": "draft_986defe38a13",
+    "created_at": "2026-07-30T13:08:53.022385+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T13:08:53.032194+00:00"
+    },
+    "committed_at": "2026-07-30T13:08:53Z",
+    "odoo_record_id": 100
+  },
+  "draft_da5073284e26": {
+    "draft_id": "draft_da5073284e26",
+    "created_at": "2026-07-30T13:08:53.053965+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_39eddea78c1e": {
+    "draft_id": "draft_39eddea78c1e",
+    "created_at": "2026-07-30T13:25:14.878964+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_ee08a40b9a38": {
+    "draft_id": "draft_ee08a40b9a38",
+    "created_at": "2026-07-30T13:25:14.890551+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T13:25:14.900311+00:00"
+    },
+    "committed_at": "2026-07-30T13:25:14Z",
+    "odoo_record_id": 100
+  },
+  "draft_d749d3ec8e11": {
+    "draft_id": "draft_d749d3ec8e11",
+    "created_at": "2026-07-30T13:25:14.921509+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_b24ca3266bf4": {
+    "draft_id": "draft_b24ca3266bf4",
+    "created_at": "2026-07-30T13:29:21.206737+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_7b65643773b0": {
+    "draft_id": "draft_7b65643773b0",
+    "created_at": "2026-07-30T13:29:21.217535+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T13:29:21.227041+00:00"
+    },
+    "committed_at": "2026-07-30T13:29:21Z",
+    "odoo_record_id": 100
+  },
+  "draft_6acbb0dbe47a": {
+    "draft_id": "draft_6acbb0dbe47a",
+    "created_at": "2026-07-30T13:29:21.247556+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_f32aaf366696": {
+    "draft_id": "draft_f32aaf366696",
+    "created_at": "2026-07-30T13:41:09.573441+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_a3f9cc29e3b7": {
+    "draft_id": "draft_a3f9cc29e3b7",
+    "created_at": "2026-07-30T13:41:09.585053+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T13:41:09.594981+00:00"
+    },
+    "committed_at": "2026-07-30T13:41:09Z",
+    "odoo_record_id": 100
+  },
+  "draft_2d56069e273f": {
+    "draft_id": "draft_2d56069e273f",
+    "created_at": "2026-07-30T13:41:09.616112+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_1801bde70e1d": {
+    "draft_id": "draft_1801bde70e1d",
+    "created_at": "2026-07-30T13:41:25.579864+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_b24536bcc0fc": {
+    "draft_id": "draft_b24536bcc0fc",
+    "created_at": "2026-07-30T13:41:25.592316+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T13:41:25.602975+00:00"
+    },
+    "committed_at": "2026-07-30T13:41:25Z",
+    "odoo_record_id": 100
+  },
+  "draft_1b3a54c7a457": {
+    "draft_id": "draft_1b3a54c7a457",
+    "created_at": "2026-07-30T13:41:25.626715+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_a9c49db09faa": {
+    "draft_id": "draft_a9c49db09faa",
+    "created_at": "2026-07-30T15:50:00.432287+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_602914977fe2": {
+    "draft_id": "draft_602914977fe2",
+    "created_at": "2026-07-30T15:50:00.443771+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T15:50:00.453689+00:00"
+    },
+    "committed_at": "2026-07-30T15:50:00Z",
+    "odoo_record_id": 100
+  },
+  "draft_9b0f4a1440df": {
+    "draft_id": "draft_9b0f4a1440df",
+    "created_at": "2026-07-30T15:50:00.475562+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_57ef1ac2e46b": {
+    "draft_id": "draft_57ef1ac2e46b",
+    "created_at": "2026-07-30T15:50:22.515237+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_ad4f30d0b1f8": {
+    "draft_id": "draft_ad4f30d0b1f8",
+    "created_at": "2026-07-30T15:50:22.526658+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T15:50:22.536672+00:00"
+    },
+    "committed_at": "2026-07-30T15:50:22Z",
+    "odoo_record_id": 100
+  },
+  "draft_ecfa034a4746": {
+    "draft_id": "draft_ecfa034a4746",
+    "created_at": "2026-07-30T15:50:22.558040+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_c7a694d38250": {
+    "draft_id": "draft_c7a694d38250",
+    "created_at": "2026-07-30T15:50:39.740751+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_ade783141e5d": {
+    "draft_id": "draft_ade783141e5d",
+    "created_at": "2026-07-30T15:50:39.752675+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T15:50:39.763001+00:00"
+    },
+    "committed_at": "2026-07-30T15:50:39Z",
+    "odoo_record_id": 100
+  },
+  "draft_16a11d577c2c": {
+    "draft_id": "draft_16a11d577c2c",
+    "created_at": "2026-07-30T15:50:39.785534+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  }
+}

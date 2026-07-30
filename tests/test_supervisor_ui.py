@@ -574,3 +574,26 @@ class TestSupervisorAdversarialAndAudit:
         audit_entry = logs[0]
         assert audit_entry.masked_payload is not None
         assert audit_entry.masked_payload.get("password") == "***REDACTED***"
+
+
+class TestDedicatedPortalsAndDocumentDownloads:
+
+    def test_comercial_portal_route_returns_200(self, api_test_client):
+        res = api_test_client.get("/comercial")
+        assert res.status_code == 200
+        assert b"Portal Comercial" in res.data
+
+    def test_operaciones_portal_route_returns_200(self, api_test_client):
+        res = api_test_client.get("/operaciones")
+        assert res.status_code == 200
+        assert b"Portal de Operaciones" in res.data
+
+    def test_download_commercial_proposal_document(self, api_test_client):
+        res = api_test_client.get("/api/documents/download?doc_type=propuesta_comercial")
+        assert res.status_code == 200
+        assert b"PROPUESTA COMERCIAL OFICIAL" in res.data
+
+    def test_download_bom_xlsx_document(self, api_test_client):
+        res = api_test_client.get("/api/documents/download?doc_type=bom_xlsx")
+        assert res.status_code == 200
+        assert b"LISTA DE MATERIALES (BOM)" in res.data
