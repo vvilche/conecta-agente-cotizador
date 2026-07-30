@@ -76,8 +76,9 @@ class CotizacionInventarioAgent(BaseAgent):
         modality_str = user_params.get("modality") or ("licitacion" if "licitacion" in prompt_or_line.lower() or "rfp" in prompt_or_line.lower() else "compra_directa")
         modality = CommercialModality.LICITACION if modality_str == "licitacion" else CommercialModality.COMPRA_DIRECTA
 
-        # Target Retained Margin: 54.8% for Hardware/Engineering Projects, 68.5% for SLA/Software
-        target_margin_pct = 68.5 if b_type in [BusinessLineType.MAINTENANCE_LICENSES] else 54.8
+        # Target Retained Margin: User-configurable (Default 54.8% Hardware/Engineering, 68.5% SLA/Software)
+        default_target = 68.5 if b_type in [BusinessLineType.MAINTENANCE_LICENSES] else 54.8
+        target_margin_pct = float(user_params.get("target_margin_pct") or user_params.get("margin_pct") or default_target)
         sale_multiplier = 1.0 / (1.0 - (target_margin_pct / 100.0))
 
         processed_lines = []

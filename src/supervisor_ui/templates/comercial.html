@@ -217,6 +217,19 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <label>💰 Margen Bruto Retenido Target (%):</label>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <input type="number" id="marginInput" min="10" max="85" step="0.5" value="54.8" style="width: 120px; font-weight: 800; color: var(--accent-green);">
+          <div class="preset-badges" style="margin-bottom: 0;">
+            <button class="badge-btn" onclick="document.getElementById('marginInput').value=54.8; generateQuote();">54.8% Estándar</button>
+            <button class="badge-btn" onclick="document.getElementById('marginInput').value=68.5; generateQuote();">68.5% SLA</button>
+            <button class="badge-btn" onclick="document.getElementById('marginInput').value=40.0; generateQuote();">40.0% Licitación</button>
+            <button class="badge-btn" onclick="document.getElementById('marginInput').value=30.0; generateQuote();">30.0% Volumen</button>
+          </div>
+        </div>
+      </div>
+
       <button class="btn btn-primary" onclick="generateQuote()" style="width: 100%; padding: 12px; margin-top: 8px;">
         🚀 Generar Cotización & Staging en Odoo ERP
       </button>
@@ -336,8 +349,7 @@
       const prompt = document.getElementById('promptInput').value.trim();
       const client = document.getElementById('clientInput').value.trim();
       const modality = document.getElementById('modalityInput').value;
-      const numUnits = parseFloat(document.getElementById('unitsInput').value || 1);
-      const hasGps = document.getElementById('gpsInput').value === 'true';
+      const marginPct = parseFloat(document.getElementById('marginInput').value || 54.8);
 
       try {
         const res = await fetch('/api/request-quote', {
@@ -349,6 +361,7 @@
             modality: modality,
             num_pmus: numUnits,
             num_rtus: numUnits,
+            margin_pct: marginPct,
             include_gps: hasGps,
             include_gps_clock: hasGps,
             has_existing_gps: !hasGps

@@ -187,6 +187,8 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
         include_gps = body.get("include_gps", True)
         include_cen = body.get("include_cen", True)
 
+        margin_pct = float(body.get("margin_pct") or body.get("target_margin_pct") or 54.8)
+
         try:
             from swarm_engine.swarm import AgentSwarm
             from rag_memory.few_shot import HistoricalMemory
@@ -199,6 +201,7 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
                 "client": client,
                 "num_pmus": num_pmus,
                 "modality": modality,
+                "target_margin_pct": margin_pct,
                 "include_pdc": include_pdc,
                 "include_gps": include_gps,
                 "include_cen": include_cen

@@ -5458,5 +5458,75 @@
     "vobo_details": null,
     "committed_at": null,
     "odoo_record_id": null
+  },
+  "draft_49c4ce310317": {
+    "draft_id": "draft_49c4ce310317",
+    "created_at": "2026-07-30T16:27:31.324137+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_4d7f2b9b8a27": {
+    "draft_id": "draft_4d7f2b9b8a27",
+    "created_at": "2026-07-30T16:27:31.337019+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T16:27:31.348141+00:00"
+    },
+    "committed_at": "2026-07-30T16:27:31Z",
+    "odoo_record_id": 100
+  },
+  "draft_f7abbe194d48": {
+    "draft_id": "draft_f7abbe194d48",
+    "created_at": "2026-07-30T16:27:31.372264+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
   }
 }
