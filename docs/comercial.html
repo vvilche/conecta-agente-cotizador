@@ -605,7 +605,7 @@
       saveAs(blob, `EETT_Arquitectura_OT_${p.partner_id.replace(/[^a-zA-Z0-9]/g,'_')}.docx`);
     }
 
-    // ── Real .xlsx generator — Ficha de Traspaso OT 14 pestañas ─────────────────────────
+    // ── Real .xlsx generator — Ficha de Traspaso OT (9 pestañas oficiales Conecta S.A.) ──
     function downloadExcelBOM() {
       if (!currentPayload) { alert('Primero genera una cotización.'); return; }
       const p = currentPayload;
@@ -618,56 +618,86 @@
         XLSX.utils.book_append_sheet(wb, ws, name);
       };
 
-      // 1. Currency
-      addSheet('Currency', [
-        ['BANCO CENTRAL DE CHILE — TIPOS DE CAMBIO'],
-        [''],
-        ['Tipo','Código','Valor','Fecha'],
-        ['Dólar US','USD', 910.00, today],
-        ['Euro','EUR', 985.00, today],
-        ['UF','UF', 37800.00, today],
-      ]);
+      const costo = Math.round(p.amount_untaxed * (1 - marginPct/100));
+      const utilidad = Math.round(p.amount_untaxed * (marginPct/100));
 
-      // 2. Ficha
+      // 1. Ficha (Cover sheet)
       addSheet('Ficha', [
         ['CONECTA INGENIERÍA S.A. — FICHA DE TRASPASO OT'],
+        ['Formulario Oficial de Traspaso Comercial a Operaciones'],
         [''],
         ['Campo','Valor'],
         ['Fecha de Traspaso', today],
         ['N° Oferta Conecta', `OF-${new Date().getFullYear()}-CONECTA-REV0`],
         ['N° OT Conecta', '7095-00'],
         ['Cliente Coordinado', p.partner_id],
+        ['RUT Cliente', '76.543.210-9'],
         ['Nombre Proyecto', `Suministro e Integración OT — ${p.partner_id}`],
-        ['Jefe de Proyecto', 'Ing. Pedro Morales'],
+        ['Jefe de Proyecto Asignado', 'Ing. Pedro Morales'],
         ['Monto Oferta Neto CLP', p.amount_untaxed],
         ['Margen Bruto Target (%)', marginPct / 100],
       ]);
 
+      // 2. Resumen
+      addSheet('Resumen', [
+        ['RESUMEN FINANCIERO Y OPTIMIZACIÓN DE MARGEN'],
+        [''],
+        ['Indicador Financiero','Valor CLP / %'],
+        ['Ventas Neto Cliente (Sin IVA)', p.amount_untaxed],
+        ['Impuesto IVA (19%)', p.amount_tax],
+        ['Total Bruto Facturación', p.amount_total],
+        ['Margen Bruto Target (%)', marginPct / 100],
+        ['Margen Bruto Target (CLP)', utilidad],
+        ['Costo Directo Estimado', costo],
+        ['Utilidad Bruta Retenida', utilidad],
+        ['Margen Bruto Retenido (%)', marginPct / 100],
+      ]);
+
       // 3. Control HH y Costos
       addSheet('Control HH y Costos', [
-        ['CONTROL HH Y COSTOS'],
+        ['CONTROL HH Y COSTOS POR ACTIVIDAD Y ROL'],
         [''],
-        ['ÍTEM','PO/PM','ING. SENIOR/A','ING. B','TÉC. TERRENO','TOTAL HH'],
+        ['HH POR ACTIVIDADES DE INGENIERÍA'],
+        ['ÍTEM','PO/PM (HH)','ING. SENIOR/A (HH)','ING. B (HH)','TÉC. TERRENO (HH)','TOTAL HH'],
         ['PLANIFICACION',4,8,0,0,12],
         ['LEVANTAMIENTO',0,4,8,0,12],
         ['INGENIERIA',2,24,16,0,42],
         ['IMPLEMENTACION',0,8,16,16,40],
-        ['PRUEBAS FAT',0,8,12,8,28],
+        ['PRUEBAS HIL FAT',0,8,12,8,28],
         ['SAT TERRENO',2,8,8,16,34],
         ['REGULATORY CEN',2,8,4,0,14],
-        ['TOTAL',10,68,64,40,182],
+        ['TOTAL HH',10,68,64,40,182],
+        [''],
+        ['MATRIZ VALORIZADA DE HORAS HOMBRE'],
+        ['Rol','Tarifa HH (CLP/hr)','Total HH','Costo Total CLP'],
+        ['Project Owner / PM',95000,10,950000],
+        ['Ing. Senior / A',85000,68,5780000],
+        ['Ing. Especialista B',70000,64,4480000],
+        ['Técnico Terreno',55000,40,2200000],
+        ['TOTAL COSTO HH','',182,13410000]
       ]);
 
-      // 4. Cash Flow
+      // 4. Equi. Mat. Arr. Sub. (BOM Lista de Materiales y Equipos)
+      const eqRows = [
+        ['DETALLE DE EQUIPOS, MATERIALES, ARRIENDOS Y SUBCONTRATOS (BOM)'],
+        [''],
+        ['Categoría','Código Partida','Descripción Ítem','Marca / Modelo','Cant.','P. Unit. CLP','Subtotal CLP'],
+        ...p.order_line.map(i => ['HARDWARE/SW', i.item_code, i.name, 'VIZIMAX/Belden/NovaTech', i.product_uom_qty, i.price_unit, i.price_subtotal])
+      ];
+      addSheet('Equi. Mat. Arr. Sub.', eqRows);
+
+      // 5. Cash Flow
       addSheet('Cash Flow', [
         ['FLUJO DE CAJA — HITOS DE COBRANZA (EDP)'],
         [''],
-        ['Hito EDP','Descripción','Facturación %','Monto Neto CLP','Fecha Est.'],
-        ['EDP 1','Pre-kitting y entrega de tableros en taller Conecta S.A.',0.50, Math.round(p.amount_untaxed*0.5),'Semana 3'],
-        ['EDP 2','Certificado FAT/SAT HIL e Informe IPES registrado ante CEN',0.50, Math.round(p.amount_untaxed*0.5),'Semana 6'],
+        ['Hito EDP','Descripción Hito','Monto Neto CLP','Facturación %','Fecha Est.'],
+        ['EDP 1','EDP 1 Pre-kitting (50%)', Math.round(p.amount_untaxed*0.5), 0.50,'Semana 3'],
+        ['EDP 2','EDP 2 SAT HIL (30%)', Math.round(p.amount_untaxed*0.3), 0.30,'Semana 6'],
+        ['EDP 3','EDP 3 Handover / Factura Final (20%)', Math.round(p.amount_untaxed*0.2), 0.20,'Semana 8'],
+        ['TOTAL HITOS EDP','Facturación Total 100%', p.amount_untaxed, 1.00, '']
       ]);
 
-      // 5. Cliente
+      // 6. Cliente
       addSheet('Cliente', [
         ['METADATA DEL CLIENTE COORDINADO'],
         [''],
@@ -677,94 +707,23 @@
         ['Giro / Sector','Generación y Transmisión de Energía Eléctrica'],
         ['Dirección','Av. Andrés Bello 2711, Las Condes, Santiago'],
         ['Contacto Técnico','Ing. Administrador de Contratos'],
+        ['Teléfono','+56 2 2345 6789'],
+        ['Email Contacto','contacto@cliente.cl']
       ]);
 
-      // 6. Resumen
-      const costo = Math.round(p.amount_untaxed * (1 - marginPct/100));
-      const utilidad = Math.round(p.amount_untaxed * (marginPct/100));
-      addSheet('Resumen', [
-        ['RESUMEN FINANCIERO — OPTIMIZACIÓN DE MARGEN'],
-        [''],
-        ['Indicador Financiero','Valor CLP'],
-        ['Ventas Neto Cliente (Sin IVA)', p.amount_untaxed],
-        ['Impuesto IVA (19%)', p.amount_tax],
-        ['Total Bruto Facturación', p.amount_total],
-        ['Costo Directo Estimado', costo],
-        ['Utilidad Bruta Retenida', utilidad],
-        ['Margen Bruto Retenido (%)', marginPct/100],
-      ]);
-
-      // 7. Costos HH
-      addSheet('Costos HH', [
-        ['COSTOS DE HORAS HOMBRE POR ROL'],
-        [''],
-        ['Rol','Tarifa HH (CLP/hr)','Total HH','Costo Total CLP'],
-        ['Gerente de Proyecto (PM)',110000,4,440000],
-        ['Project Owner (PO)',95000,12,1140000],
-        ['Ing. Senior / A',85000,68,5780000],
-        ['Ing. Especialista B',70000,64,4480000],
-        ['Técnico Terreno',55000,40,2200000],
-      ]);
-
-      // 8. Equi. Mat. Arr. Sub.
-      const eqRows = [['DETALLE DE EQUIPOS, MATERIALES, ARRIENDOS Y SUBCONTRATOS'],[''],
-        ['Categoría','Código Partida','Descripción Ítem','Marca/Modelo','Cant.','P.Unit CLP','Subtotal CLP'],
-        ...p.order_line.map(i => ['HARDWARE/SW', i.item_code, i.name,'VIZIMAX/Belden/NovaTech', i.product_uom_qty, i.price_unit, i.price_subtotal])
-      ];
-      addSheet('Equi. Mat. Arr. Sub.', eqRows);
-
-      // 9. Calculo HH
-      addSheet('Calculo HH', [
-        ['CÁLCULO DETALLADO DE HH POR ACTIVIDAD Y PERFIL'],
-        [''],
-        ['Actividad','Descripción Detallada','Perfil Requerido','HH Estimadas','Costo HH CLP'],
-        ['Planificación','Kick-off, carta Gantt, gestión riesgos','PM / PO',12,1140000],
-        ['Levantamiento','Visita a subestación, relevamiento señales DNP3/C37.118','Ing. Senior A',12,1020000],
-        ['Ingeniería','Mapeo de canales, configuración firmware VIZIMAX/Orion','Ing. Senior A + B',42,4070000],
-        ['Implementación','Pre-kitting tableros, programación RTU/PMU en taller','Ing. B + Técnico',40,5000000],
-        ['Pruebas FAT','Simulación HIL, validación tramas DNP3 / C37.118','Ing. Senior A + B',28,2940000],
-        ['SAT Terreno','Comisionamiento en subestación, pruebas CEN','Todos los roles',34,3190000],
-        ['Regulatory','Redacción IPES, protocolo AT-SITR-1, acreditación','PM + Ing. A',14,1400000],
-      ]);
-
-      // 10. Expenses
-      addSheet('Expenses', [
+      // 7. Expenses y Logistica
+      addSheet('Expenses y Logistica', [
         ['LOGÍSTICA, VIÁTICOS Y ACREDITACIÓN EN FAENA'],
         [''],
-        ['Concepto','Detalle','Días/Unid.','Monto CLP'],
-        ['Pre-kitting Tableros Taller','Ensamblaje y pre-cableado estandarizado KittingEngine',1.5,1850000],
-        ['Acreditación Digital','Dossier Sicop/Pronexo F30-1, ex. médicos, EPP, ODI/DAS',0.5,450000],
-        ['Traslado & Camioneta 4x4','Movilización de tableros y camioneta equipada',3.0,1200000],
-        ['Viáticos Especialistas','Alimentación y hospedaje en faena',3.0,980000],
+        ['Concepto','Detalle Logístico','Días / Unid.','Tarifa Unit. CLP','Subtotal CLP'],
+        ['Pre-kitting Tableros Taller','Ensamblaje y pre-cableado estandarizado KittingEngine',1.5,1233333,1850000],
+        ['Acreditación Digital','Dossier Sicop/Pronexo F30-1, ex. médicos, EPP, ODI/DAS',1.0,450000,450000],
+        ['Traslado & Camioneta 4x4','Movilización de tableros y camioneta equipada 4x4',3.0,400000,1200000],
+        ['Viáticos Especialistas','Alimentación y hospedaje en faena terreno',3.0,326667,980000],
+        ['TOTAL EXPENSES Y LOGÍSTICA','',8.5,'',4480000]
       ]);
 
-      // 11. Check
-      addSheet('Check', [
-        ['LISTA DE VERIFICACIÓN — CHECKLIST DE PROYECTO'],
-        [''],
-        ['Área','Ítem de Control','Estado','Responsable','Fecha'],
-        ['Comercial','Oferta firmada y enviada al cliente','✅ OK','Comercial',today],
-        ['Comercial','Orden de Compra recibida','⏳ Pendiente','Comercial',''],
-        ['Operaciones','Ficha de Traspaso llenada en SAP/Odoo','✅ OK','Jefe OT',today],
-        ['Operaciones','Pre-kitting tableros completado en taller','⏳ Pendiente','Téc. Taller',''],
-        ['Operaciones','FAT/SAT HIL ejecutado y certificado firmado','⏳ Pendiente','Ing. Senior',''],
-        ['Regulatory','Informe IPES redactado y enviado al CEN','⏳ Pendiente','PM',''],
-        ['Cobranza','EDP 1 emitido y facturado','⏳ Pendiente','Administración',''],
-        ['Cobranza','EDP 2 emitido y facturado','⏳ Pendiente','Administración',''],
-      ]);
-
-      // 12. Sensibilidad
-      addSheet('Sensibilidad', [
-        ['ANÁLISIS DE SENSIBILIDAD — ESCENARIOS DE MARGEN'],
-        [''],
-        ['Escenario','Margen %','Ventas Neto CLP','Costo Directo CLP','Utilidad Bruta CLP','Evaluación'],
-        ['Agresivo (Licitación)',0.30,p.amount_untaxed,Math.round(p.amount_untaxed*0.70),Math.round(p.amount_untaxed*0.30),'Riesgo Alto'],
-        ['Conservador',0.45,p.amount_untaxed,Math.round(p.amount_untaxed*0.55),Math.round(p.amount_untaxed*0.45),'Riesgo Medio'],
-        [`Estándar Conecta (${marginPct.toFixed(1)}%)`,marginPct/100,p.amount_untaxed,Math.round(p.amount_untaxed*(1-marginPct/100)),Math.round(p.amount_untaxed*(marginPct/100)),'✅ Óptimo'],
-        ['SLA / Software Premium',0.685,p.amount_untaxed,Math.round(p.amount_untaxed*0.315),Math.round(p.amount_untaxed*0.685),'Alta Rentabilidad'],
-      ]);
-
-      // 13. Terminos de Pago
+      // 8. Terminos de Pago
       addSheet('Terminos de Pago', [
         ['TÉRMINOS Y CONDICIONES DE PAGO Y GARANTÍA'],
         [''],
@@ -774,19 +733,32 @@
         ['Garantía Técnica','12 meses desde la puesta en servicio comercial'],
         ['Boleta Fiel Cumplimiento','10% del monto neto total (requerido para licitaciones)'],
         ['Multas / Cap','Techo máximo acumulado de multas: 5% del valor neto del contrato'],
-        ['Fuerza Mayor','Suspensión de plazos por eventos fuera del control de las partes'],
+        ['Fuerza Mayor','Suspensión de plazos por eventos fuera del control de las partes']
       ]);
 
-      // 14. Base de Datos
-      addSheet('Base de Datos', [
-        ['BASE DE DATOS — PRECIOS REFERENCIALES CONECTA S.A.'],
+      // 9. Check y Sensibilidad
+      addSheet('Check y Sensibilidad', [
+        ['CHECKLIST DE PROYECTO & ANÁLISIS DE SENSIBILIDAD DE MARGEN'],
         [''],
-        ['Código','Descripción','Marca/Modelo','Precio Ref. CLP','Precio Ref. USD','Actualizado'],
-        ['HW-VIZIMAX-PMU','Unidad Medición Fasorial PMU Clase A IEEE C37.118','VIZIMAX SynchroTeq Plus',9500000,Math.round(9500000/910),today],
-        ['HW-GPS-CLOCK','Reloj Satelital GPS Kronos Series 2/3 IRIG-B/PTP','Kronos/Arbiter',3200000,Math.round(3200000/910),today],
-        ['SW-PDC-LIC','Licencia PDC Concentrador Datos Fasoriales Local/Corp.','ELPROS/OSIsoft',12500000,Math.round(12500000/910),today],
-        ['HW-SWITCH-IND','Switch Ethernet Industrial PTP IEEE 1588 Redundante','Belden Hirschmann RS20',2300000,Math.round(2300000/910),today],
-        ['HW-RTU-NOVATECH','Remota RTU Subestación DNP3/IEC 61850 GOOSE','NovaTech Orion LX+',9800000,Math.round(9800000/910),today],
+        ['RESUMEN DE CONTROLES'],
+        ['Total Ítems de Control', 8],
+        ['Estado Global Project Checklist', 'CONFORME'],
+        [''],
+        ['ANÁLISIS DE SENSIBILIDAD FINANCIERA DE MARGEN (CLP)'],
+        ['Margen Baseline Target CLP', utilidad],
+        ['Escenario Optimista (+10% Venta)', Math.round(utilidad * 1.1)],
+        ['Escenario Pesimista (-10% Venta)', Math.round(utilidad * 0.9)],
+        [''],
+        ['MATRIZ DE RIESGO Y CONTROL'],
+        ['Área','Ítem de Control / Riesgo','Estado / Valor','Responsable','Nivel de Riesgo'],
+        ['Comercial','Oferta firmada y enviada al cliente',1,'Comercial','Bajo'],
+        ['Comercial','Orden de Compra recibida',1,'Comercial','Medio'],
+        ['Operaciones','Ficha de Traspaso llenada en SAP/Odoo',1,'Jefe OT','Bajo'],
+        ['Operaciones','Pre-kitting tableros completado en taller',1,'Téc. Taller','Bajo'],
+        ['Operaciones','FAT/SAT HIL ejecutado y certificado firmado',1,'Ing. Senior','Medio'],
+        ['Regulatory','Informe IPES redactado y enviado al CEN',1,'PM','Bajo'],
+        ['Cobranza','EDP 1 emitido y facturado',1,'Administración','Bajo'],
+        ['Cobranza','EDP 2 emitido y facturado',1,'Administración','Bajo']
       ]);
 
       XLSX.writeFile(wb, `Ficha_Traspaso_OT_${p.partner_id.replace(/[^a-zA-Z0-9]/g,'_')}.xlsx`);
