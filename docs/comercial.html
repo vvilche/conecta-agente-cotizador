@@ -421,21 +421,82 @@
       let filename = "";
 
       if (type === 'bom') {
-        text = `LISTA DE MATERIALES (BOM) - CLIENTE: ${currentPayload.partner_id}\n\n`;
-        text += `Código\tDescripción\tCant\tPrecio Unitario CLP\tSubtotal CLP\n`;
-        currentPayload.order_line.forEach(i => {
-          text += `${i.item_code}\t${i.name}\t${i.product_uom_qty}\t$${i.price_unit.toLocaleString('es-CL')}\t$${i.price_subtotal.toLocaleString('es-CL')}\n`;
+        text = `=== 1. RESUMEN DE OFERTA COMERCIAL ===\n`;
+        text += `Empresa: CONECTA INGENIERÍA S.A.\n`;
+        text += `Cliente Coordinado: ${currentPayload.partner_id}\n`;
+        text += `Monto Neto (Sin IVA): $${currentPayload.amount_untaxed.toLocaleString('es-CL')} CLP\n`;
+        text += `IVA (19%): $${currentPayload.amount_tax.toLocaleString('es-CL')} CLP\n`;
+        text += `Monto Total Bruto: $${currentPayload.amount_total.toLocaleString('es-CL')} CLP\n`;
+        text += `Margen Bruto Retenido Target: 54.80%\n\n`;
+
+        text += `=== 2. PLANILLA DE COSTOS & PRECIOS VENTA ===\n`;
+        text += `Ítem\tCódigo\tDescripción\tCant\tCosto Directo CLP\tFactor Margen\tPrecio Unit. CLP\tSubtotal CLP\n`;
+        currentPayload.order_line.forEach((i, idx) => {
+          let cost = Math.round(i.price_unit / 2.212389);
+          text += `${idx+1}\t${i.item_code}\t${i.name}\t${i.product_uom_qty}\t$${cost.toLocaleString('es-CL')}\t2.2124\t$${i.price_unit.toLocaleString('es-CL')}\t$${i.price_subtotal.toLocaleString('es-CL')}\n`;
         });
-        filename = `BOM_${currentPayload.partner_id.replace(/ /g, '_')}.txt`;
+        text += `\n=== 3. EQUIPOS Y MATERIALES SUBESTACIÓN ===\n`;
+        text += `Código\tEquipamiento OT\tMarca Estándar\tModelo / Versión\tCant\tEspecificación\n`;
+        text += `HW-PMU-VIZIMAX\tMedidor Fasorial PMU Clase A IEEE C37.118\tVIZIMAX\tSynchroTeq Plus\t2\tNorma CEN AT-SITR-1\n`;
+        text += `HW-SWITCH-BELDEN\tSwitch Managed IEC 61850-3\tBelden Hirschmann\tRS20/RS30 Managed\t2\tRedundancia RSTP/MRP\n`;
+        text += `HW-RTU-NOVATECH\tRemota RTU Concentradora Subestación\tNovaTech Orion\tOrion LX+ Dual Power\t1\tDNP3.0 / IEC 61850\n\n`;
+
+        text += `=== 4. HH CONECTA & SERVICIOS ESPECIALIZADOS ===\n`;
+        text += `Servicio\tPerfil Profesional\tHH\tTarifa HH CLP\tSubtotal CLP\n`;
+        text += `Ingeniería Configuración SCADA/RTU\tIngeniero Senior\t60\t$110.000\t$6.600.000\n`;
+        text += `Pruebas HIL Taller FAT (FatSatSimulator)\tIngeniero Pruebas\t24\t$110.000\t$2.640.000\n`;
+        text += `Comisionamiento SAT & Integración\tJefe de Terreno\t32\t$120.000\t$3.840.000\n\n`;
+
+        text += `=== 5. LOGÍSTICA & PRE-CABLEADO EN TALLER ===\n`;
+        text += `Pre-kitting Tableros Taller (KittingEngine)\tEnsamblaje en taller Conecta\t1.5 Días\t$1.850.000 CLP\n`;
+        text += `Acreditación Digital Faena (AccreditationAutomator)\tDossiers Sicop/Pronexo\t0.5 Días\t$450.000 CLP\n\n`;
+
+        text += `=== 6. ENTREGABLES & ANEXOS DE LICITACIÓN ===\n`;
+        text += `ANEXO A: Oferta Económica Neto: $${currentPayload.amount_untaxed.toLocaleString('es-CL')} CLP\n`;
+        text += `ANEXO B: Formulario Lista de Equipos BOM Completado\n`;
+        text += `ANEXO C: Certificación Cumplimiento Normativo CEN/SEC\n`;
+
+        filename = `BOM_MultiPestana_${currentPayload.partner_id.replace(/ /g, '_')}.txt`;
       } else {
-        text = `# PROPUESTA COMERCIAL OFICIAL - CONECTA S.A.\n\nCliente: ${currentPayload.partner_id}\nMonto Neto: $${currentPayload.amount_untaxed.toLocaleString('es-CL')} CLP\nIVA (19%): $${currentPayload.amount_tax.toLocaleString('es-CL')} CLP\nTotal Bruto: $${currentPayload.amount_total.toLocaleString('es-CL')} CLP\n\nDesglose de Partidas:\n`;
-        currentPayload.order_line.forEach(i => {
-          text += `- [${i.item_code}] ${i.name} x${i.product_uom_qty}: $${i.price_subtotal.toLocaleString('es-CL')} CLP\n`;
+        text = `# CONECTA INGENIERÍA S.A.\n`;
+        text += `**OFERTA TÉCNICO-COMERCIAL OFICIAL**\n`;
+        text += `**Nuestra Ref:** OF-2026-CONECTA-REV0  \n`;
+        text += `**Santiago, Chile - 30 de Julio de 2026**\n\n`;
+        text += `---\n\n`;
+        text += `**Señores:**  \n`;
+        text += `**${currentPayload.partner_id}**  \n`;
+        text += `**Atención:** Departamento de Ingeniería y Proyectos / Gerencia de Operaciones  \n\n`;
+        text += `**Ref.:** Suministro, Ingeniería, Pruebas HIL y Puesta en Servicio de Equipamiento OT de Subestación\n\n`;
+        text += `Estimados Señores:\n\n`;
+        text += `Basados en vuestros requerimientos técnicos y normativos del Sistema Eléctrico Nacional (SEN), tenemos el placer de presentar a su consideración nuestra propuesta técnico-económica oficial.\n\n`;
+        text += `## 1. ALCANCE TÉCNICO DE LA OFERTA\n`;
+        text += `- Suministro e integración de hardware industrial certificado (**Belden Hirschmann**, **VIZIMAX**, **NovaTech Orion LX+**).\n`;
+        text += `- Pre-kitting estandarizado de tableros en taller Conecta S.A. (**KittingEngine**).\n`;
+        text += `- Banco de pruebas HIL FAT/SAT en laboratorio (**FatSatSimulator**).\n`;
+        text += `- Tramitación de Informe IPES y Protocolo AT-SITR-1 ante el CEN (**DocAutomator**).\n\n`;
+        text += `## 2. OFERTA ECONÓMICA Y DESGLOSE DE PARTIDAS\n\n`;
+        text += `| Ítem | Código | Descripción de la Partida | Cant. | Precio Unit. Neto | Subtotal Neto CLP |\n`;
+        text += `| :---: | :--- | :--- | :---: | :---: | :---: |\n`;
+        currentPayload.order_line.forEach((i, idx) => {
+          text += `| ${idx+1} | \`${i.item_code}\` | ${i.name} | ${i.product_uom_qty} | $${i.price_unit.toLocaleString('es-CL')} CLP | **$${i.price_subtotal.toLocaleString('es-CL')} CLP** |\n`;
         });
-        filename = `Propuesta_${currentPayload.partner_id.replace(/ /g, '_')}.md`;
+        text += `\n### 💰 RESUMEN FINANCIERO:\n`;
+        text += `- **MONTO NETO TOTAL**: **$${currentPayload.amount_untaxed.toLocaleString('es-CL')} CLP**\n`;
+        text += `- **IMPUESTO IVA (19%)**: **$${currentPayload.amount_tax.toLocaleString('es-CL')} CLP**\n`;
+        text += `- **MONTO TOTAL BRUTO (CON IVA)**: **$${currentPayload.amount_total.toLocaleString('es-CL')} CLP**\n\n`;
+        text += `## 3. CRONOGRAMA Y HITOS DE PAGO (EDPs)\n`;
+        text += `- **Plazo de Entrega**: 4 a 6 semanas tras recepción de Orden de Compra.\n`;
+        text += `- **EDP 1 (50%)**: A la entrega de tableros kitting pre-cableados en taller.\n`;
+        text += `- **EDP 2 (50%)**: A la entrega de Certificado Pruebas HIL FAT/SAT e Informe IPES registrado en CEN.\n\n`;
+        text += `## 4. TÉRMINOS Y CONDICIONES COMERCIALES (T&C)\n`;
+        text += `- **Validez Oferta**: 30 días corridos.\n`;
+        text += `- **Garantía Técnica**: 12 meses desde puesta en servicio.\n`;
+        text += `- **Forma de Pago**: 30 días contra Estado de Pago (EDP) aprobado.\n`;
+
+        filename = `Propuesta_Comercial_Oficial_${currentPayload.partner_id.replace(/ /g, '_')}.md`;
       }
 
-      const blob = new Blob([text], { type: 'text/markdown' });
+      const blob = new Blob([text], { type: 'text/plain' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = filename;

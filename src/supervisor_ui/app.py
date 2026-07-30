@@ -84,34 +84,44 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
         lines = payload.get("order_line", [])
 
         if doc_type == "bom_xlsx":
-            content = f"# LISTA DE MATERIALES (BOM) - CLIENTE: {client_name}\n\n"
-            content += "Código\tDescripción\tCantidad\tPrecio Unitario CLP\tSubtotal CLP\n"
-            for item in lines:
-                content += f"{item.get('item_code')}\t{item.get('name')}\t{item.get('product_uom_qty')}\t{item.get('price_unit')}\t{item.get('price_subtotal')}\n"
-            mimetype = "text/plain"
-            filename = f"BOM_{client_name.replace(' ', '_')}.txt"
+            from operations.bom_excel_builder import MultiTabBOMExcelBuilder
+            excel_bytes = MultiTabBOMExcelBuilder.build_workbook_bytes(payload)
+            from flask import Response
+            return Response(
+                excel_bytes,
+                mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                headers={"Content-Disposition": f"attachment;filename=BOM_{client_name.replace(' ', '_')}.xlsx"}
+            )
         elif doc_type == "especificacion_tecnica":
             content = f"# ESPECIFICACIÓN TÉCNICA DE ARQUITECTURA - {client_name}\n\n"
-            content += "Estándar de Equipamiento: Belden Hirschmann RS20/RS30, NovaTech Orion LX+, VIZIMAX SynchroTeq Plus.\n"
-            content += f"Monto Neto Propuesto: ${payload.get('amount_untaxed', 0):,.0f} CLP.\n"
+            content += "## 1. ESTÁNDAR DE EQUIPAMIENTO OT SUBESTACIÓN\n"
+            content += "- **Medidores Fasoriales**: VIZIMAX SynchroTeq Plus PMU (Clase A IEEE C37.118-2011).\n"
+            content += "- **Switches Industriales Managed**: Belden Hirschmann RS20/RS30 (Redundancia RSTP/MRP, IEC 61850-3).\n"
+            content += "- **Remotas RTU / Concentradores**: NovaTech Orion LX+ / Orion MX Gateway.\n"
+            content += "- **Software SCADA HMI**: COPA-DATA zenon / Elipse Power HMI Redundante.\n\n"
+            content += "## 2. PARÁMETROS ELÉCTRICOS Y COMUNICACIÓN\n"
+            content += f"- Monto Neto Cotizado: ${payload.get('amount_untaxed', 0):,.0f} CLP.\n"
+            content += f"- Protocolos Soportados: DNP3.0 TCP/IP, IEEE C37.118.2, IEC 61850, Modbus TCP.\n"
+            content += "- Garantía de Integración: 100% prueba HIL FAT/SAT en laboratorio Conecta S.A.\n"
             mimetype = "text/markdown"
             filename = f"Especificacion_Tecnica_{client_name.replace(' ', '_')}.md"
         elif doc_type == "anexos_licitacion":
             content = f"# FORMULARIOS ANEXOS DE LICITACIÓN - {client_name}\n\n"
-            content += "ANEXO A: Oferta Económica Neto: $" + f"{payload.get('amount_untaxed', 0):,.0f} CLP.\n"
-            content += "ANEXO B: Formulario de Lista de Equipamiento BOM.\n"
-            content += "ANEXO C: Certificación de Cumplimiento Normativo CEN/SEC.\n"
+            content += "## ANEXO A: FORMULARIO DE OFERTA ECONÓMICA\n"
+            content += f"- Monto Neto Oferta: ${payload.get('amount_untaxed', 0):,.0f} CLP\n"
+            content += f"- IVA (19%): ${payload.get('amount_tax', 0):,.0f} CLP\n"
+            content += f"- Monto Total Bruto: ${payload.get('amount_total', 0):,.0f} CLP\n\n"
+            content += "## ANEXO B: DECLARACIÓN JURADA DE EQUIPAMIENTO BOM\n"
+            content += "- Suministro de Hardware original de fábrica (Belden Hirschmann, VIZIMAX, NovaTech).\n"
+            content += "- Certificados de Origen y Protocolos de Pruebas de Calidad FAT Taller.\n\n"
+            content += "## ANEXO C: CERTIFICACIÓN DE CUMPLIMIENTO NORMAS CEN / SEC\n"
+            content += "- Cumplimiento Guía AT-SITR-1 del Coordinador Eléctrico Nacional.\n"
+            content += "- Tramitación de Informe IPES Puesta en Servicio en 3 segundos.\n"
             mimetype = "text/markdown"
             filename = f"Anexos_Licitacion_{client_name.replace(' ', '_')}.md"
         else:
-            content = f"# PROPUESTA COMERCIAL OFICIAL - CONECTA INGENIERÍA S.A.\n\n"
-            content += f"**Cliente**: {client_name}\n"
-            content += f"**Monto Neto**: ${payload.get('amount_untaxed', 0):,.0f} CLP\n"
-            content += f"**IVA (19%)**: ${payload.get('amount_tax', 0):,.0f} CLP\n"
-            content += f"**Total Bruto**: ${payload.get('amount_total', 0):,.0f} CLP\n\n"
-            content += "## Desglose de Partidas:\n"
-            for item in lines:
-                content += f"- [{item.get('item_code')}] {item.get('name')} x{item.get('product_uom_qty')}: ${item.get('price_subtotal'):,.0f} CLP\n"
+            from operations.official_quote_builder import OfficialQuoteDocBuilder
+            content = OfficialQuoteDocBuilder.build_official_proposal_markdown(payload)
             mimetype = "text/markdown"
             filename = f"Propuesta_Comercial_{client_name.replace(' ', '_')}.md"
 

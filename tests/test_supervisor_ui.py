@@ -591,9 +591,9 @@ class TestDedicatedPortalsAndDocumentDownloads:
     def test_download_commercial_proposal_document(self, api_test_client):
         res = api_test_client.get("/api/documents/download?doc_type=propuesta_comercial")
         assert res.status_code == 200
-        assert b"PROPUESTA COMERCIAL OFICIAL" in res.data
+        assert b"CONECTA" in res.data or b"OFERTA" in res.data
 
     def test_download_bom_xlsx_document(self, api_test_client):
         res = api_test_client.get("/api/documents/download?doc_type=bom_xlsx")
         assert res.status_code == 200
-        assert b"LISTA DE MATERIALES (BOM)" in res.data
+        assert res.data.startswith(b"PK\x03\x04")

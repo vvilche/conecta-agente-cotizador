@@ -5108,5 +5108,145 @@
     "vobo_details": null,
     "committed_at": null,
     "odoo_record_id": null
+  },
+  "draft_d421c7c9707c": {
+    "draft_id": "draft_d421c7c9707c",
+    "created_at": "2026-07-30T16:18:29.890296+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_b83eb0cc33b2": {
+    "draft_id": "draft_b83eb0cc33b2",
+    "created_at": "2026-07-30T16:18:29.902589+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T16:18:29.913225+00:00"
+    },
+    "committed_at": "2026-07-30T16:18:29Z",
+    "odoo_record_id": 100
+  },
+  "draft_ded457bd2acb": {
+    "draft_id": "draft_ded457bd2acb",
+    "created_at": "2026-07-30T16:18:29.936272+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_652a117443a7": {
+    "draft_id": "draft_652a117443a7",
+    "created_at": "2026-07-30T16:18:43.076529+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
+  },
+  "draft_05331ce04379": {
+    "draft_id": "draft_05331ce04379",
+    "created_at": "2026-07-30T16:18:43.088712+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "account.move",
+    "operation_type": "create",
+    "payload": {
+      "name": "INV/2026/0002",
+      "move_type": "out_invoice",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "invoice_date": "2026-07-28",
+      "state": "draft",
+      "amount_total": 53550.0
+    },
+    "state": "COMMITTED",
+    "vobo_details": {
+      "approved_by": "supervisor_user",
+      "vobo_notes": "Approved via VoBo",
+      "timestamp": "2026-07-30T16:18:43.099339+00:00"
+    },
+    "committed_at": "2026-07-30T16:18:43Z",
+    "odoo_record_id": 100
+  },
+  "draft_1a333c512d5d": {
+    "draft_id": "draft_1a333c512d5d",
+    "created_at": "2026-07-30T16:18:43.122170+00:00",
+    "agent_id": "odoo_client_agent",
+    "target_model": "sale.order",
+    "operation_type": "create",
+    "payload": {
+      "name": "SO003",
+      "partner_id": [
+        1,
+        "Empresa Electrica COMASA S.A."
+      ],
+      "amount_untaxed": 45000.0,
+      "amount_tax": 8550.0,
+      "amount_total": 53550.0,
+      "state": "draft"
+    },
+    "state": "PENDING_APPROVAL",
+    "vobo_details": null,
+    "committed_at": null,
+    "odoo_record_id": null
   }
 }
