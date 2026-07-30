@@ -8,7 +8,7 @@ import re
 from typing import Dict, Any, Optional
 
 VOLTAGE_POWER_PATTERN = re.compile(
-    r'\b\d+(?:\.\d+)?\s*(?:kV|kVAC|kVDC|V|VAC|VDC|MW|kW|MVA|kVA|Hz)\b',
+    r'\b\d+(?:\.\d+)?\s*(?:kV|kVAC|kVDC|V|VAC|VDC|MW|kW|MVA|kVA|Hz|A|kA|Mbps|Gbps|kbps|dBm|dB)\b',
     re.IGNORECASE
 )
 

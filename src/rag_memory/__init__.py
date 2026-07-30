@@ -16,6 +16,9 @@ from rag_memory.ingester import (
 )
 from rag_memory.business_lines import (
     GuidedArchitectureEngine,
+    BusinessLineClassifier,
+    BusinessLineType,
+    STANDARD_BOM_TEMPLATES,
 )
 from rag_memory.campaign_onepager_engine import (
     CampaignOnePagerEngine,
@@ -84,6 +87,10 @@ __all__ = [
     "RegulatoryAuditReport",
     "WinRatePrediction",
     "CrossSellOpportunity",
+    "BusinessLineClassifier",
+    "BusinessLineType",
+    "STANDARD_BOM_TEMPLATES",
+    "GuidedArchitectureEngine",
 ]
 
 
