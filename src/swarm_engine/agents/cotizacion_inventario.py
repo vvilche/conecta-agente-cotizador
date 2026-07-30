@@ -59,10 +59,7 @@ class CotizacionInventarioAgent(BaseAgent):
             logger.warning("Agent '%s' received unmapped event type '%s'", self.agent_name, event_type)
 
         prompt = payload.get("prompt") or payload.get("title") or payload.get("query") or ""
-        if payload.get("business_line") or any(k in prompt.lower() for k in ["pmu", "pmus", "sitr", "scada", "edac"]):
-            return self.guide_quotation(prompt_or_line=prompt or payload.get("business_line", ""), user_params=payload)
-
-        return self._handle_quote_request(payload)
+        return self.guide_quotation(prompt_or_line=prompt or payload.get("business_line", "scada_retrofit"), user_params=payload)
 
     def guide_quotation(self, prompt_or_line: str, user_params: Dict[str, Any]) -> DraftAction:
         """
