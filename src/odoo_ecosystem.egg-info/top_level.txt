@@ -1,4 +1,5 @@
 odoo_ecosystem
+operations
 rag_memory
 supervisor_ui
 swarm_engine

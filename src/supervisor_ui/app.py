@@ -120,17 +120,14 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
             mimetype = "text/markdown"
             filename = f"Anexos_Licitacion_{client_name.replace(' ', '_')}.md"
         else:
-            from operations.official_quote_builder import OfficialQuoteDocBuilder
-            content = OfficialQuoteDocBuilder.build_official_proposal_markdown(payload)
-            mimetype = "text/markdown"
-            filename = f"Propuesta_Comercial_{client_name.replace(' ', '_')}.md"
-
-        from flask import Response
-        return Response(
-            content,
-            mimetype=mimetype,
-            headers={"Content-Disposition": f"attachment;filename={filename}"}
-        )
+            from operations.official_word_quote_builder import OfficialWordQuoteBuilder
+            docx_bytes = OfficialWordQuoteBuilder.build_quote_docx_bytes(payload)
+            from flask import Response
+            return Response(
+                docx_bytes,
+                mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                headers={"Content-Disposition": f"attachment;filename=Propuesta_Comercial_{client_name.replace(' ', '_')}.docx"}
+            )
 
     @app.route("/api/drafts", methods=["GET"])
     def get_drafts():
