@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conecta S.A. - Hub Principal & Portales Agénticos (GitHub Pages)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --panel-bg: #1e293b;
+      --card-bg: #334155;
+      --primary-blue: #3b82f6;
+      --accent-green: #10b981;
+      --accent-purple: #8b5cf6;
+      --accent-amber: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #475569;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 30px;
+      line-height: 1.5;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      background-color: var(--panel-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 30px;
+    }
+
+    .brand-title { font-size: 1.6rem; font-weight: 800; color: var(--primary-blue); }
+    .status-badge {
+      background: rgba(16,185,129,0.15);
+      color: var(--accent-green);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--accent-green);
+    }
+
+    .portals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .portal-card {
+      background-color: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+    .portal-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary-blue);
+      box-shadow: 0 10px 25px rgba(59,130,246,0.15);
+    }
+
+    .portal-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .portal-title { font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .portal-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
+
+    .btn {
+      display: inline-block;
+      text-align: center;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-comercial { background-color: var(--primary-blue); color: #fff; }
+    .btn-comercial:hover { background-color: #2563eb; }
+    .btn-operaciones { background-color: var(--accent-purple); color: #fff; }
+    .btn-operaciones:hover { background-color: #7c3aed; }
+
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .metric-box {
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .metric-val { font-size: 1.8rem; font-weight: 800; color: var(--accent-green); }
+    .metric-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="brand-title">🌐 Conecta S.A. - Platform Hub</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">Sistema Agéntico de Cotizaciones Guiadas, Optimización de Márgenes y Control Operativo (GitHub Pages)</div>
+    </div>
+    <div class="status-badge">🟢 GitHub Pages Activo</div>
+  </header>
+
+  <div class="portals-grid">
+    <!-- Commercial Portal Card -->
+    <div class="portal-card">
+      <div>
+        <div class="portal-icon">💼</div>
+        <div class="portal-title">Portal Comercial</div>
+        <div class="portal-desc">
+          Cotización Agéntica Guiada por Arquitectura (**PMU VIZIMAX**, **RTU NovaTech Orion LX+**, **SCADA zenon**, **SITR PMGD** y **EDAC/ERAG**).  
+          Garantiza la Regla de Oro del **54.8% de Margen Retenido** y genera la documentación completa del proyecto (Propuesta PDF, BOM Excel, Ficha Técnica y Anexos A, B y C).
+        </div>
+      </div>
+      <a href="comercial.html" class="btn btn-comercial">💼 Ingresar al Portal Comercial</a>
+    </div>
+
+    <!-- Operations Portal Card -->
+    <div class="portal-card">
+      <div>
+        <div class="portal-icon">⚙️</div>
+        <div class="portal-title">Portal de Operaciones</div>
+        <div class="portal-desc">
+          Aprobación VoBo de propuestas (Human-in-the-Loop) y disparo de automatizaciones operacionales de software: **DocAutomator IPES**, **FatSatSimulator HIL**, **KittingEngine**, **AccreditationAutomator** y **Estados de Pago (EDPs)**.
+        </div>
+      </div>
+      <a href="operaciones.html" class="btn btn-operaciones">⚙️ Ingresar al Portal Operaciones</a>
+    </div>
+  </div>
+
+  <div class="metrics-row">
+    <div class="metric-box">
+      <div class="metric-val">54.8%</div>
+      <div class="metric-lbl">MARGEN RETENIDO PROMEDIO</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-val">100%</div>
+      <div class="metric-lbl">PRECISIÓN BOMS Y PRECIOS</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-val">3 seg</div>
+      <div class="metric-lbl">TIEMPO GENERACIÓN DOCUMENTOS</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-val">0%</div>
+      <div class="metric-lbl">AUTO-EJECUCIÓN SIN VOBO</div>
+    </div>
+  </div>
+
+</body>
+</html>

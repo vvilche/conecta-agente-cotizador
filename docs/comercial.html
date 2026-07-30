@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conecta S.A. - Portal Comercial (GitHub Pages)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --panel-bg: #1e293b;
+      --card-bg: #334155;
+      --primary-blue: #3b82f6;
+      --accent-green: #10b981;
+      --accent-purple: #8b5cf6;
+      --accent-amber: #f59e0b;
+      --danger-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #475569;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 20px;
+      line-height: 1.5;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background-color: var(--panel-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 24px;
+    }
+
+    .brand-title { font-size: 1.4rem; font-weight: 800; color: var(--primary-blue); }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-left: 16px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #fff;
+      background-color: var(--primary-blue);
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background-color: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; color: #fff; }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .btn-primary { background-color: var(--primary-blue); color: #fff; }
+    .btn-primary:hover { background-color: #2563eb; }
+    .btn-secondary { background-color: var(--card-bg); color: #fff; border: 1px solid var(--border-color); }
+
+    .preset-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .badge-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+    .badge-btn:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.85rem; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    th { color: var(--text-muted); font-weight: 600; background: rgba(255,255,255,0.02); }
+
+    .summary-box {
+      background: rgba(16,185,129,0.08);
+      border: 1px solid var(--accent-green);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .doc-download-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .doc-card {
+      background: var(--card-bg);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .doc-card h4 { font-size: 0.85rem; color: #fff; margin-bottom: 4px; }
+    .doc-card p { font-size: 0.75rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="brand-title">💼 Conecta S.A. - Portal Comercial Online</div>
+      <div style="font-size: 0.8rem; color: var(--text-muted);">Cotizador Guiado, Regla del 54.8% Margen Retenido y Documentación de Oferta</div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Hub Principal</a>
+      <a href="comercial.html" class="active">Portal Comercial</a>
+      <a href="operaciones.html">Portal Operaciones</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Left Column: Quote Generator & Scope Wizard -->
+    <div class="card">
+      <h2>📝 Cotizador Agéntico de Arquitectura</h2>
+
+      <div class="form-group">
+        <label>Selecciona una Línea de Negocio o Plantilla:</label>
+        <div class="preset-badges">
+          <button class="badge-btn" onclick="setPreset('RTU')">📡 Remotas RTU (Orion LX+ / Belden)</button>
+          <button class="badge-btn" onclick="setPreset('SCADA')">🎛️ SCADA HMI (zenon)</button>
+          <button class="badge-btn" onclick="setPreset('PMUS')">⚡ Medición Fasorial (VIZIMAX)</button>
+          <button class="badge-btn" onclick="setPreset('SITR')">☀️ Telemetría SITR PMGD</button>
+          <button class="badge-btn" onclick="setPreset('EDAC')">📈 Protecciones EDAC/ERAG</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Solicitud del Cliente en Lenguaje Natural:</label>
+        <textarea id="promptInput" rows="3">Cotizar reemplazo de remota RTU NovaTech Orion LX+ y switches Belden Hirschmann para SE Mayaca de Chilquinta. Cliente cuenta con reloj GPS.</textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre del Cliente Coordinado:</label>
+        <input type="text" id="clientInput" value="Chilquinta Distribución S.A.">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="form-group">
+          <label>Modalidad Comercial:</label>
+          <select id="modalityInput">
+            <option value="compra_directa" selected>📦 Compra Directa</option>
+            <option value="licitacion">🏆 Licitación Pública / Privada</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Unidades Equipamiento Principal:</label>
+          <input type="number" id="unitsInput" min="1" max="50" value="1">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="form-group">
+          <label>Reloj GPS en Subestación:</label>
+          <select id="gpsInput">
+            <option value="false" selected>Cliente ya posee Reloj GPS (Omitir del BOM)</option>
+            <option value="true">Incluir Reloj GPS Kronos IRIG-B/PTP</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Switches Industriales OT:</label>
+          <select id="switchesInput">
+            <option value="true" selected>Incluir Belden Hirschmann RS20/RS30</option>
+            <option value="false">Omitir Switches</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="generateQuoteClientSide()" style="width: 100%; padding: 12px; margin-top: 8px;">
+        🚀 Generar Cotización & Documentos del Proyecto
+      </button>
+    </div>
+
+    <!-- Right Column: Result, BOM, Financials & Documents -->
+    <div class="card">
+      <h2>📊 Desglose de Cotización & Documentación Generada</h2>
+      <div id="quoteResultPlaceholder" style="color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 40px 0;">
+        Haz clic en "Generar Cotización" para ver la propuesta, la lista de materiales BOM formateada y descargar los documentos del proyecto.
+      </div>
+
+      <div id="quoteResultContainer" style="display: none;">
+        <div class="summary-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">VALORIZACIÓN NETO CLIENTE</span>
+            <span style="font-size: 1.4rem; font-weight: 800; color: var(--accent-green);" id="dispAmountUntaxed">$0 CLP</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted);">
+            <span>IVA (19%): <strong id="dispAmountTax" style="color: #fff;">$0 CLP</strong></span>
+            <span>Total Bruto con IVA: <strong id="dispAmountTotal" style="color: #fff;">$0 CLP</strong></span>
+          </div>
+          <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.15); display: flex; justify-content: space-between; font-size: 0.85rem;">
+            <span>💰 Margen Bruto Retenido: <strong id="dispMarginPct" style="color: var(--accent-green);">54.8%</strong></span>
+            <span>🏆 Win-Rate Estimado: <strong id="dispWinRate" style="color: var(--primary-blue);">78%</strong></span>
+          </div>
+        </div>
+
+        <h3 style="font-size: 0.95rem; margin-top: 20px; margin-bottom: 8px; color: #fff;">📦 Lista de Materiales (BOM) & Partidas</h3>
+        <div style="overflow-x: auto;">
+          <table id="bomTable">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Descripción Ítem</th>
+                <th>Cant.</th>
+                <th>Precio Unit. Neto</th>
+                <th>Subtotal Neto</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size: 0.95rem; margin-top: 24px; margin-bottom: 8px; color: #fff;">📄 Documentación de Oferta del Proyecto para Descargar</h3>
+        <div class="doc-download-grid">
+          <div class="doc-card">
+            <div>
+              <h4>📄 Propuesta Comercial PDF</h4>
+              <p>Oferta técnica y económica estructurada con condiciones.</p>
+            </div>
+            <button class="btn btn-secondary" onclick="downloadDocText('propuesta')" style="margin-top: 8px; font-size: 0.75rem; padding: 4px 8px;">⬇️ Descargar Propuesta</button>
+          </div>
+          <div class="doc-card">
+            <div>
+              <h4>📦 BOM Lista de Materiales Excel</h4>
+              <p>Planilla de ítems, cantidades y valorización.</p>
+            </div>
+            <button class="btn btn-secondary" onclick="downloadDocText('bom')" style="margin-top: 8px; font-size: 0.75rem; padding: 4px 8px;">⬇️ Descargar BOM</button>
+          </div>
+          <div class="doc-card">
+            <div>
+              <h4>📐 Especificación Técnica Arquitectura</h4>
+              <p>Ficha técnica de subestación y estándares OT.</p>
+            </div>
+            <button class="btn btn-secondary" onclick="downloadDocText('eett')" style="margin-top: 8px; font-size: 0.75rem; padding: 4px 8px;">⬇️ Descargar EETT</button>
+          </div>
+          <div class="doc-card">
+            <div>
+              <h4>🏆 Formularios de Licitación</h4>
+              <p>Anexos A (Económico), B (BOM) y C (CEN/SEC).</p>
+            </div>
+            <button class="btn btn-secondary" onclick="downloadDocText('anexos')" style="margin-top: 8px; font-size: 0.75rem; padding: 4px 8px;">⬇️ Descargar Anexos</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPayload = null;
+
+    function setPreset(type) {
+      const promptText = document.getElementById('promptInput');
+      const clientText = document.getElementById('clientInput');
+      const gpsSelect = document.getElementById('gpsInput');
+
+      if (type === 'RTU') {
+        promptText.value = "Cotizar reemplazo de remota RTU NovaTech Orion LX+ y switches Belden Hirschmann para SE Mayaca de Chilquinta. Cliente cuenta con reloj GPS.";
+        clientText.value = "Chilquinta Distribución S.A.";
+        gpsSelect.value = "false";
+      } else if (type === 'SCADA') {
+        promptText.value = "Cotízame un retrofit de Sistema SCADA HMI COPA-DATA zenon y servidores Advantech con switches Belden Hirschmann para ADASA";
+        clientText.value = "Aguas de Antofagasta (ADASA)";
+        gpsSelect.value = "false";
+      } else if (type === 'PMUS') {
+        promptText.value = "Necesito cotizar un sistema de Medición Fasorial PMU VIZIMAX para Subestación Ancud 220kV de Transelec";
+        clientText.value = "Transelec S.A.";
+        gpsSelect.value = "true";
+      } else if (type === 'SITR') {
+        promptText.value = "Necesito cotizar un proyecto SITR para PMGD Solar de 9MW para cliente Grenergy";
+        clientText.value = "Grenergy Renovables S.A.";
+        gpsSelect.value = "false";
+      } else if (type === 'EDAC') {
+        promptText.value = "Requiero estudio de protecciones EDAC/ERAG y simulación HIL para cliente Transelec";
+        clientText.value = "Transelec S.A.";
+        gpsSelect.value = "false";
+      }
+      generateQuoteClientSide();
+    }
+
+    function generateQuoteClientSide() {
+      const prompt = document.getElementById('promptInput').value.toLowerCase();
+      const client = document.getElementById('clientInput').value.trim() || 'Cliente Coordinado';
+      const numUnits = parseFloat(document.getElementById('unitsInput').value || 1);
+      const hasGps = document.getElementById('gpsInput').value === 'true';
+
+      let multiplier = 2.212389; // 54.8% Retained Margin
+      let items = [];
+
+      if (prompt.includes('rtu') || prompt.includes('remota') || prompt.includes('mayaca') || prompt.includes('chilquinta')) {
+        items = [
+          { item_code: 'HW-RTU-NOVATECH', name: '[HARDWARE] Remota RTU Subestación NovaTech Orion LX+ / ABB RTU560', qty: numUnits, unit_cost: 9800000 },
+          { item_code: 'HW-IO-CARDS', name: '[HARDWARE] Tarjeta Expansión I/O DI/DO/AI Novacard', qty: 2 * numUnits, unit_cost: 1850000 },
+          { item_code: 'HW-SWITCH-IND', name: '[HARDWARE] Switch Ethernet Managed Belden Hirschmann RS20/RS30 IEC 61850', qty: 1, unit_cost: 2300000 },
+          { item_code: 'ENG-HH-SCADA', name: '[ENGINEERING] Ingeniería Configuración DNP3.0 & SCADA (Horas)', qty: 50, unit_cost: 110000 },
+          { item_code: 'FLD-FAT-SAT-RTU', name: '[FIELD_SERVICES] Pruebas FAT Taller & Comisionamiento SAT Terreno', qty: 1, unit_cost: 3800000 }
+        ];
+      } else if (prompt.includes('scada') || prompt.includes('zenon') || prompt.includes('adasa')) {
+        items = [
+          { item_code: 'SW-LIC-SCADA-ZENON', name: '[SOFTWARE] Licencia COPA-DATA zenon HMI / SCADA Server', qty: 1, unit_cost: 12500000 },
+          { item_code: 'HW-SRV-ADVANTECH', name: '[HARDWARE] Servidor Industrial Advantech Dual Redundante IEC 61850', qty: 2, unit_cost: 4800000 },
+          { item_code: 'HW-SWITCH-BELDEN', name: '[HARDWARE] Switch Managed Belden Hirschmann RS30 Subestación', qty: 2, unit_cost: 2300000 },
+          { item_code: 'ENG-HH-SCADA-DEV', name: '[ENGINEERING] Desarrollo de Pantallas HMI & Tablas DNP3', qty: 80, unit_cost: 110000 },
+          { item_code: 'FLD-COMM-SAT', name: '[FIELD_SERVICES] Pruebas HIL & Comisionamiento en Terreno', qty: 1, unit_cost: 4500000 }
+        ];
+      } else {
+        items = [
+          { item_code: 'HW-PMU-VIZIMAX', name: '[HARDWARE] Medidor Fasorial VIZIMAX SynchroTeq Plus PMU Clase A IEEE C37.118', qty: 2 * numUnits, unit_cost: 8500000 },
+          { item_code: 'HW-PDC-NOVATECH', name: '[HARDWARE] Concentrador PDC Gateway NovaTech Orion MX', qty: 1, unit_cost: 11200000 },
+          { item_code: 'HW-SWITCH-BELDEN', name: '[HARDWARE] Switch Managed Belden Hirschmann RS20 IEC 61850', qty: 1, unit_cost: 2300000 },
+          { item_code: 'ENG-HH-PMU', name: '[ENGINEERING] Configuración de Tramas C37.118 & Ingesta PDC', qty: 60, unit_cost: 110000 },
+          { item_code: 'REG-CEN-AT-SITR-1', name: '[REGULATORY] Tramitación Protocolo AT-SITR-1 e Informe IPES', qty: 1, unit_cost: 3500000 }
+        ];
+      }
+
+      if (hasGps) {
+        items.push({ item_code: 'HW-GPS-CLOCK', name: '[HARDWARE] Sincronizador Satelital GPS Kronos IRIG-B / PTP 1588', qty: 1, unit_cost: 3800000 });
+      }
+
+      let order_lines = items.map(it => {
+        let price_unit = Math.round(it.unit_cost * multiplier);
+        let price_subtotal = Math.round(it.qty * price_unit);
+        return {
+          item_code: it.item_code,
+          name: it.name,
+          product_uom_qty: it.qty,
+          price_unit: price_unit,
+          price_subtotal: price_subtotal
+        };
+      });
+
+      let amount_untaxed = order_lines.reduce((acc, curr) => acc + curr.price_subtotal, 0);
+      let amount_tax = Math.round(amount_untaxed * 0.19);
+      let amount_total = amount_untaxed + amount_tax;
+
+      currentPayload = {
+        partner_id: client,
+        amount_untaxed: amount_untaxed,
+        amount_tax: amount_tax,
+        amount_total: amount_total,
+        order_line: order_lines
+      };
+
+      document.getElementById('quoteResultPlaceholder').style.display = 'none';
+      document.getElementById('quoteResultContainer').style.display = 'block';
+
+      document.getElementById('dispAmountUntaxed').innerText = '$' + amount_untaxed.toLocaleString('es-CL') + ' CLP';
+      document.getElementById('dispAmountTax').innerText = '$' + amount_tax.toLocaleString('es-CL') + ' CLP';
+      document.getElementById('dispAmountTotal').innerText = '$' + amount_total.toLocaleString('es-CL') + ' CLP';
+
+      const tbody = document.querySelector('#bomTable tbody');
+      tbody.innerHTML = '';
+      order_lines.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><code style="color: var(--primary-blue);">${item.item_code}</code></td>
+          <td>${item.name}</td>
+          <td>${item.product_uom_qty}</td>
+          <td>$${item.price_unit.toLocaleString('es-CL')} CLP</td>
+          <td><strong>$${item.price_subtotal.toLocaleString('es-CL')} CLP</strong></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function downloadDocText(type) {
+      if (!currentPayload) return;
+      let text = "";
+      let filename = "";
+
+      if (type === 'bom') {
+        text = `LISTA DE MATERIALES (BOM) - CLIENTE: ${currentPayload.partner_id}\n\n`;
+        text += `Código\tDescripción\tCant\tPrecio Unitario CLP\tSubtotal CLP\n`;
+        currentPayload.order_line.forEach(i => {
+          text += `${i.item_code}\t${i.name}\t${i.product_uom_qty}\t$${i.price_unit.toLocaleString('es-CL')}\t$${i.price_subtotal.toLocaleString('es-CL')}\n`;
+        });
+        filename = `BOM_${currentPayload.partner_id.replace(/ /g, '_')}.txt`;
+      } else {
+        text = `# PROPUESTA COMERCIAL OFICIAL - CONECTA S.A.\n\nCliente: ${currentPayload.partner_id}\nMonto Neto: $${currentPayload.amount_untaxed.toLocaleString('es-CL')} CLP\nIVA (19%): $${currentPayload.amount_tax.toLocaleString('es-CL')} CLP\nTotal Bruto: $${currentPayload.amount_total.toLocaleString('es-CL')} CLP\n\nDesglose de Partidas:\n`;
+        currentPayload.order_line.forEach(i => {
+          text += `- [${i.item_code}] ${i.name} x${i.product_uom_qty}: $${i.price_subtotal.toLocaleString('es-CL')} CLP\n`;
+        });
+        filename = `Propuesta_${currentPayload.partner_id.replace(/ /g, '_')}.md`;
+      }
+
+      const blob = new Blob([text], { type: 'text/markdown' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+    }
+
+    window.onload = generateQuoteClientSide;
+  </script>
+</body>
+</html>

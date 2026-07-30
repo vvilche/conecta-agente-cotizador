@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conecta S.A. - Portal de Operaciones (GitHub Pages)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --panel-bg: #1e293b;
+      --card-bg: #334155;
+      --primary-blue: #3b82f6;
+      --accent-green: #10b981;
+      --accent-purple: #8b5cf6;
+      --accent-amber: #f59e0b;
+      --danger-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #475569;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 20px;
+      line-height: 1.5;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background-color: var(--panel-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 24px;
+    }
+
+    .brand-title { font-size: 1.4rem; font-weight: 800; color: var(--accent-purple); }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-left: 16px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #fff;
+      background-color: var(--accent-purple);
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background-color: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; color: #fff; }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .btn-success { background-color: var(--accent-green); color: #fff; }
+    .btn-success:hover { background-color: #059669; }
+    .btn-danger { background-color: var(--danger-red); color: #fff; }
+    .btn-secondary { background-color: var(--card-bg); color: #fff; border: 1px solid var(--border-color); }
+    .btn-primary { background-color: var(--primary-blue); color: #fff; }
+
+    .draft-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .draft-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .draft-id { font-family: monospace; font-weight: 700; color: var(--primary-blue); }
+    .draft-title { font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .draft-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+
+    .ops-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .ops-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .ops-box h3 { font-size: 0.9rem; color: #fff; margin-bottom: 6px; }
+    .ops-box p { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; }
+
+    input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      color: #fff;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="brand-title">⚙️ Conecta S.A. - Portal de Operaciones Online</div>
+      <div style="font-size: 0.8rem; color: var(--text-muted);">Aprobación VoBo, Automatización de Informes IPES, Pruebas HIL, Acreditación y EDPs</div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Hub Principal</a>
+      <a href="comercial.html">Portal Comercial</a>
+      <a href="operaciones.html" class="active">Portal Operaciones</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Left Column: Pending VoBo Drafts Approval Queue -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2>🛡️ Cola de Visto Bueno (VoBo Supervision)</h2>
+        <button class="btn btn-secondary" onclick="renderDraftsQueue()">🔄 Actualizar Cola</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        Propuestas comerciales generadas pendientes de aprobación técnica y operativa por el Supervisor de Operaciones antes del disparo a ejecución en Odoo ERP.
+      </p>
+
+      <div id="draftsQueueContainer"></div>
+    </div>
+
+    <!-- Right Column: Operations Software Automators -->
+    <div class="card">
+      <h2>🚀 Automatizaciones Operacionales & Generación de Documentos</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        Dispara los módulos de automatización de software de operaciones para generar en segundos la documentación formal de ingeniería y la acreditación laboral del proyecto.
+      </p>
+
+      <div class="ops-grid">
+        <!-- DocAutomator -->
+        <div class="ops-box">
+          <h3>📝 DocAutomator IPES</h3>
+          <p>Genera en 3 segundos el Informe IPES CEN/SEC y Ficha de Traspaso Operativo.</p>
+          <button class="btn btn-primary" onclick="simDocAutomator()" style="width: 100%;">Generar Informe IPES</button>
+          <div id="docOutput" style="margin-top: 8px;"></div>
+        </div>
+
+        <!-- FatSatSimulator -->
+        <div class="ops-box">
+          <h3>🧪 FatSatSimulator HIL</h3>
+          <p>Banco de pruebas HIL de laboratorio para validar telemetría DNP3/C37.118.</p>
+          <button class="btn btn-primary" onclick="simFatSat()" style="width: 100%;">Ejecutar Pruebas HIL</button>
+          <div id="fatOutput" style="margin-top: 8px;"></div>
+        </div>
+
+        <!-- KittingEngine -->
+        <div class="ops-box">
+          <h3>📦 KittingEngine Taller</h3>
+          <p>Genera el armado estandarizado de tableros pre-cableados para despacho a faena.</p>
+          <button class="btn btn-primary" onclick="simKitting()" style="width: 100%;">Armar Kit Tablero</button>
+          <div id="kitOutput" style="margin-top: 8px;"></div>
+        </div>
+
+        <!-- AccreditationAutomator -->
+        <div class="ops-box">
+          <h3>🪪 Dossier Acreditación</h3>
+          <p>Auto-compilador de dossiers digitales (F30-1, ex. médicos, EPP, ODI/DAS) para Sicop/Pronexo.</p>
+          <button class="btn btn-primary" onclick="simAccreditation()" style="width: 100%;">Compilar Dossier</button>
+          <div id="accredOutput" style="margin-top: 8px;"></div>
+        </div>
+      </div>
+
+      <!-- PaymentStatementAutomator -->
+      <div style="margin-top: 20px; background: rgba(16,185,129,0.08); border: 1px solid var(--accent-green); border-radius: 8px; padding: 16px;">
+        <h3 style="color: var(--accent-green); font-size: 1rem; margin-bottom: 6px;">💰 PaymentStatementAutomator - Estado de Pago (EDP)</h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">
+          Emisión de Estado de Pago con certificado FAT/SAT firmado adjunto para disparo directo de cobranza en Odoo ERP.
+        </p>
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="edpClientInput" value="Chilquinta Distribución S.A." placeholder="Cliente" style="flex: 1;">
+          <button class="btn btn-success" onclick="simEDP()">Emitir EDP & Disparar Odoo</button>
+        </div>
+        <div id="edpOutput" style="margin-top: 10px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let queueData = [
+      {
+        draft_id: 'draft_7ec2971d6dc1',
+        partner_id: 'Chilquinta Distribución S.A.',
+        title: 'Reemplazo Remota RTU NovaTech Orion LX+ SE Mayaca',
+        amount_untaxed: 58628319,
+        confidence: 0.96,
+        status: 'pending_vobo'
+      },
+      {
+        draft_id: 'draft_427b3e1bc0b6',
+        partner_id: 'Transelec S.A.',
+        title: 'Suministro Medición Fasorial PMU VIZIMAX SE Ancud',
+        amount_untaxed: 84070796,
+        confidence: 0.95,
+        status: 'pending_vobo'
+      }
+    ];
+
+    function renderDraftsQueue() {
+      const container = document.getElementById('draftsQueueContainer');
+      const pending = queueData.filter(d => d.status === 'pending_vobo');
+
+      if (pending.length === 0) {
+        container.innerHTML = `<div style="color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 30px;">✅ No hay propuestas pendientes de VoBo. ¡Todas aprobadas!</div>`;
+        return;
+      }
+
+      container.innerHTML = '';
+      pending.forEach(draft => {
+        const div = document.createElement('div');
+        div.className = 'draft-item';
+        div.innerHTML = `
+          <div class="draft-header">
+            <span class="draft-id">${draft.draft_id}</span>
+            <span style="font-size: 0.75rem; background: rgba(59,130,246,0.2); color: var(--primary-blue); padding: 2px 8px; border-radius: 12px; font-weight: 600;">CREATE (sale.order)</span>
+          </div>
+          <div class="draft-title">${draft.partner_id} - ${draft.title}</div>
+          <div class="draft-meta">
+            Monto Neto: <strong>$${draft.amount_untaxed.toLocaleString('es-CL')} CLP</strong> | 
+            Confianza Agéntica: ${(draft.confidence * 100).toFixed(0)}%
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button class="btn btn-success" onclick="approveDraft('${draft.draft_id}')">✅ Aprobar VoBo & Operar</button>
+            <button class="btn btn-danger" onclick="rejectDraft('${draft.draft_id}')">❌ Rechazar</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function approveDraft(id) {
+      const item = queueData.find(d => d.draft_id === id);
+      if (item) {
+        item.status = 'approved';
+        alert(`✅ Visto Bueno (VoBo) Otorgado para ${id}.\nPropuesta activada en Odoo ERP.`);
+        renderDraftsQueue();
+      }
+    }
+
+    function rejectDraft(id) {
+      const item = queueData.find(d => d.draft_id === id);
+      if (item) {
+        item.status = 'rejected';
+        alert(`Rechazado ${id}.`);
+        renderDraftsQueue();
+      }
+    }
+
+    function simDocAutomator() {
+      const out = document.getElementById('docOutput');
+      out.innerHTML = `<div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 4px;">✅ Informe IPES & Protocolo AT-SITR-1 Generado en 3.0s</div>`;
+    }
+
+    function simFatSat() {
+      const out = document.getElementById('fatOutput');
+      out.innerHTML = `<div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 4px;">🧪 Pruebas HIL Completadas: 100% Tramas DNP3 Validadas</div>`;
+    }
+
+    function simKitting() {
+      const out = document.getElementById('kitOutput');
+      out.innerHTML = `<div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 4px;">📦 Kit Tablero Pre-cableado Armado en Taller (ID: KIT-2026-01)</div>`;
+    }
+
+    function simAccreditation() {
+      const out = document.getElementById('accredOutput');
+      out.innerHTML = `<div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 4px;">🪪 Dossier Sicop/Pronexo Compilado (F30-1, EPP, ODI/DAS)</div>`;
+    }
+
+    function simEDP() {
+      const client = document.getElementById('edpClientInput').value;
+      const out = document.getElementById('edpOutput');
+      out.innerHTML = `<div style="font-size: 0.8rem; color: var(--accent-green); margin-top: 4px;">💰 Estado de Pago EDP-2026 Emitido para ${client} (Disparado a Facturación Odoo)</div>`;
+    }
+
+    window.onload = renderDraftsQueue;
+  </script>
+</body>
+</html>
