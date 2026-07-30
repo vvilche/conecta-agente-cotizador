@@ -1,0 +1,24 @@
+# Environment & Virtualenvs
+.venv/
+env/
+venv/
+
+# Large Archives & Data Dumps
+*.zip
+onedrive_4_extracted/
+ot_8000_extracted/
+ot_8000_smart_extracted/
+*.sqlite
+matriz_conocimiento_2026.json
+rag_store_2026.json
+
+# Python Cache & Testing
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS Specific
+.DS_Store
+Thumbs.db

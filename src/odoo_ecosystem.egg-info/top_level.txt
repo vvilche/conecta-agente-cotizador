@@ -1,0 +1,4 @@
+odoo_ecosystem
+rag_memory
+supervisor_ui
+swarm_engine

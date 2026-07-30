@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supervisor HITL Web Console - Odoo Agentic Swarm</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary-blue: #3b82f6;
+      --success-green: #10b981;
+      --danger-red: #ef4444;
+      --warning-amber: #f59e0b;
+      --accent-purple: #8b5cf6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .badge-0percent {
+      background-color: rgba(59, 130, 246, 0.15);
+      color: var(--primary-blue);
+      border: 1px solid var(--primary-blue);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--success-green);
+      box-shadow: 0 0 8px var(--success-green);
+    }
+
+    /* Filters bar */
+    .controls-bar {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .control-group label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    select, input {
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      outline: none;
+    }
+
+    select:focus, input:focus {
+      border-color: var(--primary-blue);
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-blue);
+      color: #fff;
+    }
+    .btn-primary:hover { background-color: #2563eb; }
+
+    .btn-success {
+      background-color: var(--success-green);
+      color: #fff;
+    }
+    .btn-success:hover { background-color: #059669; }
+
+    .btn-danger {
+      background-color: var(--danger-red);
+      color: #fff;
+    }
+    .btn-danger:hover { background-color: #dc2626; }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover { background-color: rgba(255,255,255,0.05); }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab.active {
+      color: var(--primary-blue);
+      border-bottom-color: var(--primary-blue);
+    }
+
+    /* Table Container */
+    .table-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 12px 16px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.875rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-pending { background-color: rgba(245, 158, 11, 0.15); color: var(--warning-amber); border: 1px solid var(--warning-amber); }
+    .badge-approved { background-color: rgba(16, 185, 129, 0.15); color: var(--success-green); border: 1px solid var(--success-green); }
+    .badge-rejected { background-color: rgba(239, 68, 68, 0.15); color: var(--danger-red); border: 1px solid var(--danger-red); }
+    .badge-committed { background-color: rgba(139, 92, 246, 0.15); color: var(--accent-purple); border: 1px solid var(--accent-purple); }
+
+    .conf-high { color: var(--success-green); font-weight: 700; }
+    .conf-med { color: var(--warning-amber); font-weight: 700; }
+    .conf-low { color: var(--danger-red); font-weight: 700; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.75);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .info-box {
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px;
+    }
+
+    .info-box h4 {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    pre {
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+    }
+
+    textarea {
+      width: 100%;
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      outline: none;
+      resize: vertical;
+      min-height: 80px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <h1>Supervisor Human-in-the-Loop Web Console</h1>
+      <span class="badge-0percent">0% Auto-Execution Gate</span>
+    </div>
+    <div class="status-indicator">
+      <div class="dot"></div>
+      <span>System Operational (VoBo Active)</span>
+    </div>
+  </header>
+
+  <!-- Interactive AI Quotation Assistant Card -->
+  <div style="background: linear-gradient(135deg, rgba(30,41,59,1) 0%, rgba(15,23,42,1) 100%); border: 1px solid var(--primary-blue); border-radius: 10px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+      <span style="font-size: 1.4rem;">🤖</span>
+      <h3 style="font-size: 1.1rem; color: #fff;">Asistente de Cotización Guiado Interactivo (Agente de Inteligencia Comercial)</h3>
+      <span class="badge badge-pending" style="margin-left: auto;">Líneas 2026: PMUS / SITR / SCADA / EDAC</span>
+    </div>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">
+      Selecciona una línea de negocio o escribe tu solicitud para iniciar el <strong>Diálogo Guiado Interactivo de Alcance</strong> donde el agente te preguntará por unidades, licencias y requisitos antes de armar la propuesta.
+    </p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+      <input type="text" id="quotePromptInput" placeholder="Ej. Cotizar reemplazo de remota RTU NovaTech Orion LX+ y switches Belden Hirschmann para Chilquinta" style="flex: 1; min-width: 300px; padding: 12px; font-size: 0.95rem;" value="Cotizar reemplazo de remota RTU NovaTech Orion LX+ y switches Belden Hirschmann para SE Mayaca de Chilquinta. Cliente cuenta con reloj GPS.">
+      <button class="btn btn-primary" onclick="startGuidedWizard()" style="padding: 12px 20px; font-size: 0.95rem;">
+        💬 Iniciar Diálogo Guiado Interactivo
+      </button>
+    </div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;" onclick="setPresetPrompt('RTU')">📡 Remotas RTU Subestación</button>
+      <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;" onclick="setPresetPrompt('SCADA')">🎛️ SCADA HMI (zenon/Advantech)</button>
+      <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;" onclick="setPresetPrompt('PMUS')">⚡ Medición Fasorial PMU</button>
+      <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;" onclick="setPresetPrompt('SITR')">☀️ Telemetría SITR PMGD</button>
+      <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 4px 10px;" onclick="setPresetPrompt('EDAC')">📈 Protecciones EDAC / ERAG</button>
+    </div>
+  </div>
+
+  <!-- Wizard Scope Modal -->
+  <div class="modal-overlay" id="wizardModal">
+    <div class="modal-content" style="max-width: 700px;">
+      <div class="modal-header" style="background-color: rgba(59, 130, 246, 0.1);">
+        <h3 id="wizardTitle">📋 Diálogo Guiado de Alcance de Proyecto</h3>
+        <button class="btn btn-secondary" onclick="closeWizardModal()">✕</button>
+      </div>
+      <div class="modal-body" id="wizardBody">
+        <div style="text-align: center; padding: 20px;">Cargando preguntas de alcance...</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeWizardModal()">Cancelar</button>
+        <button class="btn btn-success" onclick="generateCustomQuoteFromWizard()">🚀 Generar Cotización Personalizada</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="controls-bar">
+    <div class="control-group">
+      <label>Agent Filter</label>
+      <select id="agentFilter">
+        <option value="">All Specialized Agents</option>
+        <option value="rfq_prospeccion">rfq_prospeccion</option>
+        <option value="cotizacion_inventario">cotizacion_inventario</option>
+        <option value="operaciones_presupuesto">operaciones_presupuesto</option>
+        <option value="estados_pago">estados_pago</option>
+        <option value="gestion_documental">gestion_documental</option>
+        <option value="conciliador_contable">conciliador_contable</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label>Min Confidence</label>
+      <input type="number" id="confidenceFilter" min="0" max="1" step="0.05" value="0.0">
+    </div>
+
+    <div class="control-group">
+      <label>VoBo Status</label>
+      <select id="statusFilter">
+        <option value="pending_vobo" selected>Pending VoBo</option>
+        <option value="approved">Approved</option>
+        <option value="committed">Committed</option>
+        <option value="rejected">Rejected</option>
+        <option value="all">All Drafts</option>
+      </select>
+    </div>
+
+    <div style="margin-left: auto; align-self: flex-end;">
+      <button class="btn btn-primary" onclick="loadDrafts()">Refresh Queue</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" id="tabQueue" onclick="switchTab('queue')">Pending Drafts Queue (<span id="queueCount">0</span>)</div>
+    <div class="tab" id="tabAudit" onclick="switchTab('audit')">VoBo Audit Logs</div>
+    <div class="tab" id="tabStats" onclick="switchTab('stats')">Queue Metrics</div>
+    <div class="tab" id="tabOperations" onclick="switchTab('operations')">⚙️ Consola de Operaciones e Impacto Financiero</div>
+  </div>
+
+  <!-- Tab Content: Queue -->
+  <div id="viewQueue" class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Draft ID</th>
+          <th>Specialized Agent</th>
+          <th>Target Odoo Model</th>
+          <th>Confidence</th>
+          <th>VoBo Status</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="draftsTableBody">
+        <tr>
+          <td colspan="7" style="text-align: center; color: var(--text-muted);">Loading staged drafts...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tab Content: Audit Logs -->
+  <div id="viewAudit" class="table-card" style="display: none;">
+    <table>
+      <thead>
+        <tr>
+          <th>Audit ID</th>
+          <th>Draft ID</th>
+          <th>Supervisor ID</th>
+          <th>Verdict</th>
+          <th>Odoo Model</th>
+          <th>Odoo Record ID</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody id="auditTableBody">
+        <tr>
+          <td colspan="7" style="text-align: center; color: var(--text-muted);">Loading audit logs...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tab Content: Stats -->
+  <div id="viewStats" class="table-card" style="display: none; padding: 24px;">
+    <div id="statsContent">Loading metrics...</div>
+  </div>
+
+  <!-- Tab Content: Operations Console & Financial Impact -->
+  <div id="viewOperations" style="display: none; padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+    <!-- Financial Impact Dashboard Card -->
+    <div class="info-box" style="background: linear-gradient(135deg, rgba(16,185,129,0.05) 0%, rgba(59,130,246,0.05) 100%); border: 1px solid var(--accent-green); border-radius: 8px; padding: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+        <h3 style="color: var(--accent-green); margin: 0; font-size: 1.2rem;">💰 Dashboard de Impacto Financiero y Eficiencia Operacional</h3>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">OTs:</label>
+          <input type="number" id="opsNumOts" value="5" min="1" max="50" style="width: 70px; padding: 4px 8px;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Contrato (UF):</label>
+          <input type="number" id="opsContractUf" value="3500" min="100" style="width: 100px; padding: 4px 8px;">
+          <button class="btn btn-primary" onclick="loadOperationsMetrics()">Recalcular Impacto</button>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+        <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">MARGEN BRUTO RETENIDO</div>
+          <div style="font-size: 1.8rem; font-weight: 800; color: var(--accent-green);" id="metricMarginPct">54.8%</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);" id="metricMarginClp">CLP 0</div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">AHORRO TOTAL ESTIMADO</div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: #3b82f6;" id="metricSavingsClp">CLP 0</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">HH + Logística Terreno</div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">HORAS HOMBRE LIBERADAS</div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: #8b5cf6;" id="metricReleasedHh">0 HH</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">Automatización de Ingesta & FAT</div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">DÍAS TERRENO REDUCIDOS</div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: #f59e0b;" id="metricReducedDays">0 Días</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);">3.5 Días ahorrados por OT</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Operations Action Sub-panels Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+      <!-- DocAutomator Sub-panel -->
+      <div class="info-box">
+        <h4 style="color: var(--primary-blue); margin-bottom: 12px;">📄 Motor de Documentación Técnica</h4>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <input type="text" id="docOtCode" value="OT-7048" placeholder="Código OT (e.g. OT-7048)">
+          <input type="text" id="docClient" value="Enel Generación Chile" placeholder="Cliente">
+          <input type="text" id="docProject" value="Planta Solar CEME 1" placeholder="Proyecto">
+          <select id="docType">
+            <option value="batch" selected>📦 Batch Completo OT</option>
+            <option value="handover">📋 Carpeta de Entrega (Handover)</option>
+            <option value="fat_protocol">⚡ Protocolo Pruebas FAT CEN</option>
+            <option value="ipes">🔍 Informe Puesta en Servicio (IPES)</option>
+          </select>
+          <button class="btn btn-primary" onclick="runDocAutomator()">Generar Documentación</button>
+        </div>
+      </div>
+
+      <!-- FAT/SAT Simulator Sub-panel -->
+      <div class="info-box">
+        <h4 style="color: var(--accent-purple); margin-bottom: 12px;">🧪 Simulador Pruebas FAT / SAT Lab</h4>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <input type="text" id="fatOtCode" value="OT-7048" placeholder="Código OT">
+          <input type="text" id="fatSubstation" value="Subestación Ancud" placeholder="Subestación">
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" style="flex: 1;" onclick="runFatTest()">Ejecutar FAT</button>
+            <button class="btn btn-secondary" style="flex: 1;" onclick="runSatTest()">Ejecutar SAT</button>
+          </div>
+          <button class="btn btn-primary" onclick="generateFatSatCert()">Emitir Certificado Digital</button>
+        </div>
+      </div>
+
+      <!-- Kitting Engine Sub-panel -->
+      <div class="info-box">
+        <h4 style="color: #10b981; margin-bottom: 12px;">📦 Pre-Kitting de Tableros</h4>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <input type="text" id="kitOtCode" value="OT-7050" placeholder="Código OT">
+          <select id="kitTypeSelect">
+            <option value="PMU_PANEL_KIT_A" selected>⚡ PMU Panel Assembly Kit A (SEL-735)</option>
+            <option value="SCADA_RTU_KIT_B">🌐 SCADA RTU Gateway Kit B (Orion MX)</option>
+          </select>
+          <button class="btn btn-primary" onclick="buildKittingPackage()">Generar Kit & Verificar Stock</button>
+        </div>
+      </div>
+
+      <!-- Accreditation Sub-panel -->
+      <div class="info-box">
+        <h4 style="color: #f59e0b; margin-bottom: 12px;">🪪 Acreditación Personal & Plataformas</h4>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <input type="text" id="accOtCode" value="OT-7060" placeholder="Código OT">
+          <input type="text" id="accClient" value="Transelec" placeholder="Cliente / Empresa Mandante">
+          <select id="accPlatform">
+            <option value="" selected>🔒 Paquete Estándar Subestación</option>
+            <option value="Sicop">Plataforma SICOP (Transelec)</option>
+            <option value="Pronexo">Plataforma PRONEXO (Enel)</option>
+            <option value="RyS">Plataforma RyS / Codelco</option>
+          </select>
+          <button class="btn btn-primary" onclick="compileAccreditation()">Compilar Expediente Acreditación</button>
+        </div>
+      </div>
+
+      <!-- Payment Statement Sub-panel -->
+      <div class="info-box" style="grid-column: 1 / -1; border-color: var(--accent-green);">
+        <h4 style="color: var(--accent-green); margin-bottom: 12px;">💳 Generación Automatizada de Estado de Pago (EDP) & Stage VoBo Queue</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px;">
+          <input type="text" id="edpOtCode" value="OT-7048" placeholder="Código OT">
+          <input type="text" id="edpClient" value="Enel Generación Chile" placeholder="Cliente">
+          <input type="text" id="edpMilestone" value="Hito 2: Entrega Equipos y Pruebas FAT" placeholder="Nombre Hito">
+          <input type="number" id="edpPct" value="50" placeholder="% Hito (e.g. 50)">
+          <input type="number" id="edpContractUf" value="1500" placeholder="Monto Total UF">
+        </div>
+        <button class="btn btn-primary" style="width: 100%;" onclick="generatePaymentStatement()">⚡ Generar Estado de Pago & Enviar Borrador Factura a Cola VoBo</button>
+      </div>
+    </div>
+
+    <!-- Operations Output Log Console -->
+    <div class="info-box">
+      <h4 style="margin-bottom: 8px;">💻 Consola de Resultados Operacionales</h4>
+      <pre id="opsConsoleOutput" style="background: #0d1117; color: #38bdf8; padding: 14px; border-radius: 6px; font-size: 0.85rem; max-height: 250px; overflow-y: auto; white-space: pre-wrap;">Esperando ejecución de operaciones...</pre>
+    </div>
+  </div>
+
+  <!-- Modal Detail Viewer -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Draft Action Detail</h3>
+        <button class="btn btn-secondary" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid-2col">
+          <div class="info-box">
+            <h4>Agent & Target</h4>
+            <div id="modalMeta"></div>
+          </div>
+          <div class="info-box">
+            <h4>Confidence & Risk</h4>
+            <div id="modalRisk"></div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <h4>Agent Justification & RAG Rationale</h4>
+          <div id="modalJustification" style="font-size: 0.9rem; line-height: 1.4;"></div>
+        </div>
+
+        <div class="info-box" id="modalMarginBox" style="background-color: rgba(16, 185, 129, 0.06); border-color: var(--success-green); display: none;">
+          <h4 style="color: var(--success-green);">💡 Análisis de Costos y Utilidad Bruta Retenida (100% Empresa)</h4>
+          <div id="modalMarginContent" style="font-size: 0.88rem; line-height: 1.5; margin-top: 6px;"></div>
+        </div>
+
+        <div class="grid-2col">
+          <div class="info-box" id="modalWinRateBox" style="background-color: rgba(14, 165, 233, 0.06); border-color: #0ea5e9; display: none;">
+            <h4 style="color: #0ea5e9;">🏆 Estimador de Win-Rate y Probabilidad</h4>
+            <div id="modalWinRateContent" style="font-size: 0.85rem; line-height: 1.4; margin-top: 6px;"></div>
+          </div>
+          <div class="info-box" id="modalRegAuditBox" style="background-color: rgba(245, 158, 11, 0.06); border-color: #f59e0b; display: none;">
+            <h4 style="color: #f59e0b;">🛡️ Audit Preventivo Normativo CEN / SEC</h4>
+            <div id="modalRegAuditContent" style="font-size: 0.85rem; line-height: 1.4; margin-top: 6px;"></div>
+          </div>
+        </div>
+
+        <div class="info-box" id="modalCrossSellBox" style="background-color: rgba(168, 85, 247, 0.06); border-color: #a855f7; display: none;">
+          <h4 style="color: #a855f7;">💼 Oportunidades de Ventas Cruzadas y Servicios Recurrentes SLA</h4>
+          <div id="modalCrossSellContent" style="font-size: 0.85rem; line-height: 1.4; margin-top: 6px;"></div>
+        </div>
+
+        <div class="info-box">
+          <h4>Proposed Odoo Payload Diff</h4>
+          <pre id="modalPayload"></pre>
+        </div>
+
+        <div class="info-box" style="background-color: rgba(59, 130, 246, 0.05); border-color: var(--primary-blue);">
+          <h4 style="color: var(--primary-blue);">Supervisor VoBo Authorization Form</h4>
+          <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+            <div>
+              <label style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Supervisor Signature ID (*Required)</label>
+              <input type="text" id="supervisorIdInput" value="supervisor_admin_01" style="width: 100%;">
+            </div>
+            <div>
+              <label style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Approval Justification / Rejection Reason</label>
+              <textarea id="voboNotesInput" placeholder="Enter formal review context or rejection rationale..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+        <button class="btn btn-danger" onclick="submitRejection()">Reject Draft</button>
+        <button class="btn btn-success" onclick="submitApproval()">Approve & Commit to Odoo</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeDraftId = null;
+
+    async function loadDrafts() {
+      const agent = document.getElementById('agentFilter').value;
+      const minConf = document.getElementById('confidenceFilter').value;
+      const status = document.getElementById('statusFilter').value;
+
+      const url = `/api/drafts?agent=${encodeURIComponent(agent)}&min_confidence=${minConf}&status=${status}`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        renderDraftsTable(data.drafts || []);
+        document.getElementById('queueCount').innerText = (data.drafts || []).length;
+      } catch (err) {
+        console.error("Failed to load drafts:", err);
+      }
+    }
+
+    function renderDraftsTable(drafts) {
+      const tbody = document.getElementById('draftsTableBody');
+      if (drafts.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No staged drafts found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = drafts.map(d => {
+        const confPct = Math.round((d.confidence_score || 0) * 100);
+        const confClass = confPct >= 85 ? 'conf-high' : confPct >= 70 ? 'conf-med' : 'conf-low';
+        const statusBadge = `<span class="badge badge-${d.status}">${d.status}</span>`;
+
+        return `
+          <tr>
+            <td><strong>${d.draft_id}</strong></td>
+            <td>${d.agent_name}</td>
+            <td><code>${d.target_model}</code></td>
+            <td><span class="${confClass}">${confPct}%</span></td>
+            <td>${statusBadge}</td>
+            <td>${new Date(d.created_at).toLocaleString()}</td>
+            <td>
+              <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.75rem;" onclick="viewDraft('${d.draft_id}')">View / VoBo</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function viewDraft(draftId) {
+      activeDraftId = draftId;
+      try {
+        const res = await fetch(`/api/drafts/${draftId}`);
+        const data = await res.json();
+        const draft = data.draft || data;
+
+        document.getElementById('modalTitle').innerText = `Draft Action: ${draft.draft_id}`;
+        document.getElementById('modalMeta').innerHTML = `
+          <p><strong>Agent:</strong> ${draft.agent_name}</p>
+          <p><strong>Model:</strong> <code>${draft.target_model}</code></p>
+          <p><strong>Action Type:</strong> ${draft.action_type || 'create'}</p>
+        `;
+        document.getElementById('modalRisk').innerHTML = `
+          <p><strong>Confidence:</strong> ${(draft.confidence_score * 100).toFixed(1)}%</p>
+          <p><strong>Status:</strong> <span class="badge badge-${draft.status}">${draft.status}</span></p>
+        `;
+        document.getElementById('modalJustification').innerText = draft.justification || 'No rationale provided.';
+
+        const marginBox = document.getElementById('modalMarginBox');
+        const marginContent = document.getElementById('modalMarginContent');
+        const marginData = draft.metadata ? draft.metadata.margin_analysis : null;
+
+        if (marginData) {
+          marginBox.style.display = 'block';
+          let oppsHtml = (marginData.opportunities || []).map(o => `
+            <div style="margin-top: 6px; padding: 8px 12px; background-color: rgba(0,0,0,0.25); border-left: 4px solid var(--success-green); border-radius: 4px;">
+              <strong style="color: #fff;">💰 ${o.title}:</strong> ${o.description} 
+              <div style="margin-top: 4px; color: var(--success-green); font-weight: 700;">
+                + Utilidad Adicional Retenida para la Empresa: $${Math.round(o.additional_profit_clp || o.estimated_savings_clp).toLocaleString()} CLP (+${o.margin_boost_pct || o.margin_impact_pct}% Margen)
+              </div>
+            </div>
+          `).join('');
+
+          marginContent.innerHTML = `
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; background-color: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 6px;">
+              <div><strong>Precio Venta al Cliente (Fijo):</strong> <span style="color: #fff; font-weight: 700;">$${Math.round(marginData.total_sale_price_clp).toLocaleString()} CLP</span></div>
+              <div><strong>Costo Interno Inicial:</strong> $${Math.round(marginData.total_cost_clp).toLocaleString()} CLP</div>
+              <div><strong>Costo Interno Optimizado:</strong> <span style="color: var(--success-green); font-weight: 700;">$${Math.round(marginData.optimized_cost_clp || marginData.total_cost_clp).toLocaleString()} CLP</span></div>
+              <div><strong>Utilidad Bruta Empresa:</strong> <span class="conf-high">${(marginData.boosted_margin_pct || marginData.gross_margin_pct).toFixed(1)}%</span> (antes ${(marginData.base_margin_pct || marginData.gross_margin_pct).toFixed(1)}%)</div>
+            </div>
+            <div style="font-weight: 700; color: #38bdf8; margin-bottom: 6px;">💡 Oportunidades de Optimización de Costo Interno (100% Ganancia para la Empresa):</div>
+            ${oppsHtml}
+          `;
+        } else {
+          marginBox.style.display = 'none';
+        }
+
+        // Render Win-Rate Prediction
+        const winBox = document.getElementById('modalWinRateBox');
+        const winContent = document.getElementById('modalWinRateContent');
+        const winData = draft.metadata ? draft.metadata.win_rate_prediction : null;
+        if (winData) {
+          winBox.style.display = 'block';
+          winContent.innerHTML = `
+            <div><strong>Probabilidad Est.:</strong> <span style="color: #0ea5e9; font-weight: 700; font-size: 1.1rem;">${Math.round(winData.estimated_win_rate_pct)}%</span></div>
+            <div><strong>Sensibilidad Cliente:</strong> <code>${winData.client_sensitivity}</code></div>
+            <div><strong>Margen Sugerido:</strong> ${winData.recommended_margin_pct.toFixed(1)}%</div>
+            <div style="margin-top: 4px; color: var(--text-muted); font-size: 0.8rem;">${winData.rationale}</div>
+          `;
+        } else {
+          winBox.style.display = 'none';
+        }
+
+        // Render Regulatory Audit
+        const regBox = document.getElementById('modalRegAuditBox');
+        const regContent = document.getElementById('modalRegAuditContent');
+        const regData = draft.metadata ? draft.metadata.regulatory_audit : null;
+        if (regData) {
+          regBox.style.display = 'block';
+          const scorePct = Math.round(regData.compliance_score * 100);
+          const warningsHtml = (regData.warnings || []).map(w => `
+            <div style="margin-top: 4px; color: #f59e0b;">
+              <strong>⚠️ [${w.standard}]:</strong> ${w.message}
+              <div style="color: #fff; font-size: 0.78rem;">→ ${w.recommended_addition}</div>
+            </div>
+          `).join('');
+
+          regContent.innerHTML = `
+            <div><strong>Cumplimiento Normativo:</strong> <span style="font-weight: 700;">${scorePct}% (${regData.status})</span></div>
+            ${warningsHtml || '<div style="color: var(--success-green); margin-top: 4px;">✅ Sin omisiones normativas detectadas.</div>'}
+          `;
+        } else {
+          regBox.style.display = 'none';
+        }
+
+        // Render SLA Cross-Sell Opportunities
+        const crossBox = document.getElementById('modalCrossSellBox');
+        const crossContent = document.getElementById('modalCrossSellContent');
+        const crossData = draft.metadata ? draft.metadata.cross_sell_opportunities : null;
+        if (crossData && crossData.length > 0) {
+          crossBox.style.display = 'block';
+          crossContent.innerHTML = crossData.map(c => `
+            <div style="margin-top: 4px; padding: 6px; background: rgba(0,0,0,0.2); border-left: 3px solid #a855f7; border-radius: 4px;">
+              <strong style="color: #fff;">💼 ${c.suggested_service}:</strong> ${c.business_case}
+              <div style="color: #a855f7; font-weight: 700; margin-top: 2px;">Ingreso Recurrente Est.: $${Math.round(c.estimated_annual_revenue_clp).toLocaleString()} CLP / año</div>
+            </div>
+          `).join('');
+        } else {
+          crossBox.style.display = 'none';
+        }
+
+        document.getElementById('modalPayload').innerText = JSON.stringify(draft.proposed_payload || {}, null, 2);
+
+        document.getElementById('detailModal').style.display = 'flex';
+      } catch (err) {
+        alert("Error loading draft detail: " + err);
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('detailModal').style.display = 'none';
+      activeDraftId = null;
+    }
+
+    async function submitApproval() {
+      if (!activeDraftId) return;
+      const supervisorId = document.getElementById('supervisorIdInput').value.trim();
+      const notes = document.getElementById('voboNotesInput').value.trim();
+
+      if (!supervisorId) {
+        alert("Supervisor Signature ID is required for VoBo approval.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/drafts/${activeDraftId}/approve`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ supervisor_id: supervisorId, justification: notes })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          alert(`Draft ${activeDraftId} APPROVED & COMMITTED. Record ID: ${data.odoo_record_id}`);
+          closeModal();
+          loadDrafts();
+        } else {
+          alert("Approval failed: " + (data.error || "Unknown error"));
+        }
+      } catch (err) {
+        alert("Approval error: " + err);
+      }
+    }
+
+    async function submitRejection() {
+      if (!activeDraftId) return;
+      const supervisorId = document.getElementById('supervisorIdInput').value.trim();
+      const notes = document.getElementById('voboNotesInput').value.trim();
+
+      if (!supervisorId) {
+        alert("Supervisor Signature ID is required for rejection.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/drafts/${activeDraftId}/reject`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ supervisor_id: supervisorId, reason: notes })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          alert(`Draft ${activeDraftId} REJECTED cleanly.`);
+          closeModal();
+          loadDrafts();
+        } else {
+          alert("Rejection failed: " + (data.error || "Unknown error"));
+        }
+      } catch (err) {
+        alert("Rejection error: " + err);
+      }
+    }
+
+    async function loadAuditLogs() {
+      try {
+        const res = await fetch('/api/audit-logs');
+        const data = await res.json();
+        const logs = data.audit_logs || [];
+        const tbody = document.getElementById('auditTableBody');
+        
+        if (logs.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No audit logs recorded yet.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = logs.map(l => `
+          <tr>
+            <td><code>${l.audit_id}</code></td>
+            <td>${l.draft_id}</td>
+            <td><strong>${l.supervisor_id}</strong></td>
+            <td><span class="badge badge-${l.verdict}">${l.verdict}</span></td>
+            <td><code>${l.odoo_model}</code></td>
+            <td>${l.odoo_record_id ?? 'N/A'}</td>
+            <td>${new Date(l.timestamp).toLocaleString()}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error("Failed to load audit logs:", err);
+      }
+    }
+
+    async function loadStats() {
+      try {
+        const res = await fetch('/api/stats');
+        const data = await res.json();
+        const stats = data.stats || data;
+        document.getElementById('statsContent').innerHTML = `<pre>${JSON.stringify(stats, null, 2)}</pre>`;
+      } catch (err) {
+        console.error("Failed to load stats:", err);
+      }
+    }
+
+    function switchTab(tabName) {
+      document.getElementById('tabQueue').classList.toggle('active', tabName === 'queue');
+      document.getElementById('tabAudit').classList.toggle('active', tabName === 'audit');
+      document.getElementById('tabStats').classList.toggle('active', tabName === 'stats');
+      if (document.getElementById('tabOperations')) {
+        document.getElementById('tabOperations').classList.toggle('active', tabName === 'operations');
+      }
+
+      document.getElementById('viewQueue').style.display = tabName === 'queue' ? 'block' : 'none';
+      document.getElementById('viewAudit').style.display = tabName === 'audit' ? 'block' : 'none';
+      document.getElementById('viewStats').style.display = tabName === 'stats' ? 'block' : 'none';
+      if (document.getElementById('viewOperations')) {
+        document.getElementById('viewOperations').style.display = tabName === 'operations' ? 'flex' : 'none';
+      }
+
+      if (tabName === 'queue') loadDrafts();
+      if (tabName === 'audit') loadAuditLogs();
+      if (tabName === 'stats') loadStats();
+      if (tabName === 'operations') loadOperationsMetrics();
+    }
+
+    async function loadOperationsMetrics() {
+      const numOts = document.getElementById('opsNumOts') ? document.getElementById('opsNumOts').value : 5;
+      const contractUf = document.getElementById('opsContractUf') ? document.getElementById('opsContractUf').value : 3500;
+      try {
+        const res = await fetch(`/api/operations/metrics?num_ots=${numOts}&total_contract_uf=${contractUf}`);
+        const data = await res.json();
+        if (data.success && data.metrics) {
+          const m = data.metrics;
+          document.getElementById('metricMarginPct').innerText = `${m.retained_gross_margin_pct}%`;
+          document.getElementById('metricMarginClp').innerText = `CLP $${m.retained_gross_margin_clp.toLocaleString('es-CL')}`;
+          document.getElementById('metricSavingsClp').innerText = `CLP $${m.total_savings_clp.toLocaleString('es-CL')}`;
+          document.getElementById('metricReleasedHh').innerText = `${m.released_hh} HH`;
+          document.getElementById('metricReducedDays').innerText = `${m.reduced_field_days} Días`;
+          logOpsOutput("Métricas de impacto financiero recalculadas con éxito:\n" + JSON.stringify(m, null, 2));
+        }
+      } catch (err) {
+        logOpsOutput("Error al cargar métricas operacionales: " + err);
+      }
+    }
+
+    function logOpsOutput(msg) {
+      const out = document.getElementById('opsConsoleOutput');
+      if (out) {
+        out.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      }
+    }
+
+    async function runDocAutomator() {
+      const otCode = document.getElementById('docOtCode').value;
+      const client = document.getElementById('docClient').value;
+      const project = document.getElementById('docProject').value;
+      const docType = document.getElementById('docType').value;
+      logOpsOutput("Generando documentación técnica...");
+      try {
+        const res = await fetch('/api/operations/doc-automator/generate', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ ot_code: otCode, client_name: client, proj_name: project, doc_type: docType })
+        });
+        const data = await res.json();
+        logOpsOutput(JSON.stringify(data, null, 2));
+      } catch (err) {
+        logOpsOutput("Error: " + err);
+      }
+    }
+
+    async function runFatTest() {
+      const otCode = document.getElementById('fatOtCode').value;
+      logOpsOutput("Ejecutando pruebas FAT laboratorio...");
+      try {
+        const res = await fetch('/api/operations/fat-sat/run-fat', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ ot_code: otCode })
+        });
+        const data = await res.json();
+        logOpsOutput(JSON.stringify(data, null, 2));
+      } catch (err) {
+        logOpsOutput("Error: " + err);
+      }
+    }
+
+    async function runSatTest() {
+      const otCode = document.getElementById('fatOtCode').value;
+      const sub = document.getElementById('fatSubstation').value;
+      logOpsOutput("Ejecutando pruebas SAT en terreno...");
+      try {
+        const res = await fetch('/api/operations/fat-sat/run-sat', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ ot_code: otCode, substation_name: sub })
+        });
+        const data = await res.json();
+        logOpsOutput(JSON.stringify(data, null, 2));
+      } catch (err) {
+        logOpsOutput("Error: " + err);
+      }
+    }
+
+    async function generateFatSatCert() {
+      const otCode = document.getElementById('fatOtCode').value;
+      logOpsOutput("Generando certificado digital FAT/SAT...");
+      try {
+        const res = await fetch('/api/operations/fat-sat/certificate', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ ot_code: otCode })
+        });
+        const data = await res.json();
+        logOpsOutput(JSON.stringify(data, null, 2));
+      } catch (err) {
+        logOpsOutput("Error: " + err);
+      }
+    }
+
+    async function buildKittingPackage() {
+      const otCode = document.getElementById('kitOtCode').value;
+      const kitType = document.getElementById('kitTypeSelect').value;
+      logOpsOutput("Construyendo kit de tablero y verificando stock...");
+      try {
+        const res = await fetch('/api/operations/kitting/build-kit', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ ot_code: otCode, kit_type: kitType })
+        });
+        const data = await res.json();
+        logOpsOutput(JSON.stringify(data, null, 2));
+      } catch (err) {
+        logOpsOutput("Error: " + err);
+      }
+    }
+
+    async function compileAccreditation() {
+      const otCode = document.getElementById('accOtCode').value;
+      const client = document.getElementById('accClient').value;
+      const platform = document.getElementById('accPlatform').value;
+      logOpsOutput("Compilando expediente de acreditación de personal...");
+      try {
+        const res = await fetch('/api/operations/accreditation/compile', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ ot_code: otCode, client: client, target_platform: platform || null })
+        });
+        const data = await res.json();
+        logOpsOutput(JSON.stringify(data, null, 2));
+      } catch (err) {
+        logOpsOutput("Error: " + err);
+      }
+    }
+
+    async function generatePaymentStatement() {
+      const otCode = document.getElementById('edpOtCode').value;
+      const client = document.getElementById('edpClient').value;
+      const milestone = document.getElementById('edpMilestone').value;
+      const pct = parseFloat(document.getElementById('edpPct').value || 50);
+      const contractUf = parseFloat(document.getElementById('edpContractUf').value || 1500);
+      logOpsOutput("Generando Estado de Pago y enviando borrador a cola de aprobación VoBo...");
+      try {
+        const res = await fetch('/api/operations/payment-statement/generate', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            ot_code: otCode,
+            client_name: client,
+            milestone_name: milestone,
+            milestone_pct: pct,
+            total_contract_uf: contractUf
+          })
+        });
+        const data = await res.json();
+        logOpsOutput(JSON.stringify(data, null, 2));
+        if (data.success && data.draft_id) {
+          alert(`✅ Estado de Pago Generado Exitosamente.\nID Borrador en Cola VoBo: ${data.draft_id}`);
+          loadDrafts();
+        }
+      } catch (err) {
+        logOpsOutput("Error: " + err);
+      }
+    }
+
+    let currentGuidedData = null;
+
+    function setPresetPrompt(type) {
+      const input = document.getElementById('quotePromptInput');
+      if (type === 'PMUS') input.value = "Necesito cotizar un sistema de Medición Fasorial PMU VIZIMAX para Subestación Ancud 220kV de Transelec";
+      if (type === 'RTU') input.value = "Cotizar reemplazo de remota RTU NovaTech Orion LX+ y switches Belden Hirschmann para SE Mayaca de Chilquinta. Cliente cuenta con reloj GPS.";
+      if (type === 'SCADA') input.value = "Cotízame un retrofit de Sistema SCADA HMI COPA-DATA zenon y servidores Advantech con switches Belden Hirschmann para ADASA";
+      if (type === 'SITR') input.value = "Necesito cotizar un proyecto SITR para PMGD Solar de 9MW para cliente Grenergy";
+      if (type === 'EDAC') input.value = "Requiero estudio de protecciones EDAC/ERAG y simulación HIL para cliente Transelec";
+      startGuidedWizard();
+    }
+
+    async function startGuidedWizard() {
+      const promptInput = document.getElementById('quotePromptInput');
+      const promptText = promptInput.value.trim();
+      if (!promptText) {
+        alert("Por favor ingresa una solicitud de cotización.");
+        return;
+      }
+
+      const modal = document.getElementById('wizardModal');
+      const body = document.getElementById('wizardBody');
+      body.innerHTML = `<div style="text-align: center; padding: 20px;">🤖 El Agente está analizando la línea de negocio y cargando preguntas guiadas por arquitectura...</div>`;
+      modal.style.display = 'flex';
+
+      try {
+        const res = await fetch('/api/guided-questions', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ prompt: promptText })
+        });
+        const data = await res.json();
+        currentGuidedData = data;
+
+        document.getElementById('wizardTitle').innerText = `📋 Diálogo Guiado: ${data.template_name}`;
+        
+        let clientDefault = "Transelec S.A.";
+        if (promptText.toLowerCase().includes("chilquinta")) clientDefault = "Chilquinta Distribución S.A.";
+        else if (promptText.toLowerCase().includes("adasa")) clientDefault = "Aguas de Antofagasta (ADASA)";
+        else if (promptText.toLowerCase().includes("enel")) clientDefault = "ENEL Generación Chile S.A.";
+        else if (promptText.toLowerCase().includes("grenergy")) clientDefault = "Grenergy Renovables S.A.";
+        else if (promptText.toLowerCase().includes("colbun") || promptText.toLowerCase().includes("colbún")) clientDefault = "Colbún S.A.";
+
+        const isScadaOrRtu = data.business_line === 'scada_retrofit';
+        const isPmu = data.business_line === 'pmu_pdc';
+
+        let questionsHtml = `
+          <div class="info-box" style="margin-bottom: 16px; background-color: rgba(59,130,246,0.05); border-color: var(--primary-blue);">
+            <h4 style="color: var(--primary-blue);">Línea de Negocio Detectada: ${data.business_line.toUpperCase()} - ${data.template_name}</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">${data.description}</p>
+          </div>
+          <form id="wizardForm" style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">1. Modalidad de Proceso Comercial (*Requerido)</label>
+              <select id="wizModalityInput" style="width: 100%; font-weight: 600;" onchange="toggleTenderPreview()">
+                <option value="compra_directa" selected>📦 Compra Directa (Venta Privada Directa)</option>
+                <option value="licitacion">🏆 Licitación Pública / Privada (Requiere Leer Antecedentes & Bases)</option>
+              </select>
+            </div>
+
+            <div id="tenderAntecedentsBox" style="display: none; background-color: rgba(139,92,246,0.08); border: 1px solid var(--accent-purple); border-radius: 6px; padding: 14px;">
+              <h4 style="color: var(--accent-purple); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 8px;">📂 Antecedentes de Licitación Extraídos del Dataset 2026</h4>
+              <ul style="font-size: 0.8rem; color: var(--text-main); margin-left: 20px; line-height: 1.5;">
+                <li><strong>Código de Proceso:</strong> LIC-${data.business_line.toUpperCase()}-2026</li>
+                <li><strong>Exigencia de Garantía:</strong> 10% Boleta de Fiel Cumplimiento de Contrato.</li>
+                <li><strong>Experiencia Exigida:</strong> Mínimo 3 años en proyectos similares de infraestructura eléctrica.</li>
+                <li><strong>Formularios Obligatorios:</strong> Anexo A (Económico), Anexo B (BOM), Anexo C (CEN/SEC).</li>
+              </ul>
+            </div>
+
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">2. Nombre del Cliente Coordinado (*Requerido)</label>
+              <input type="text" id="wizClientInput" value="${clientDefault}" style="width: 100%;">
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">3. Cantidad de Unidades de Equipamiento Principal (${isScadaOrRtu ? 'Remotas RTU / Pantallas SCADA' : 'PMUs / Medidores'}):</label>
+              <input type="number" id="wizNumUnitsInput" min="1" max="20" value="1" style="width: 100%;">
+            </div>
+        `;
+
+        if (isScadaOrRtu) {
+          questionsHtml += `
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">4. Switches Ethernet Industriales (Estándar Belden Hirschmann IEC 61850-3):</label>
+              <select id="wizIncludePdc" style="width: 100%;">
+                <option value="true" selected>Sí, incluir Switches Managed Belden Hirschmann RS20/RS30</option>
+                <option value="false">No, cliente dispone de switches red OT</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">5. Sincronización GPS en Subestación:</label>
+              <select id="wizIncludeGps" style="width: 100%;">
+                <option value="false" ${promptText.toLowerCase().includes("reloj") || promptText.toLowerCase().includes("gps") ? 'selected' : ''}>No, cliente posee reloj GPS existente (OMITIR Reloj GPS del BOM)</option>
+                <option value="true">Sí, incluir Reloj GPS Satelital Kronos IRIG-B / PTP 1588</option>
+              </select>
+            </div>
+          `;
+        } else if (isPmu) {
+          questionsHtml += `
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">4. Servidor Concentrador PDC Gateway C37.118 (NovaTech Orion MX / SEL-3530):</label>
+              <select id="wizIncludePdc" style="width: 100%;">
+                <option value="true" selected>Sí, incluir Concentrador PDC NovaTech Orion MX</option>
+                <option value="false">No, cliente posee servidor PDC centralizado</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">5. Sincronizador Satelital GPS Kronos IRIG-B / PTP IEEE 1588:</label>
+              <select id="wizIncludeGps" style="width: 100%;">
+                <option value="true" selected>Sí, incluir Reloj GPS Kronos IRIG-B</option>
+                <option value="false">No, utilizar sincronización GPS existente en SE</option>
+              </select>
+            </div>
+          `;
+        } else {
+          questionsHtml += `
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">4. Tramitación e Informes de Acompañamiento CEN / SEC:</label>
+              <select id="wizIncludeCen" style="width: 100%;">
+                <option value="true" selected>Sí, incluir Protocolo AT-SITR-1 e Informe IPES</option>
+                <option value="false">No, a cargo del cliente</option>
+              </select>
+            </div>
+          `;
+        }
+
+        questionsHtml += `</form>`;
+        body.innerHTML = questionsHtml;
+
+      } catch (err) {
+        body.innerHTML = `<div style="color: var(--danger-red);">Error cargando preguntas: ${err}</div>`;
+      }
+    }
+
+    function toggleTenderPreview() {
+      const modality = document.getElementById('wizModalityInput').value;
+      const box = document.getElementById('tenderAntecedentsBox');
+      box.style.display = modality === 'licitacion' ? 'block' : 'none';
+    }
+
+    function closeWizardModal() {
+      document.getElementById('wizardModal').style.display = 'none';
+    }
+
+    async function generateCustomQuoteFromWizard() {
+      const modality = document.getElementById('wizModalityInput').value;
+      const client = document.getElementById('wizClientInput').value.trim() || 'Cliente Coordinado';
+      const numUnits = parseFloat(document.getElementById('wizNumUnitsInput').value || 1);
+      const includePdc = document.getElementById('wizIncludePdc') ? document.getElementById('wizIncludePdc').value === 'true' : true;
+      const includeGps = document.getElementById('wizIncludeGps') ? document.getElementById('wizIncludeGps').value === 'true' : true;
+      const includeCen = document.getElementById('wizIncludeCen') ? document.getElementById('wizIncludeCen').value === 'true' : true;
+      const promptText = document.getElementById('quotePromptInput').value.trim();
+
+      closeWizardModal();
+
+      try {
+        const res = await fetch('/api/request-quote', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            prompt: promptText,
+            client: client,
+            modality: modality,
+            num_pmus: numUnits,
+            num_rtus: numUnits,
+            include_pdc: includePdc,
+            include_gps: includeGps,
+            include_gps_clock: includeGps,
+            has_existing_gps: !includeGps,
+            include_cen: includeCen
+          })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          const modalityLabel = modality === 'licitacion' ? 'Licitación Pública' : 'Compra Directa';
+          alert(`✅ Cotización Generada con Éxito (${modalityLabel})\nID Borrador Odoo: ${data.draft.draft_id}`);
+          loadDrafts();
+          viewDraft(data.draft.draft_id);
+        } else {
+          alert("Error generando cotización: " + (data.error || "Desconocido"));
+        }
+      } catch (err) {
+        alert("Error en la solicitud: " + err);
+      }
+    }
+
+
+    async function submitQuoteRequest() {
+      startGuidedWizard();
+    }
+
+    // Initial load
+    loadDrafts();
+
+
+  </script>
+</body>
+</html>

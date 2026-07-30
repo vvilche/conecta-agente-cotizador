@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-07-30 09:08:41",
+  "quotes": [
+    {
+      "type": "PMU_WAPMS",
+      "client": "Transelec S.A.",
+      "project": "SE Ancud 220kV",
+      "amount_clp": 84070796.46017697,
+      "margin_pct": 54.8,
+      "draft_id": "draft_e4b0c05e40c5"
+    },
+    {
+      "type": "RTU_REMOTA",
+      "client": "Chilquinta Distribución S.A.",
+      "project": "SE Mayaca 110kV",
+      "amount_clp": 55309734.51327433,
+      "margin_pct": 54.8,
+      "draft_id": "draft_4a94f9a3340d"
+    },
+    {
+      "type": "SCADA_RETROFIT",
+      "client": "ADASA",
+      "project": "SE Desaladora",
+      "amount_clp": 88495575.22123893,
+      "margin_pct": 54.8,
+      "draft_id": "draft_f2cb7f7f915d"
+    }
+  ],
+  "total_duration_seconds": 0.0
+}

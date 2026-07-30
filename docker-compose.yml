@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  commercial-intelligence-swarm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: commercial_swarm_app
+    restart: always
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=production
+      - PORT=5001
+      - ODOO_URL=${ODOO_URL:-https://odoo.empresa.cl}
+      - ODOO_DB=${ODOO_DB:-odoo_prod}
+      - ODOO_USER=${ODOO_USER:-admin}
+      - ODOO_PASSWORD=${ODOO_PASSWORD:-secret}
+    volumes:
+      - ./matriz_conocimiento_2026.sqlite:/app/matriz_conocimiento_2026.sqlite
+      - ./data_logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

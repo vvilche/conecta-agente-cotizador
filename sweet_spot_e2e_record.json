@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-07-30 09:06:39",
+  "ot_code": "OT-7105",
+  "client_name": "Sonnedix Chile S.A.",
+  "project_name": "SLA Anual Monitoreo SITR & PMU PFV Meseta de los Andes",
+  "contract_uf": 480.0,
+  "uf_value_clp": 38377.09,
+  "phases": {
+    "phase_1_prospecting": {
+      "onepager_id": "ONEPAGER-SLA-SITR",
+      "win_rate_pct": 15.0,
+      "status": "PROPOSAL_STAGED"
+    },
+    "phase_2_crm_order": {
+      "draft_id": "draft_19eb6069b523",
+      "status": "VOBO_STAGED"
+    },
+    "phase_3_remote_execution": {
+      "ipes_doc_id": "INFORME-IPES-OT-7105",
+      "config_status": "READY_FOR_UPLOAD",
+      "field_stay_days": 0.0,
+      "status": "EXECUTED_100_PERCENT_REMOTE"
+    },
+    "phase_4_hil_verification": {
+      "certificate_id": "CERT-FAT-SAT-OT-7105-2026",
+      "telemetry_availability_pct": 99.95,
+      "status": "APPROVED_READY_FOR_BILLING"
+    },
+    "phase_5_billing": {
+      "statement_id": "EDP-OT-7105-M100",
+      "invoice_draft_id": "draft_bba9e995a1a6",
+      "collection_days_saved": 25.0,
+      "status": "INVOICE_STAGED"
+    },
+    "phase_6_financial": {
+      "retained_margin_pct": 68.5,
+      "gross_profit_clp": 12618387.192,
+      "field_stay_days": 0.0,
+      "status": "MARGIN_RETAINED_SUCCESSFULLY"
+    }
+  },
+  "contract_total_clp": 18421003.2,
+  "duration_seconds": 0.0
+}

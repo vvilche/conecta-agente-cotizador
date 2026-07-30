@@ -1,0 +1,77 @@
+{
+  "simulation_title": "Flujo Punta a Punta desde Cotización Comercial hasta Cierre Operacional",
+  "timestamp": "2026-07-30T08:26:13.869262",
+  "client": "Enel Generación Chile S.A.",
+  "opportunity_name": "Sistema WAPMS & Telemetría PMU Solar CEME 1 220kV",
+  "ot_code": "OT-7100",
+  "contract_uf": 3200.0,
+  "uf_value_clp": 38377.09,
+  "contract_total_clp": 122806688.0,
+  "phases": [
+    {
+      "phase_name": "Fase 1: Cotización Comercial & Odoo CRM",
+      "win_rate": 53.0,
+      "compliance_audit": "COMPLIANT",
+      "cross_sell_count": 2,
+      "sale_order_draft_id": "draft_a206f9dcd7d7"
+    },
+    {
+      "phase_name": "Fase 2: Traspaso Comercial a Operaciones",
+      "ot_code": "OT-7100",
+      "handover_payload": {
+        "doc_id": "FICHA-TRASPASO-OT-7100",
+        "ot_code": "OT-7100",
+        "client": "Enel Generación Chile S.A.",
+        "project": "WAPMS Solar CEME 1 220kV",
+        "monto_uf": 3200.0,
+        "handover_date": "2026-07-30",
+        "status": "GENERATED_AUTOMATICALLY",
+        "time_saved_minutes": 180,
+        "output_format": "pdf",
+        "file_payload": {
+          "filename": "FICHA_TRASPASO_OT-7100.pdf",
+          "format": "pdf",
+          "mime_type": "application/pdf",
+          "size_bytes": 1048576,
+          "payload_stream": "<PDF_BINARY_HEADER_FICHA_TRASPASO_OT-7100>"
+        },
+        "generation_duration_seconds": 2.98
+      }
+    },
+    {
+      "phase_name": "Fase 3: Kitting y Verificación de Inventario",
+      "access_delay_days": 7.5,
+      "risk_level": "HIGH",
+      "kit_pmu_id": "KIT-PMU-STD-OT-7100",
+      "inventory_verified": true
+    },
+    {
+      "phase_name": "Fase 4: Pruebas FAT/SAT y Certificación HIL",
+      "fat_status": "APPROVED_100_PERCENT",
+      "sat_status": "SAT_PASSED_READY_FOR_COMMERCIAL_OPERATION",
+      "clock_drift_us": 0.42,
+      "certificate_id": "CERT-FAT-SAT-OT-7100-2026"
+    },
+    {
+      "phase_name": "Fase 5: Acreditación de Personal e Ingreso a Faena",
+      "workers_accredited": 5,
+      "dossier_id": "DOSSIER-PRONEXO-15.420.110-8",
+      "audit_status": "COMPLIANT_ALL_VALID"
+    },
+    {
+      "phase_name": "Fase 6: Estados de Pago y Facturación Odoo",
+      "statement_id": "EDP-OT-7100-M50",
+      "amount_clp": 73069979.0,
+      "invoice_draft_id": "draft_999087418ee5"
+    },
+    {
+      "phase_name": "Fase 7: Cierre Financiero y Rentabilidad",
+      "retained_gross_margin_pct": 54.8,
+      "retained_gross_margin_clp": 88328710.34,
+      "released_hh": 453.5,
+      "reduced_field_days": 21.0
+    }
+  ],
+  "total_duration_seconds": 0.0,
+  "final_status": "COMMERCIAL_TO_OPERATIONAL_E2E_SUCCESS"
+}
