@@ -363,17 +363,18 @@
       let multiplier = 1.0 / (1.0 - (targetMarginPct / 100.0));
       let items = [];
 
-      // Clean voltage/power ratings (e.g. 220kV, 110kV, 9MW) and translate Spanish number words
+      // Clean voltage/power ratings (e.g. 220kV, 110kV, 9MW) and non-device stop phrases ('una cotización', '1 licitación')
       let cleanPromptForQty = prompt
         .replace(/\d+\s*(kv|mw|kw|mva|hz|v|a|amp)\b/gi, '')
-        .replace(/\b(un|una|uno)\b/gi, '1')
+        .replace(/\b(un|una|uno)\s+(cotizaci[oó]n|oferta|propuesta|licitaci[oó]n|rfp|proyecto|subestaci[oó]n|se)\b/gi, '')
         .replace(/\b(dos)\b/gi, '2')
         .replace(/\b(tres)\b/gi, '3')
         .replace(/\b(cuatro)\b/gi, '4')
         .replace(/\b(cinco)\b/gi, '5');
 
-      const numberMatches = cleanPromptForQty.match(/\b\d+\b/g);
-      let parsedQty = numberMatches ? parseInt(numberMatches[0]) : numUnits;
+      // Match device-specific quantity in prompt if present (e.g. '3 PMUs', '2 remotas'), otherwise default to user's form input (numUnits)
+      let deviceQtyMatch = cleanPromptForQty.match(/\b(\d+)\s*(?:unidades|unid|pcs)?\s*(?:[a-z0-9\-_]+\s*){0,2}?(pmu|pmus|rtu|rtus|remota|remotas|switch|switches|medidor|medidores|equipo|equipos)\b/i);
+      let parsedQty = deviceQtyMatch ? parseInt(deviceQtyMatch[1], 10) : numUnits;
       if (isNaN(parsedQty) || parsedQty < 1) parsedQty = numUnits;
 
       // Dynamic Item Matching based on user prompt tokens
@@ -405,7 +406,7 @@
 
       // Add Switches if requested or selected in dropdown
       if (includeSwitches || prompt.includes('switch') || prompt.includes('belden') || prompt.includes('hirschmann')) {
-        items.push({ item_code: 'HW-SWITCH-BELDEN', name: `[HARDWARE] Switch Managed Belden Hirschmann RS20/RS30 Subestación IEC 61850`, qty: Math.max(1, Math.round(parsedQty / 2)), unit_cost: 2300000 });
+        items.push({ item_code: 'HW-SWITCH-BELDEN', name: `[HARDWARE] Switch Managed Belden Hirschmann RS20/RS30 Subestación IEC 61850`, qty: parsedQty, unit_cost: 2300000 });
       }
 
       // Fallback for custom prompt items if no standard tokens matched

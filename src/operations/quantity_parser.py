@@ -30,23 +30,31 @@ SPANISH_NUMBER_WORDS: Dict[str, int] = {
 _NUMBER_PATTERN_STR = r'(?:\b(?:un|una|uno|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\b|\b\d+(?:\.\d+)?\b)'
 
 
+STOP_PHRASES_PATTERN = re.compile(
+    r'\b(?:un|una|uno)\s+(?:cotizaci[oó]n|oferta|propuesta|licitaci[oó]n|rfp|proyecto|subestaci[oó]n|se|d[ií]as|semanas|meses|a[nñ]os|rev|revisi[oó]n)\b',
+    re.IGNORECASE
+)
+
+
 class QuantityParser:
     """
     Parser for device quantities in unstructured commercial/technical prompt strings.
-    Strips voltage and power specifications before parsing numeric values.
+    Strips voltage, power specifications, and non-device stop-phrases before parsing numeric values.
     """
 
     VOLTAGE_POWER_PATTERN = VOLTAGE_POWER_PATTERN
+    STOP_PHRASES_PATTERN = STOP_PHRASES_PATTERN
     SPANISH_NUMBER_WORDS = SPANISH_NUMBER_WORDS
 
     @classmethod
     def strip_voltage_and_power(cls, text: str) -> str:
         """
-        Strips or masks voltage/power expressions like '220kV', '110kV', '9MW', '50Hz'.
+        Strips voltage/power expressions (e.g., '220kV') and non-device stop-phrases (e.g., 'una cotización').
         """
         if not text:
             return ""
-        return cls.VOLTAGE_POWER_PATTERN.sub(" ", text)
+        cleaned = cls.VOLTAGE_POWER_PATTERN.sub(" ", text)
+        return cls.STOP_PHRASES_PATTERN.sub(" ", cleaned)
 
     @classmethod
     def parse_number_token(cls, token: str) -> Optional[float]:

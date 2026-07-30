@@ -10,7 +10,7 @@ from flask import Flask, jsonify, request, render_template
 
 from supervisor_ui.console import SupervisorConsole, DraftNotFoundError, InvalidDraftStateError
 from swarm_engine.base_agent import DraftAction
-from src.operations import (
+from operations import (
     DocAutomator,
     FatSatSimulator,
     KittingEngine,
