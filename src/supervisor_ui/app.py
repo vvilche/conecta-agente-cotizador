@@ -90,7 +90,16 @@ def create_app(console: Optional[SupervisorConsole] = None) -> Flask:
         client_name = payload.get("partner_id", "Cliente")
         lines = payload.get("order_line", [])
 
-        if doc_type == "bom_xlsx":
+        if doc_type in ("bom_xlsx", "bom"):
+            from operations.bom_excel_builder import DedicatedBOMExcelBuilder
+            excel_bytes = DedicatedBOMExcelBuilder.build_bom_bytes(payload)
+            from flask import Response
+            return Response(
+                excel_bytes,
+                mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                headers={"Content-Disposition": f"attachment;filename=BOM_Lista_Materiales_{client_name.replace(' ', '_')}.xlsx"}
+            )
+        elif doc_type in ("ficha_traspaso", "ficha_xlsx"):
             from operations.bom_excel_builder import MultiTabBOMExcelBuilder
             excel_bytes = MultiTabBOMExcelBuilder.build_workbook_bytes(payload)
             from flask import Response

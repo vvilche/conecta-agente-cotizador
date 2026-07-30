@@ -95,8 +95,8 @@ class TestDynamicTargetMargin:
         assert data_post["metrics"]["retained_gross_margin_pct"] == 68.5
 
     def test_api_documents_download_dynamic_margin(self, app_client):
-        """Test GET /api/documents/download with target_margin_pct parameter for BOM Excel."""
-        response = app_client.get("/api/documents/download?doc_type=bom_xlsx&target_margin_pct=30.0")
+        """Test GET /api/documents/download with target_margin_pct parameter for Ficha Traspaso Excel."""
+        response = app_client.get("/api/documents/download?doc_type=ficha_traspaso&target_margin_pct=30.0")
         assert response.status_code == 200
         assert response.mimetype == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 

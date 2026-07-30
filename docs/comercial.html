@@ -288,10 +288,17 @@
           </div>
           <div class="doc-card">
             <div>
-              <h4>📦 Ficha de Traspaso OT <span style="color:var(--accent-green);">.xlsx</span></h4>
-              <p>Excel 14 pestañas — Formato oficial Conecta Ficha Traspaso.</p>
+              <h4>📦 Lista de Materiales (BOM) <span style="color:var(--accent-green);">.xlsx</span></h4>
+              <p>Planilla dedicada de partidas, marcas, cantidades y precios.</p>
             </div>
-            <button class="btn btn-secondary" onclick="downloadExcelBOM()" style="margin-top: 8px; font-size: 0.75rem; padding: 4px 8px;">⬇️ Descargar Ficha BOM .xlsx</button>
+            <button class="btn btn-secondary" onclick="downloadDedicatedBOM()" style="margin-top: 8px; font-size: 0.75rem; padding: 4px 8px;">⬇️ Descargar BOM .xlsx</button>
+          </div>
+          <div class="doc-card">
+            <div>
+              <h4>📋 Ficha de Traspaso OT <span style="color:var(--accent-green);">.xlsx</span></h4>
+              <p>Excel 9 pestañas oficiales de operaciones Conecta S.A.</p>
+            </div>
+            <button class="btn btn-secondary" onclick="downloadExcelFichaTraspaso()" style="margin-top: 8px; font-size: 0.75rem; padding: 4px 8px;">⬇️ Descargar Ficha OT .xlsx</button>
           </div>
           <div class="doc-card">
             <div>
@@ -605,8 +612,66 @@
       saveAs(blob, `EETT_Arquitectura_OT_${p.partner_id.replace(/[^a-zA-Z0-9]/g,'_')}.docx`);
     }
 
+    // ── Real .xlsx generator — Dedicated BOM Lista de Materiales ─────────────────────────
+    function downloadDedicatedBOM() {
+      if (!currentPayload) { alert('Primero genera una cotización.'); return; }
+      const p = currentPayload;
+      const today = new Date().toLocaleDateString('es-CL');
+      const wb = XLSX.utils.book_new();
+      const marginPct = parseFloat(document.getElementById('marginInput').value || 54.8);
+
+      const addSheet = (name, data) => {
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        XLSX.utils.book_append_sheet(wb, ws, name);
+      };
+
+      const costo = Math.round(p.amount_untaxed * (1 - marginPct/100));
+      const utilidad = Math.round(p.amount_untaxed * (marginPct/100));
+
+      // Sheet 1: BOM Lista de Materiales
+      addSheet('BOM Lista de Materiales', [
+        ['CONECTA INGENIERÍA S.A. — LISTA DE MATERIALES Y EQUIPOS (BOM)'],
+        [`Cliente: ${p.partner_id}   |   Fecha: ${today}   |   Ref: OF-${new Date().getFullYear()}-CONECTA-REV0`],
+        [''],
+        ['N°', 'Código Partida', 'Descripción Ítem', 'Marca / Modelo', 'Cant.', 'Precio Unit. Neto CLP', 'Subtotal Venta Neto CLP'],
+        ...p.order_line.map((i, idx) => [idx + 1, i.item_code, i.name, 'VIZIMAX/Belden/NovaTech', i.product_uom_qty, i.price_unit, i.price_subtotal]),
+        ['', '', '', '', '', 'MONTO NETO TOTAL:', p.amount_untaxed],
+        ['', '', '', '', '', 'IMPUESTO IVA (19%):', p.amount_tax],
+        ['', '', '', '', '', 'TOTAL BRUTO CON IVA:', p.amount_total],
+      ]);
+
+      // Sheet 2: Resumen Comercial
+      addSheet('Resumen Comercial', [
+        ['RESUMEN FINANCIERO Y OPTIMIZACIÓN COMERCIAL'],
+        [''],
+        ['Indicador Comercial / Financiero', 'Valor CLP / %'],
+        ['Cliente Coordinado', p.partner_id],
+        ['Fecha de Cotización', today],
+        ['Monto Neto Cliente (Sin IVA)', p.amount_untaxed],
+        ['Impuesto IVA (19%)', p.amount_tax],
+        ['Monto Total Bruto (Con IVA)', p.amount_total],
+        ['Margen Bruto Target (%)', marginPct / 100],
+        ['Utilidad Bruta Target CLP', utilidad],
+        ['Costo Directo Estimado CLP', costo],
+      ]);
+
+      // Sheet 3: Especificación Técnica BOM
+      addSheet('Especificación Técnica BOM', [
+        ['ESPECIFICACIÓN TÉCNICA Y ESTÁNDARES DE HARDWARE'],
+        [''],
+        ['Equipamiento', 'Estándar / Protocolo', 'Cumplimiento'],
+        ['PMU Fasorial', 'VIZIMAX SynchroTeq Plus — Clase A IEEE C37.118-2011', '✅ Cumple'],
+        ['Switches OT', 'Belden Hirschmann RS20/RS30 — IEC 61850-3 Redundante', '✅ Cumple'],
+        ['Remota RTU', 'NovaTech Orion LX+ — DNP3.0 / IEC 61850', '✅ Cumple'],
+        ['Sincronización GPS', 'Kronos Series 2/3 — IRIG-B / PTP IEEE 1588', '✅ Cumple'],
+        ['Telemetría CEN', 'Guía Técnica AT-SITR-1 del Coordinador Eléctrico', '✅ Cumple'],
+      ]);
+
+      XLSX.writeFile(wb, `BOM_Lista_Materiales_${p.partner_id.replace(/[^a-zA-Z0-9]/g,'_')}.xlsx`);
+    }
+
     // ── Real .xlsx generator — Ficha de Traspaso OT (9 pestañas oficiales Conecta S.A.) ──
-    function downloadExcelBOM() {
+    function downloadExcelFichaTraspaso() {
       if (!currentPayload) { alert('Primero genera una cotización.'); return; }
       const p = currentPayload;
       const today = new Date().toLocaleDateString('es-CL');

@@ -19,6 +19,8 @@ from .financial_engine import FinancialImpactEngine
 from .quantity_parser import QuantityParser, parse_quantities, extract_device_quantity
 from .official_word_quote_builder import OfficialWordQuoteBuilder
 
+from .bom_excel_builder import MultiTabBOMExcelBuilder, DedicatedBOMExcelBuilder
+
 __all__ = [
     "ConfigAutomator",
     "FatSatSimulator",
@@ -30,7 +32,9 @@ __all__ = [
     "QuantityParser",
     "parse_quantities",
     "extract_device_quantity",
-    "OfficialWordQuoteBuilder"
+    "OfficialWordQuoteBuilder",
+    "MultiTabBOMExcelBuilder",
+    "DedicatedBOMExcelBuilder"
 ]
 
 

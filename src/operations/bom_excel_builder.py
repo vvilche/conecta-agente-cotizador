@@ -350,3 +350,110 @@ class MultiTabBOMExcelBuilder:
         stream.seek(0)
         return stream.getvalue()
 
+
+class DedicatedBOMExcelBuilder:
+    """
+    Dedicated BOM Excel Builder for Conecta Ingeniería S.A.
+    Generates a clean, itemized Bill of Materials workbook (.xlsx) separate from the Ficha de Traspaso OT workbook.
+    """
+
+    @classmethod
+    def build_bom_workbook(cls, payload: dict) -> openpyxl.Workbook:
+        wb = openpyxl.Workbook()
+        wb.remove(wb.active)
+
+        client_name = payload.get("partner_id") or payload.get("client_name") or "Cliente Coordinado Conecta"
+        lines = payload.get("order_line", [])
+        today = datetime.date.today().strftime("%d/%m/%Y")
+        margin_pct = MultiTabBOMExcelBuilder._extract_margin_pct(payload)
+
+        # ── Sheet 1: BOM Lista de Materiales ──────────────────────────────────
+        ws_bom = wb.create_sheet("BOM Lista de Materiales")
+        ws_bom.cell(1, 1, f"CONECTA INGENIERÍA S.A. — LISTA DE MATERIALES Y EQUIPOS (BOM)").font = MultiTabBOMExcelBuilder.TITLE
+        ws_bom.cell(2, 1, f"Cliente: {client_name}   |   Fecha: {today}   |   Ref: OF-2026-CONECTA-REV0").font = MultiTabBOMExcelBuilder.SUBTITLE
+
+        MultiTabBOMExcelBuilder._hdr_row(
+            ws_bom, 4,
+            ["N°", "Código Partida", "Descripción de la Partida", "Marca / Modelo", "Cant.", "Precio Unit. Neto CLP", "Subtotal Venta Neto CLP"]
+        )
+
+        default_lines = [
+            {"item_code": "HW-RTU-NOVATECH", "name": "[HARDWARE] Remota RTU Subestación NovaTech Orion LX+ / ABB RTU560", "brand": "NovaTech Orion", "qty": 1, "price": 21681416},
+            {"item_code": "HW-SWITCH-IND", "name": "[HARDWARE] Switch Managed Belden Hirschmann RS20/RS30 Subestación", "brand": "Belden Hirschmann", "qty": 1, "price": 5088496},
+            {"item_code": "HW-VIZIMAX-PMU", "name": "[HARDWARE] Medidor Fasorial VIZIMAX SynchroTeq Plus PMU Clase A", "brand": "VIZIMAX", "qty": 1, "price": 9500000},
+            {"item_code": "HW-GPS-CLOCK", "name": "[HARDWARE] Sincronizador Satelital GPS Kronos IRIG-B / PTP 1588", "brand": "Kronos", "qty": 1, "price": 3200000},
+            {"item_code": "ENG-HH-INTEGRATION", "name": "[ENGINEERING] Ingeniería Configuración DNP3.0/C37.118 & Integración SCADA", "brand": "Conecta S.A.", "qty": 50, "price": 110000},
+            {"item_code": "FLD-FAT-SAT-SERVICES", "name": "[FIELD_SERVICES] Pruebas HIL FAT Taller & Comisionamiento SAT Terreno", "brand": "Conecta S.A.", "qty": 1, "price": 3800000},
+        ]
+
+        active_lines = lines if lines else default_lines
+        start_row = 5
+
+        for idx, item in enumerate(active_lines, start=start_row):
+            ws_bom.cell(idx, 1, idx - start_row + 1).alignment = MultiTabBOMExcelBuilder.CENTER
+            ws_bom.cell(idx, 2, item.get("item_code", "HW-ITEM")).font = MultiTabBOMExcelBuilder.BOLD
+            ws_bom.cell(idx, 3, item.get("name", "Ítem OT"))
+            ws_bom.cell(idx, 4, item.get("brand", "Belden/VIZIMAX/NovaTech"))
+            ws_bom.cell(idx, 5, item.get("product_uom_qty", 1)).alignment = MultiTabBOMExcelBuilder.CENTER
+
+            c_unit = ws_bom.cell(idx, 6, item.get("price_unit", 0))
+            c_unit.number_format = "$#,##0"
+
+            c_sub = ws_bom.cell(idx, 7, f"=E{idx}*F{idx}")
+            c_sub.number_format = "$#,##0"
+            c_sub.font = MultiTabBOMExcelBuilder.BOLD
+
+        end_row = start_row + len(active_lines) - 1
+
+        # Summary Rows
+        row_net = end_row + 2
+        ws_bom.cell(row_net, 6, "MONTO NETO TOTAL:").font = MultiTabBOMExcelBuilder.BOLD
+        c_net = ws_bom.cell(row_net, 7, f"=SUM(G{start_row}:G{end_row})")
+        c_net.number_format = "$#,##0"; c_net.font = MultiTabBOMExcelBuilder.BOLD; c_net.fill = MultiTabBOMExcelBuilder.ACCENT_FILL
+
+        row_iva = row_net + 1
+        ws_bom.cell(row_iva, 6, "IMPUESTO IVA (19%):").font = MultiTabBOMExcelBuilder.BOLD
+        c_iva = ws_bom.cell(row_iva, 7, f"=G{row_net}*0.19")
+        c_iva.number_format = "$#,##0"; c_iva.font = MultiTabBOMExcelBuilder.BOLD
+
+        row_tot = row_iva + 1
+        ws_bom.cell(row_tot, 6, "TOTAL BRUTO CON IVA:").font = MultiTabBOMExcelBuilder.BOLD
+        c_tot = ws_bom.cell(row_tot, 7, f"=G{row_net}+G{row_iva}")
+        c_tot.number_format = "$#,##0"; c_tot.font = MultiTabBOMExcelBuilder.BOLD; c_tot.fill = MultiTabBOMExcelBuilder.GREEN_FILL
+
+        # ── Sheet 2: Resumen Financiero ───────────────────────────────────────
+        ws_res = wb.create_sheet("Resumen Financiero")
+        ws_res.cell(1, 1, "RESUMEN FINANCIERO Y OPTIMIZACIÓN COMERCIAL").font = MultiTabBOMExcelBuilder.TITLE
+        MultiTabBOMExcelBuilder._hdr_row(ws_res, 3, ["Indicador Comercial / Financiero", "Valor CLP / %"])
+
+        res_data = [
+            ("Cliente Coordinado", client_name),
+            ("Fecha de Cotización", today),
+            ("Monto Neto Cliente (Sin IVA)", f"='BOM Lista de Materiales'!G{row_net}"),
+            ("Impuesto IVA (19%)", f"='BOM Lista de Materiales'!G{row_iva}"),
+            ("Monto Total Bruto (Con IVA)", f"='BOM Lista de Materiales'!G{row_tot}"),
+            ("Margen Bruto Target (%)", margin_pct / 100.0),
+            ("Utilidad Bruta Target CLP", f"=B5*(B8)"),
+            ("Costo Directo Estimado CLP", f"=B5*(1-B8)"),
+        ]
+
+        for idx, (lbl, val) in enumerate(res_data, start=4):
+            c1 = ws_res.cell(idx, 1, lbl); c1.font = MultiTabBOMExcelBuilder.BOLD
+            c2 = ws_res.cell(idx, 2, val)
+            if lbl == "Margen Bruto Target (%)":
+                c2.number_format = "0.0%"; c2.fill = MultiTabBOMExcelBuilder.GREEN_FILL; c2.font = MultiTabBOMExcelBuilder.BOLD
+            elif "CLP" in lbl or "Monto" in lbl or "IVA" in lbl:
+                c2.number_format = "$#,##0"; c2.font = MultiTabBOMExcelBuilder.BOLD
+
+        MultiTabBOMExcelBuilder._autofit(wb)
+        return wb
+
+    @classmethod
+    def build_bom_bytes(cls, payload: dict) -> bytes:
+        wb = cls.build_bom_workbook(payload)
+        stream = io.BytesIO()
+        wb.save(stream)
+        stream.seek(0)
+        return stream.getvalue()
+
+
