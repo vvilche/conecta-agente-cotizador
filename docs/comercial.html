@@ -345,8 +345,16 @@
       let multiplier = 2.212389; // 54.8% Retained Margin
       let items = [];
 
-      // Extract numbers if explicitly typed in prompt (e.g., "cotizar 3 remotas y 2 switches")
-      const numberMatches = prompt.match(/\b\d+\b/g);
+      // Clean voltage/power ratings (e.g. 220kV, 110kV, 9MW) and translate Spanish number words
+      let cleanPromptForQty = prompt
+        .replace(/\d+\s*(kv|mw|kw|mva|hz|v|a|amp)\b/gi, '')
+        .replace(/\b(un|una|uno)\b/gi, '1')
+        .replace(/\b(dos)\b/gi, '2')
+        .replace(/\b(tres)\b/gi, '3')
+        .replace(/\b(cuatro)\b/gi, '4')
+        .replace(/\b(cinco)\b/gi, '5');
+
+      const numberMatches = cleanPromptForQty.match(/\b\d+\b/g);
       let parsedQty = numberMatches ? parseInt(numberMatches[0]) : numUnits;
       if (isNaN(parsedQty) || parsedQty < 1) parsedQty = numUnits;
 
