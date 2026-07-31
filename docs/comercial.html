@@ -277,6 +277,9 @@
           </div>
         </div>
 
+        <!-- ⚠️ Dynamic Financial & Scope Deviation Alerts Panel -->
+        <div id="alertsContainer" style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;"></div>
+
         <h3 style="font-size: 0.95rem; margin-top: 20px; margin-bottom: 8px; color: #fff;">📦 Lista de Materiales (BOM) & Partidas</h3>
         <div style="overflow-x: auto;">
           <table id="bomTable">
@@ -520,6 +523,79 @@
           <td><strong>$${item.price_subtotal.toLocaleString('es-CL')} CLP</strong></td>
         `;
         tbody.appendChild(tr);
+      });
+
+      // ── Detección de Alertas de Desviación Financiera, Alcance y Normativa CEN ───────
+      const alertsDiv = document.getElementById('alertsContainer');
+      alertsDiv.innerHTML = '';
+      let alerts = [];
+      const netMCLP = amount_untaxed / 1000000;
+
+      // 1. Alerta de Margen
+      if (targetMarginPct < 35.0) {
+        alerts.push({
+          type: 'warning',
+          icon: '⚠️',
+          title: 'Alerta de Margen Crítico Bajo (' + targetMarginPct.toFixed(1) + '%)',
+          text: 'El margen ingresado está por debajo del estándar interno Conecta S.A. (54.8%). Apto solo para licitaciones competitivas o acuerdos de volumen.'
+        });
+      } else if (targetMarginPct > 65.0) {
+        alerts.push({
+          type: 'info',
+          icon: 'ℹ️',
+          title: 'Margen Alto Seleccionado (' + targetMarginPct.toFixed(1) + '%)',
+          text: 'Venta con alta rentabilidad (SLA especial o emergencia). Verificar que la propuesta no quede fuera de mercado por precio elevador.'
+        });
+      } else {
+        alerts.push({
+          type: 'success',
+          icon: '✅',
+          title: 'Margen Saludable (' + targetMarginPct.toFixed(1) + '%)',
+          text: 'Cumple la política interna de retención de margen bruto de Conecta S.A. (Target: 54.8%).'
+        });
+      }
+
+      // 2. Alerta de Sub-cotización / Dimensionamiento Complejo
+      const isComplexDeal = prompt.includes('pdc') || prompt.includes('slrp') || prompt.includes('proteccion') || prompt.includes('modernizacion') || prompt.includes('centro de control');
+      if (isComplexDeal && netMCLP < 45.0) {
+        alerts.push({
+          type: 'danger',
+          icon: '🚨',
+          title: 'Riesgo de Sub-cotización en Proyecto Complejo',
+          text: 'Los proyectos de PDC / SLRP / Protecciones históricamente superan los M$100M CLP (ej: Transelec M$206M, Grenergy M$130M). Revisa si faltan licencias corporativas multi-nodo o estudios DIgSILENT.'
+        });
+      }
+
+      // 3. Alerta de Alcance Técnico (Reloj GPS)
+      const needsGps = prompt.includes('pmu') || prompt.includes('fasorial') || prompt.includes('vizimax');
+      if (needsGps && !hasGps && !prompt.includes('gps') && !prompt.includes('kronos')) {
+        alerts.push({
+          type: 'danger',
+          icon: '📡',
+          title: 'Sincronizador Satelital GPS Omitido',
+          text: 'La norma IEEE C37.118 exige precisión sub-microsegundo para datos fasoriales PMU. Activa "Incluir Reloj GPS" salvo que la subestación ya posea una referencia de tiempo IRIG-B/PTP válida.'
+        });
+      }
+
+      // 4. Alerta de Normativa CEN (AT-SITR-1 / IPES)
+      const needsCEN = prompt.includes('pmu') || prompt.includes('sitr') || prompt.includes('pmgd');
+      if (needsCEN) {
+        alerts.push({
+          type: 'info',
+          icon: '📋',
+          title: 'Cumplimiento Normativo CEN Incluido',
+          text: 'Esta cotización incluye la elaboración del Informe IPES y el Protocolo de Pruebas AT-SITR-1 para aprobación por el Coordinador Eléctrico Nacional.'
+        });
+      }
+
+      // Render alert cards
+      alerts.forEach(a => {
+        const bg = a.type === 'danger' ? 'rgba(239,68,68,0.15)' : a.type === 'warning' ? 'rgba(245,158,11,0.15)' : a.type === 'success' ? 'rgba(34,197,94,0.15)' : 'rgba(59,130,246,0.15)';
+        const border = a.type === 'danger' ? '#ef4444' : a.type === 'warning' ? '#f59e0b' : a.type === 'success' ? '#22c55e' : '#3b82f6';
+        const card = document.createElement('div');
+        card.style.cssText = `background: ${bg}; border-left: 4px solid ${border}; padding: 10px 14px; border-radius: 6px; font-size: 0.82rem;`;
+        card.innerHTML = `<strong>${a.icon} ${a.title}</strong><br><span style="color: rgba(255,255,255,0.85);">${a.text}</span>`;
+        alertsDiv.appendChild(card);
       });
 
       btn.innerText = originalText;
