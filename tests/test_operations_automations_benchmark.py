@@ -6,7 +6,7 @@ Suite de pruebas de benchmark para validar los 5 módulos de automatización ope
 2. KittingEngine (BOM Kit PMU / RTU pre-cableado)
 3. FatSatSimulator (Simulación HIL y Certificado FAT/SAT)
 4. AccreditationAutomator (Dossier Digital Sicop / Pronexo)
-5. PaymentStatementAutomator (Estados de Pago EDP 1 / EDP 2 & Odoo Payload)
+5. PaymentStatementAutomator (Estados de Pago EDP 1 / EDP 2 / EDP 3 & Odoo Payload)
 
 Compara las salidas generadas contra 5 OTs históricas reales de Conecta S.A.
 """
@@ -175,31 +175,41 @@ def test_accreditation_automator_benchmark():
 
 
 def test_payment_statement_automator_benchmark():
-    """Prueba 5: PaymentStatementAutomator emite EDP 1 (50%) y EDP 2 (50%) disparando Odoo"""
+    """Prueba 5: PaymentStatementAutomator emite EDP 1 (30% OC), EDP 2 (40% Ing), EDP 3 (30% SAT/CEN) disparando Odoo"""
     pay = PaymentStatementAutomator()
 
     for ot in BENCHMARK_OTS:
-        # EDP 1 - FAT Milestone (50%)
+        # EDP 1 - Orden de Compra Milestone (30%)
         edp1 = pay.generate_payment_statement(
             ot_code=ot["ot_code"],
             client_name=ot["client"],
-            milestone_name="EDP 1 - Pre-kitting & Pruebas FAT HIL Taller",
-            milestone_pct=50.0,
+            milestone_name="EDP 1 - Emisión y Recepción de Orden de Compra (OC)",
+            milestone_pct=30.0,
             total_contract_uf=ot["contract_uf"]
         )
-        assert edp1["amount_uf"] == round(ot["contract_uf"] * 0.5, 2)
+        assert edp1["amount_uf"] == round(ot["contract_uf"] * 0.30, 2)
 
-        # Odoo Invoice Payload
-        odoo_payload = pay.create_odoo_invoice_draft_payload(ot["ot_code"], edp1)
-        assert odoo_payload["partner_id"] == ot["client"]
-        assert odoo_payload["move_type"] == "out_invoice"
+        # Odoo Invoice Payload EDP 1
+        odoo_payload1 = pay.create_odoo_invoice_draft_payload(ot["ot_code"], edp1)
+        assert odoo_payload1["partner_id"] == ot["client"]
+        assert odoo_payload1["move_type"] == "out_invoice"
 
-        # EDP 2 - SAT Milestone (50%)
+        # EDP 2 - Ingeniería de Detalle & Suministros Milestone (40%)
         edp2 = pay.generate_payment_statement(
             ot_code=ot["ot_code"],
             client_name=ot["client"],
-            milestone_name="EDP 2 - Comisionamiento SAT Terreno & Informe IPES CEN",
-            milestone_pct=50.0,
+            milestone_name="EDP 2 - Aprobación Ingeniería de Detalle y Suministros en Taller",
+            milestone_pct=40.0,
             total_contract_uf=ot["contract_uf"]
         )
-        assert edp2["amount_uf"] == round(ot["contract_uf"] * 0.5, 2)
+        assert edp2["amount_uf"] == round(ot["contract_uf"] * 0.40, 2)
+
+        # EDP 3 - SAT Terreno & IPES CEN Milestone (30%)
+        edp3 = pay.generate_payment_statement(
+            ot_code=ot["ot_code"],
+            client_name=ot["client"],
+            milestone_name="EDP 3 - Comisionamiento SAT Terreno & Informe IPES CEN",
+            milestone_pct=30.0,
+            total_contract_uf=ot["contract_uf"]
+        )
+        assert edp3["amount_uf"] == round(ot["contract_uf"] * 0.30, 2)

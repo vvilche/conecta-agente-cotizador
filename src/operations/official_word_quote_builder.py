@@ -288,8 +288,9 @@ class OfficialWordQuoteBuilder:
         p_pago = doc.add_paragraph()
         payment_text = payload.get("payment_conditions") or payload.get("payment_terms") or (
             "El pago del precio ofertado se efectuará mediante Estados de Pago (EDP) contra emisión de factura a 30 días:\n"
-            "• EDP N° 1 (50% del Total Neto): Al completar el pre-kitting y armado de tableros en taller Conecta S.A.\n"
-            "• EDP N° 2 (50% del Total Neto): A la entrega del Certificado FAT/SAT HIL e Informe IPES registrado ante el CEN."
+            "• EDP N° 1 (30% del Total Neto): A la recepción de la Orden de Compra (OC) oficial del cliente.\n"
+            "• EDP N° 2 (40% del Total Neto): A la entrega y aprobación de la Ingeniería de Detalle y Suministros en taller.\n"
+            "• EDP N° 3 (30% del Total Neto): A la Puesta en Servicio (SAT Terreno) y entrega del Informe IPES registrado ante el CEN."
         )
         p_pago.add_run(payment_text)
 
