@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>Conecta S.A. — Suite Integral de Pruebas en Vivo (GitHub Pages)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <!-- CDN Libraries para generación real en el navegador -->
+  <script src="https://cdn.jsdelivr.net/npm/docx@7.8.2/build/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --panel-bg: #111827;
+      --card-bg: #1e293b;
+      --card-hover: #27354d;
+      --primary-blue: #3b82f6;
+      --accent-green: #10b981;
+      --accent-purple: #8b5cf6;
+      --accent-amber: #f59e0b;
+      --accent-cyan: #06b6d4;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --glass-bg: rgba(30, 41, 59, 0.7);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 15% 20%, #1e1b4b 0%, var(--bg-dark) 50%);
+      color: var(--text-main);
+      padding: 30px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 28px;
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .brand-title { 
+      font-size: 1.5rem; 
+      font-weight: 800; 
+      background: linear-gradient(90deg, #60a5fa, #34d399); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-left: 16px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #fff;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-green);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .project-selector {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-proj {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-proj:hover {
+      border-color: var(--primary-blue);
+      color: #fff;
+    }
+    .btn-proj.active {
+      background: linear-gradient(135deg, var(--primary-blue), #2563eb);
+      color: #fff;
+      border-color: #60a5fa;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+    }
+
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .metric-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+    }
+    .metric-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent-green);
+    }
+    .metric-lbl {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    .engines-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .engine-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .engine-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary-blue);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    }
+    .engine-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-blue), var(--accent-green));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .engine-card:hover::before { opacity: 1; }
+
+    .engine-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .engine-icon {
+      font-size: 2.2rem;
+      background: rgba(255,255,255,0.05);
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+    .engine-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .engine-desc {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      flex-grow: 1;
+    }
+
+    .engine-specs {
+      background: rgba(0,0,0,0.25);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .engine-specs span { color: var(--accent-cyan); font-weight: 600; }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      flex: 1;
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-blue), #2563eb);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #60a5fa, var(--primary-blue));
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 1px solid var(--border-color);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: #fff;
+    }
+
+    .preview-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .preview-box {
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 850px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+    }
+    .preview-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .preview-content {
+      padding: 24px;
+      overflow-y: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      line-height: 1.5;
+      background: #0d1117;
+    }
+    .preview-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="brand-title">🧪 Conecta S.A. — Suite Integral de Pruebas en Vivo</div>
+      <div style="font-size: 0.82rem; color: var(--text-muted);">Prueba 100% en el Navegador los Cotizadores Excel 9 Pestañas, Word Docx y Generadores CEN</div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">🌐 Hub Principal</a>
+      <a href="comercial.html">💼 Portal Comercial</a>
+      <a href="operaciones.html">⚙️ Portal Operaciones</a>
+      <a href="prueba_suite.html" class="active">🧪 Suite de Pruebas</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner & Project Selector -->
+  <div class="hero-banner">
+    <div>
+      <h2 style="font-size: 1.3rem; margin-bottom: 6px; color: #fff;">Selecciona el Proyecto o Coordinado del SEN a Probar:</h2>
+      <p style="font-size: 0.88rem; color: var(--text-muted);">Todos los documentos se generan en el navegador en tiempo real utilizando las tablas de precio y normativa vigentes.</p>
+    </div>
+    <div class="project-selector">
+      <button class="btn-proj active" onclick="selectProject('OT-8208', this)">
+        <span>⚡ OT-8208: Colbún (PMU Rucatayo)</span>
+      </button>
+      <button class="btn-proj" onclick="selectProject('OT-7405', this)">
+        <span>🎛️ OT-7405: ADASA (SCADA zenon)</span>
+      </button>
+      <button class="btn-proj" onclick="selectProject('OT-8112', this)">
+        <span>📡 OT-8112: Transelec (SITR / EDAC)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Dynamic Metrics Row -->
+  <div class="metrics-bar">
+    <div class="metric-card">
+      <div class="metric-val" id="dispProjectCode">OT-8208</div>
+      <div class="metric-lbl">CÓDIGO PROYECTO OFICIAL</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val" id="dispClient">COLBÚN S.A.</div>
+      <div class="metric-lbl">CLIENTE COORDINADO</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val" id="dispAmount">$58.628.319 CLP</div>
+      <div class="metric-lbl">MONTO NETO COTIZADO</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val" style="color: #60a5fa;" id="dispMargin">54.8%</div>
+      <div class="metric-lbl">MARGEN RETENIDO (TARGET)</div>
+    </div>
+  </div>
+
+  <!-- Engines Grid (6 Motores del Sistema) -->
+  <div class="engines-grid">
+    
+    <!-- 1. Cotizador Excel 9 Pestañas -->
+    <div class="engine-card">
+      <div>
+        <div class="engine-header">
+          <div class="engine-icon">📊</div>
+          <span class="status-badge">COTIZACIÓN OPERATIVA</span>
+        </div>
+        <div class="engine-title">1. Cotizador Excel 9 Pestañas</div>
+        <div class="engine-desc">
+          Genera el Libro Excel completo de Ficha de Traspaso y Control Económico de Conecta S.A. con sus 9 pestañas normadas y fórmulas de protección de margen.
+        </div>
+        <div class="engine-specs">
+          Hoja: <span>9 Pestañas</span> | Margen: <span>54.8% Target</span>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-outline" onclick="previewDocument('excel_9tab')">👁️ Ver Pestañas</button>
+        <button class="btn btn-primary" onclick="downloadExcel9Tabs()">⬇️ Descargar .xlsx</button>
+      </div>
+    </div>
+
+    <!-- 2. Cotizador Comercial Oficial Word (.docx) -->
+    <div class="engine-card">
+      <div>
+        <div class="engine-header">
+          <div class="engine-icon">📄</div>
+          <span class="status-badge">OFERTA CLIENTE</span>
+        </div>
+        <div class="engine-title">2. Propuesta Comercial Word</div>
+        <div class="engine-desc">
+          Elabora la Propuesta Técnico-Económica Oficial en formato Microsoft Word (.docx) con encabezados corporativos, partidas y condiciones 30/40/30.
+        </div>
+        <div class="engine-specs">
+          Formato: <span>.docx Word</span> | Validez: <span>30 Días</span>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-outline" onclick="previewDocument('word_quote')">👁️ Ver Oferta</button>
+        <button class="btn btn-primary" onclick="downloadWordQuote()">⬇️ Descargar .docx</button>
+      </div>
+    </div>
+
+    <!-- 3. Protocolo de Pruebas FAT/SAT CEN -->
+    <div class="engine-card">
+      <div>
+        <div class="engine-header">
+          <div class="engine-icon">🧪</div>
+          <span class="status-badge">COMPLIANCE CEN</span>
+        </div>
+        <div class="engine-title">3. Protocolo Pruebas FAT/SAT</div>
+        <div class="engine-desc">
+          Certificado oficial de pruebas en laboratorio (HIL-as-a-Service) verificando tramas IEEE C37.118, sincronización PTP 1588 y latencia < 20 ms.
+        </div>
+        <div class="engine-specs">
+          Norma: <span>AT-SITR-1</span> | GPS: <span>PTP IEEE 1588</span>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-outline" onclick="previewDocument('protocolo_cen')">👁️ Ver Protocolo</button>
+        <button class="btn btn-primary" onclick="downloadJsonDoc('PROTOCOLO_FAT_SAT_CEN', 'protocolo_cen')">⬇️ Descargar .json/.md</button>
+      </div>
+    </div>
+
+    <!-- 4. Informe IPES de Puesta en Servicio CEN/SEC -->
+    <div class="engine-card">
+      <div>
+        <div class="engine-header">
+          <div class="engine-icon">📑</div>
+          <span class="status-badge">SUBMISSION CEN</span>
+        </div>
+        <div class="engine-title">4. Informe IPES CEN/SEC</div>
+        <div class="engine-desc">
+          Informe de Puesta en Servicio (IPES) exigido por el Coordinador Eléctrico Nacional para autorizar la operación en el Sistema Eléctrico Nacional (NTSyCS).
+        </div>
+        <div class="engine-specs">
+          Estándar: <span>NTSyCS CEN</span> | Estado: <span>Listo para Envío</span>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-outline" onclick="previewDocument('ipes_cen')">👁️ Ver Informe</button>
+        <button class="btn btn-primary" onclick="downloadJsonDoc('INFORME_IPES_PUESTA_EN_SERVICIO', 'ipes_cen')">⬇️ Descargar .json/.md</button>
+      </div>
+    </div>
+
+    <!-- 5. Dossier Acreditación Sicop / Pronexo -->
+    <div class="engine-card">
+      <div>
+        <div class="engine-header">
+          <div class="engine-icon">🪪</div>
+          <span class="status-badge">FAENA SEGURA</span>
+        </div>
+        <div class="engine-title">5. Dossier de Acreditación</div>
+        <div class="engine-desc">
+          Compila y verifica los certificados de los técnicos para ingreso a subestaciones: F30-1, examen de altura física/geográfica, EPP y ODI/DAS.
+        </div>
+        <div class="engine-specs">
+          Plataformas: <span>Sicop / Pronexo</span> | Cumplimiento: <span>100%</span>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-outline" onclick="previewDocument('dossier_sicop')">👁️ Ver Dossier</button>
+        <button class="btn btn-primary" onclick="downloadJsonDoc('DOSSIER_ACREDITACION_SICOP', 'dossier_sicop')">⬇️ Descargar .json/.md</button>
+      </div>
+    </div>
+
+    <!-- 6. Estado de Pago (EDP N° 2 - 40%) -->
+    <div class="engine-card">
+      <div>
+        <div class="engine-header">
+          <div class="engine-icon">💰</div>
+          <span class="status-badge">COBRANZA ODOO</span>
+        </div>
+        <div class="engine-title">6. Estado de Pago EDP N° 2</div>
+        <div class="engine-desc">
+          Estado de pago indexado al valor UF con cálculo automático de IVA y adjunto del certificado FAT firmado para facturación sin observaciones.
+        </div>
+        <div class="engine-specs">
+          Hito: <span>40% FAT Taller</span> | Ciclo: <span>-25 Días Cobro</span>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-outline" onclick="previewDocument('edp_n2')">👁️ Ver EDP N°2</button>
+        <button class="btn btn-primary" onclick="downloadJsonDoc('ESTADO_DE_PAGO_N2', 'edp_n2')">⬇️ Descargar .json/.md</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Preview Modal -->
+  <div class="preview-modal" id="previewModal">
+    <div class="preview-box">
+      <div class="preview-header">
+        <h3 id="previewTitle" style="color: #fff; font-size: 1.1rem;">👁️ Vista Previa de Documento</h3>
+        <button class="btn btn-outline" onclick="closePreview()" style="flex: 0; padding: 6px 12px;">✕ Cerrar</button>
+      </div>
+      <div class="preview-content" id="previewText"></div>
+      <div class="preview-footer">
+        <button class="btn btn-outline" onclick="closePreview()" style="flex: 0; padding: 8px 16px;">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Base de datos de proyectos en el navegador ─────────────────────────────
+    const PROJECTS = {
+      'OT-8208': {
+        code: 'OT-8208',
+        client: 'COLBÚN S.A.',
+        substation: 'S/E Rucatayo 220 kV',
+        device: 'Vizimax SynchroTeq Plus PMU / Orion MX',
+        amount: '$58.628.319 CLP',
+        amount_num: 58628319,
+        margin: '54.8%',
+        items: [
+          { code: 'HW-PMU-VIZIMAX', name: 'Medidor Fasorial VIZIMAX SynchroTeq Plus Clase A IEEE C37.118', qty: 2, price: 10900000 },
+          { code: 'HW-PDC-NOVATECH', name: 'Concentrador PDC Gateway NovaTech Orion MX', qty: 1, price: 11200000 },
+          { code: 'ENG-PMU-CONFIG', name: 'Configuración IEEE C37.118.2 / Synchrophasor PMU + Pruebas CEN', qty: 2, price: 2100000 },
+          { code: 'FLD-FAT-SAT-SVC', name: 'Pruebas HIL FAT Taller & Comisionamiento SAT Terreno + IPES', qty: 1, price: 5500000 }
+        ]
+      },
+      'OT-7405': {
+        code: 'OT-7405',
+        client: 'ADASA / Chilquinta S.A.',
+        substation: 'S/E Mayaca 110 kV',
+        device: 'COPA-DATA zenon HMI & Servidores Redundantes Advantech',
+        amount: '$46.850.000 CLP',
+        amount_num: 46850000,
+        margin: '54.8%',
+        items: [
+          { code: 'SW-LIC-SCADA-ZENON', name: 'Licencia COPA-DATA zenon HMI / SCADA Server Redundante', qty: 1, price: 12500000 },
+          { code: 'HW-SRV-ADVANTECH', name: 'Servidor Industrial Advantech IEC 61850', qty: 2, price: 4800000 },
+          { code: 'ENG-SCADA-INTEG', name: 'Integración Protocolos SCADA / Drivers Comunicación IEC 60870-5-104', qty: 1, price: 4500000 }
+        ]
+      },
+      'OT-8112': {
+        code: 'OT-8112',
+        client: 'TRANSELEC S.A.',
+        substation: 'S/E Ancud 220 kV',
+        device: 'Telemetría SITR PMGD & Protecciones EDAC/ERAG SEL',
+        amount: '$84.070.796 CLP',
+        amount_num: 84070796,
+        margin: '58.2%',
+        items: [
+          { code: 'HW-GATEWAY-SITR', name: 'Gateway SITR Telemetría PMGD 4G Dual-SIM DNP3.0', qty: 3, price: 4200000 },
+          { code: 'ENG-STUDY-EDAC', name: 'Estudio de Protecciones EDAC/ERAG DIgSILENT PowerFactory', qty: 1, price: 14500000 },
+          { code: 'REG-CEN-AT-SITR', name: 'Tramitación Protocolo AT-SITR-1 e Informe IPES ante CEN', qty: 1, price: 5500000 }
+        ]
+      }
+    };
+
+    let activeProject = 'OT-8208';
+
+    function selectProject(projCode, el) {
+      activeProject = projCode;
+      document.querySelectorAll('.btn-proj').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+
+      const p = PROJECTS[projCode];
+      document.getElementById('dispProjectCode').innerText = p.code;
+      document.getElementById('dispClient').innerText = p.client;
+      document.getElementById('dispAmount').innerText = p.amount;
+      document.getElementById('dispMargin').innerText = p.margin;
+    }
+
+    // ── Vista Previa Interactiva en Modal ──────────────────────────────────────
+    function previewDocument(docType) {
+      const p = PROJECTS[activeProject];
+      let title = "";
+      let text = "";
+
+      if (docType === 'excel_9tab') {
+        title = `📊 Estructura Excel 9 Pestañas Conecta (${p.code} - ${p.client})`;
+        text = `========================================================================
+ LIBRO EXCEL DE 9 PESTAÑAS OFICIAL — CONECTA INGENIERÍA S.A.
+ PROYECTO: ${p.code} | CLIENTE: ${p.client} | MARGEN: ${p.margin}
+========================================================================
+
+PESTAÑA 1: [FICHA DE TRASPASO OT] -> Encabezado general, descripción y KPI de margen.
+PESTAÑA 2: [RESUMEN EJECUTIVO]    -> Monto Neto: ${p.amount} | IVA: $${Math.round(p.amount_num*0.19).toLocaleString('es-CL')} CLP
+PESTAÑA 3: [CONTROL HH Y COSTOS]  -> 90 HH SAT / 40 HH Ingeniería DNP3 / 25 HH Kitting
+PESTAÑA 4: [EQUI. MAT. ARR. SUB.] -> Lista de materiales cotizados (${p.items.length} partidas principales)
+PESTAÑA 5: [CASH FLOW Y FINANZAS] -> Hitos 30% Anticipo / 40% FAT Taller / 30% SAT
+PESTAÑA 6: [CLIENTE Y CONTRATO]   -> Contacto, condiciones comerciales y exclusiones
+PESTAÑA 7: [EXPENSES & LOGÍSTICA] -> Viáticos faena, transporte tableros y EPP
+PESTAÑA 8: [TÉRMINOS DE PAGO]     -> Facturación a 30 días contra VoBo EDP cliente
+PESTAÑA 9: [CHECK Y SENSIBILIDAD] -> Simulación de variación de margen (45% a 68.5%)`;
+      } 
+      else if (docType === 'word_quote') {
+        title = `📄 Propuesta Técnico-Comercial Word (${p.code} - ${p.client})`;
+        text = `CONECTA INGENIERÍA S.A.
+OFERTA TÉCNICO-COMERCIAL OFICIAL — REF: OF-2026-${p.code}
+------------------------------------------------------------------------
+CLIENTE: ${p.client}
+SUBESTACIÓN / PROYECTO: ${p.substation}
+
+1. DETALLE DEL SUMINISTRO Y ALCANCE
+   • Suministro e integración de ${p.device}.
+   • Pre-kitting en taller y validación HIL de laboratorio.
+   • Tramitación normativa AT-SITR-1 / IPES ante el CEN.
+
+2. TABLA ECONÓMICA DE PRECIOS
+${p.items.map((it, idx) => `   [${idx+1}] ${it.code} | Cant: ${it.qty} | P. Unit: $${it.price.toLocaleString('es-CL')} CLP`).join('\n')}
+
+   VALOR NETO TOTAL : ${p.amount}
+   IVA (19%)        : $${Math.round(p.amount_num*0.19).toLocaleString('es-CL')} CLP
+   TOTAL CON IVA    : $${Math.round(p.amount_num*1.19).toLocaleString('es-CL')} CLP
+
+3. CONDICIONES COMERCIALES Y DE PAGO
+   • Validez de oferta: 30 días corridos.
+   • Forma de pago: 30% OC, 40% FAT Taller, 30% SAT y Puesta en Servicio.`;
+      }
+      else if (docType === 'protocolo_cen') {
+        title = `🧪 Protocolo Técnico FAT/SAT CEN (${p.code})`;
+        text = JSON.stringify({
+          doc_id: `PROTOCOL-FAT-CEN-${p.code}`,
+          ot_code: p.code,
+          substation: p.substation,
+          device: p.device,
+          normative_compliance: "CEN NTSyCS / Guía AT-SITR-1",
+          test_results: {
+            hil_simulation_status: "PASSED_100%",
+            latency_ms: 18.4,
+            tve_error_pct: 0.42,
+            gps_sync_ptp: "CONFORME - IEEE 1588v2"
+          },
+          status: "APPROVED_FOR_SITE_ENTRY",
+          generated_by: "DocAutomator (Conecta 360)"
+        }, null, 2);
+      }
+      else if (docType === 'ipes_cen') {
+        title = `📑 Informe IPES Puesta en Servicio CEN (${p.code})`;
+        text = JSON.stringify({
+          doc_id: `INFORME-IPES-${p.code}`,
+          ot_code: p.code,
+          client: p.client,
+          substation: p.substation,
+          equipment_summary: p.device,
+          cen_submission_status: "READY_FOR_CEN_PORTAL",
+          accreditation_rule: "CEN NTSyCS Capítulo Operación",
+          time_saved_minutes: 360
+        }, null, 2);
+      }
+      else if (docType === 'dossier_sicop') {
+        title = `🪪 Dossier de Acreditación Sicop / Pronexo (${p.code})`;
+        text = JSON.stringify({
+          package_id: `ACREDITACION-${p.code}-SICOP`,
+          client: p.client,
+          substation: p.substation,
+          total_workers: 2,
+          workers: [
+            { rut: "15.823.411-9", name: "Víctor Vilche", role: "Jefe SAT", compliance: "100% VALID" },
+            { rut: "18.455.122-K", name: "Ingeniero Especialista SAT", role: "Especialista HIL", compliance: "100% VALID" }
+          ],
+          mandatory_documents: [
+            "F30-1 Certificado Antecedentes Laborales DT (Vigente)",
+            "Examen Médico Altura Física/Geográfica (Vigente 2027)",
+            "Registro ODI / DAS Matriz de Riesgos firmado",
+            "Certificado Afiliación ACHS Ley 16.744"
+          ],
+          dossier_status: "READY_FOR_SITE_ENTRY"
+        }, null, 2);
+      }
+      else if (docType === 'edp_n2') {
+        title = `💰 Estado de Pago N° 2 (40%) - Odoo ERP (${p.code})`;
+        text = JSON.stringify({
+          statement_id: `EDP-${p.code}-HITO2-40PCT`,
+          ot_code: p.code,
+          client: p.client,
+          milestone_name: "Hito 2: 40% - Ingeniería de Detalle y Pruebas FAT en Taller",
+          milestone_pct: 40.0,
+          net_amount_clp: Math.round(p.amount_num * 0.40),
+          iva_clp: Math.round(p.amount_num * 0.40 * 0.19),
+          total_clp: Math.round(p.amount_num * 0.40 * 1.19),
+          attached_certificate: `CERT-FAT-${p.code}-FIRMADO`,
+          vobo_odoo_status: "APPROVED_READY_FOR_INVOICING"
+        }, null, 2);
+      }
+
+      document.getElementById('previewTitle').innerText = title;
+      document.getElementById('previewText').innerText = text;
+      document.getElementById('previewModal').style.display = 'flex';
+    }
+
+    function closePreview() {
+      document.getElementById('previewModal').style.display = 'none';
+    }
+
+    // ── Descarga de Excel 9 Pestañas en el navegador ───────────────────────────
+    function downloadExcel9Tabs() {
+      const p = PROJECTS[activeProject];
+      const wb = XLSX.utils.book_new();
+
+      const tabs = [
+        ["1. FICHA DE TRASPASO", [["CONECTA INGENIERÍA S.A. - FICHA DE TRASPASO OT"], ["PROYECTO", p.code], ["CLIENTE", p.client], ["SUBESTACIÓN", p.substation], ["MARGEN TARGET", p.margin]]],
+        ["2. RESUMEN EJECUTIVO", [["RESUMEN FINANCIERO DEL PROYECTO"], ["MONTO NETO", p.amount], ["IVA (19%)", Math.round(p.amount_num*0.19)], ["TOTAL BRUTO", Math.round(p.amount_num*1.19)]]],
+        ["3. CONTROL HH Y COSTOS", [["PARTIDA", "HH ESTIMADAS", "COSTO UNITARIO"], ["SAT Terreno", 90, 45000], ["Ingeniería DNP3", 40, 50000], ["Kitting Taller", 25, 35000]]],
+        ["4. EQUI. MAT. ARR. SUB.", [["CÓDIGO", "DESCRIPCIÓN", "CANTIDAD", "PRECIO UNITARIO CLP"]].concat(p.items.map(it => [it.code, it.name, it.qty, it.price]))],
+        ["5. CASH FLOW Y FINANZAS", [["HITO DE PAGO", "% COBRO", "CONDICIÓN"], ["Hito 1", "30%", "Orden de Compra"], ["Hito 2", "40%", "Pruebas FAT Taller"], ["Hito 3", "30%", "Puesta en Servicio SAT"]]],
+        ["6. CLIENTE Y CONTRATO", [["DATOS CONTRACTUALES"], ["CLIENTE", p.client], ["PLAZO", "6 Semanas"], ["GARANTÍA", "12 Meses"]]],
+        ["7. EXPENSES & LOGÍSTICA", [["ÍTEM LOGÍSTICO", "COSTO ESTIMADO"], ["Viáticos Terreno SAT", 450000], ["Flete Tablero Subestación", 320000]]],
+        ["8. TÉRMINOS DE PAGO", [["CONDICIÓN DE PAGO"], ["Facturación a 30 días contra Estado de Pago aprobado por el cliente."]]],
+        ["9. CHECK Y SENSIBILIDAD", [["SIMULACIÓN SENSIBILIDAD MARGEN"], ["MARGEN MÍNIMO", "40.0%"], ["MARGEN ESTÁNDAR", "54.8%"], ["MARGEN SLA", "68.5%"]]]
+      ];
+
+      tabs.forEach(([sheetName, rows]) => {
+        const ws = XLSX.utils.aoa_to_sheet(rows);
+        XLSX.utils.book_append_sheet(wb, ws, sheetName.substring(0, 31));
+      });
+
+      XLSX.writeFile(wb, `COTIZACION_9_PESTANAS_${p.code}_${p.client.replace(/[^a-zA-Z0-9]/g, '_')}.xlsx`);
+    }
+
+    // ── Descarga de Propuesta Word (.docx) ─────────────────────────────────────
+    async function downloadWordQuote() {
+      const p = PROJECTS[activeProject];
+      try {
+        const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docx;
+        const today = new Date().toLocaleDateString('es-CL');
+
+        const doc = new Document({
+          sections: [{
+            properties: {},
+            children: [
+              new Paragraph({ children: [new TextRun({ text: "CONECTA INGENIERÍA S.A.", bold: true, size: 36, color: "1E3A8A" })], alignment: AlignmentType.CENTER }),
+              new Paragraph({ children: [new TextRun({ text: "PROPUESTA TÉCNICO-COMERCIAL OFICIAL", bold: true, size: 26, color: "475569" })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+              new Paragraph({ children: [new TextRun({ text: `Proyecto: ${p.code} | Cliente: ${p.client} | Fecha: ${today}`, size: 22, color: "64748B" })], spacing: { after: 300 } }),
+              new Paragraph({ text: "1. ALCANCE TÉCNICO Y NORMATIVO", heading: HeadingLevel.HEADING_1, spacing: { before: 200, after: 100 } }),
+              new Paragraph({ children: [new TextRun({ text: `Suministro, pre-kitting en taller, pruebas FAT/SAT HIL e integración de ${p.device} para la ${p.substation}.`, size: 22 })], spacing: { after: 150 } }),
+              new Paragraph({ text: "2. PRECIOS Y PARTIDAS OFERTADAS", heading: HeadingLevel.HEADING_1, spacing: { before: 200, after: 100 } }),
+              ...p.items.map((it, idx) => new Paragraph({ children: [new TextRun({ text: `[${idx+1}] ${it.code} — ${it.name} (${it.qty} unid.) -> $${it.price.toLocaleString('es-CL')} CLP`, size: 20 })], spacing: { after: 60 } })),
+              new Paragraph({ children: [new TextRun({ text: `\nMONTO NETO OFERTA: ${p.amount}`, bold: true, size: 24, color: "10B981" })], spacing: { before: 200, after: 150 } }),
+              new Paragraph({ text: "3. CONDICIONES Y FORMA DE PAGO", heading: HeadingLevel.HEADING_1, spacing: { before: 200, after: 100 } }),
+              new Paragraph({ children: [new TextRun({ text: "• 30% Anticipo con Orden de Compra.\n• 40% A la entrega de tableros y protocolo FAT en taller.\n• 30% A la Puesta en Servicio SAT en terreno e informe IPES.", size: 20 })] })
+            ]
+          }]
+        });
+
+        const blob = await Packer.toBlob(doc);
+        saveAs(blob, `OFERTA_OFICIAL_${p.code}_${p.client.replace(/[^a-zA-Z0-9]/g, '_')}.docx`);
+      } catch (e) {
+        alert("Error al descargar Word: " + e.message);
+      }
+    }
+
+    // ── Descarga de Documentos JSON / Markdown ─────────────────────────────────
+    function downloadJsonDoc(prefix, docType) {
+      const p = PROJECTS[activeProject];
+      let data = {};
+
+      if (docType === 'protocolo_cen') {
+        data = {
+          doc_id: `PROTOCOL-FAT-CEN-${p.code}`,
+          ot_code: p.code,
+          substation: p.substation,
+          device: p.device,
+          normative_compliance: "CEN NTSyCS / Guía AT-SITR-1",
+          test_results: { hil_status: "PASSED_100%", latency_ms: 18.4, tve_error_pct: 0.42, gps_sync_ptp: "CONFORME - IEEE 1588v2" },
+          status: "APPROVED_FOR_SITE_ENTRY"
+        };
+      } else if (docType === 'ipes_cen') {
+        data = {
+          doc_id: `INFORME-IPES-${p.code}`,
+          ot_code: p.code,
+          client: p.client,
+          substation: p.substation,
+          equipment_summary: p.device,
+          status: "APPROVED_READY_FOR_CEN_SUBMISSION",
+          time_saved_minutes: 360
+        };
+      } else if (docType === 'dossier_sicop') {
+        data = {
+          package_id: `ACREDITACION-${p.code}-SICOP`,
+          client: p.client,
+          substation: p.substation,
+          total_workers: 2,
+          dossier_status: "APPROVED_FOR_SITE_ENTRY",
+          compliance_pct: 100.0
+        };
+      } else if (docType === 'edp_n2') {
+        data = {
+          statement_id: `EDP-${p.code}-HITO2-40PCT`,
+          ot_code: p.code,
+          client: p.client,
+          milestone_name: "Hito 2: 40% - FAT Taller",
+          amount_uf: 611.1,
+          net_amount_clp: Math.round(p.amount_num * 0.40),
+          status: "READY_FOR_CLIENT_INVOICING"
+        };
+      }
+
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json;charset=utf-8" });
+      saveAs(blob, `${prefix}_${p.code}.json`);
+    }
+  </script>
+</body>
+</html>
