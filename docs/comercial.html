@@ -388,6 +388,55 @@
       let multiplier = 1.0 / (1.0 - (targetMarginPct / 100.0));
       let items = [];
 
+      // Catálogo canónico de partidas — refleja STANDARD_BOM_TEMPLATES en src/rag_memory/business_lines.py
+      // Fuente única de verdad para códigos y costos internos (CLP). Cualquier cambio de precio se hace acá.
+      const CANONICAL_BOM = {
+        // ── PMU_PDC ─────────────────────────────────────────
+        'HW-VIZIMAX-PMU':      9500000,
+        'HW-GPS-CLOCK':        3200000,
+        'SW-PDC-LIC':         12500000,
+        'HW-SWITCH-IND':       2300000,
+        'ENG-HH-PMU-INT':       110000,
+        'FLD-FAT-SAT':         4500000,
+        'REG-CEN-AUDIT':       3500000,
+        // ── SITR_PMGD ───────────────────────────────────────
+        'HW-METER-02S':        3800000,
+        'HW-RTU-DNP3':         4200000,
+        'HW-MODEM-4G':         1400000,
+        'ENG-HH-SITR':           95000,
+        'FLD-COMM-TEST':       2800000,
+        // ── SCADA_RETROFIT ──────────────────────────────────
+        'HW-RTU-NOVATECH':     9800000,
+        'HW-IO-CARDS':         1850000,
+        'HW-ROUTER-4G':        1400000,
+        'ENG-HH-SCADA':         110000,
+        'FLD-FAT-SAT-RTU':     3800000,
+        // ── EDAC_ERAG_STUDIES ───────────────────────────────
+        'ENG-DIGSILENT-MODEL':15000000,
+        'ENG-EDAC-CALC':      12000000,
+        'REG-SEC-CERT':        3500000,
+        // ── MAINTENANCE_LICENSES ────────────────────────────
+        'FLD-RELAY-TEST':       750000,
+        'SW-RENEWAL-LIC':      4500000,
+        // ── Catálogo extendido (no canónico, específico al flujo comercial) ─
+        'SW-CFG-DNP3':         1200000,
+        'HW-PDC-NOVATECH':    11200000,
+        'SW-LIC-SCADA-ZENON': 12500000,
+        'HW-SRV-ADVANTECH':    4800000,
+        'ENG-SCADA-INTEG':     4500000,
+        'REG-CEN-AT-SITR-1':   5500000,
+        'ENG-SITR-PARAM':      3800000,
+        'ENG-COORD-PROT':      7500000,
+        'HW-RELE-SEL':         5000000,
+        'ENG-PAC-COORD':      14000000,
+        'FLD-PAC-COMM':         550000,
+        'HW-SRV-PDC':          5000000,
+        'REG-SLRP-CEN':       15000000,
+        'ENG-PDC-CONFIG':      8000000,
+        'HW-CUSTOM-SPEC':      7500000,
+        'ENG-CUSTOM-DEV':       160000,
+      };
+
       // Clean voltage/power ratings (e.g. 220kV, 110kV, 9MW) and non-device stop phrases ('una cotización', '1 licitación')
       let cleanPromptForQty = prompt
         .replace(/\d+\s*(kv|mw|kw|mva|hz|v|a|amp)\b/gi, '')
@@ -405,78 +454,76 @@
       // ── Dynamic Item Matching based on user prompt tokens ──────────────────────────────
       // Precios base calibrados con 35 deals ganados 2026 (meta_ventas_2026.xlsx)
 
+      // Helper: push canonical item by code — precio siempre de CANONICAL_BOM
+      const pushCanonical = (code, name, qty) => {
+        items.push({ item_code: code, name: name, qty: qty, unit_cost: CANONICAL_BOM[code] });
+      };
+
       if (prompt.includes('rtu') || prompt.includes('remota') || prompt.includes('orion')) {
-        // Calibrado: RTU Chilquinta M$31/2 = M$15,5 por unidad (HW+ENG+FAT)
-        items.push({ item_code: 'HW-RTU-NOVATECH', name: `[HARDWARE] Remota RTU Subestación NovaTech Orion LX+ / ABB RTU560`, qty: parsedQty, unit_cost: 9800000 });
-        items.push({ item_code: 'HW-IO-CARDS', name: `[HARDWARE] Tarjetas de Expansión I/O DI/DO/AI Novacard`, qty: parsedQty * 2, unit_cost: 1850000 });
-        items.push({ item_code: 'SW-CFG-DNP3', name: `[SOFTWARE] Configuración DNP3.0 / IEC 61850 Base RTU`, qty: parsedQty, unit_cost: 1200000 });
+        pushCanonical('HW-RTU-NOVATECH', '[HARDWARE] Remota RTU Subestación NovaTech Orion LX+ / ABB RTU560', parsedQty);
+        pushCanonical('HW-IO-CARDS', '[HARDWARE] Tarjetas de Expansión I/O DI/DO/AI Novacard', parsedQty * 2);
+        pushCanonical('SW-CFG-DNP3', '[SOFTWARE] Configuración DNP3.0 / IEC 61850 Base RTU', parsedQty);
       }
 
       if (prompt.includes('pmu') || prompt.includes('fasorial') || prompt.includes('vizimax') || prompt.includes('medidor')) {
-        // Calibrado: AES 10 PMU = M$120 → M$12/PMU total; Pacific Hydro 2 PMU = M$50 → M$25/PMU
-        // Precio base HW PMU ajustado para cubrir kit completo (tablero+cablería+docs CEN)
-        items.push({ item_code: 'HW-PMU-VIZIMAX', name: `[HARDWARE] Medidor Fasorial VIZIMAX SynchroTeq Plus PMU Clase A IEEE C37.118`, qty: parsedQty, unit_cost: 10900000 });
-        items.push({ item_code: 'ENG-PMU-CONFIG', name: `[ENGINEERING] Configuración IEEE C37.118.2 / Synchrophasor PMU + Pruebas CEN`, qty: parsedQty, unit_cost: 2100000 });
+        pushCanonical('HW-VIZIMAX-PMU', '[HARDWARE] Medidor Fasorial VIZIMAX SynchroTeq Plus PMU Clase A IEEE C37.118', parsedQty);
+        pushCanonical('ENG-HH-PMU-INT', '[ENGINEERING] Configuración IEEE C37.118.2 / Synchrophasor PMU + Pruebas CEN', parsedQty * 20);
         if (prompt.includes('pdc') || prompt.includes('concentrador')) {
-          items.push({ item_code: 'HW-PDC-NOVATECH', name: `[HARDWARE] Concentrador PDC Gateway NovaTech Orion MX`, qty: 1, unit_cost: 11200000 });
-          items.push({ item_code: 'SW-PDC-LIC-CORP', name: `[SOFTWARE] Licencias PDC Corporativo + Soporte Anual`, qty: 1, unit_cost: 8000000 });
+          pushCanonical('HW-PDC-NOVATECH', '[HARDWARE] Concentrador PDC Gateway NovaTech Orion MX', 1);
+          pushCanonical('SW-PDC-LIC', '[SOFTWARE] Licencia Concentrador PDC (Local / Corporativo)', 1);
         }
       }
 
       if (prompt.includes('scada') || prompt.includes('zenon') || prompt.includes('hmi') || prompt.includes('elipse') || prompt.includes('reconectador')) {
-        // Calibrado: Reconectadores SCADA Chilquinta M$50
-        items.push({ item_code: 'SW-LIC-SCADA-ZENON', name: `[SOFTWARE] Licencia COPA-DATA zenon HMI / SCADA Server`, qty: 1, unit_cost: 12500000 });
-        items.push({ item_code: 'HW-SRV-ADVANTECH', name: `[HARDWARE] Servidores Industriales Advantech Dual Redundante IEC 61850`, qty: 2, unit_cost: 4800000 });
-        items.push({ item_code: 'ENG-SCADA-INTEG', name: `[ENGINEERING] Integración Protocolos SCADA / Drivers Comunicación`, qty: 1, unit_cost: 4500000 });
+        pushCanonical('SW-LIC-SCADA-ZENON', '[SOFTWARE] Licencia COPA-DATA zenon HMI / SCADA Server', 1);
+        pushCanonical('HW-SRV-ADVANTECH', '[HARDWARE] Servidores Industriales Advantech Dual Redundante IEC 61850', 2);
+        pushCanonical('ENG-SCADA-INTEG', '[ENGINEERING] Integración Protocolos SCADA / Drivers Comunicación', 1);
       }
 
       if (prompt.includes('sitr') || prompt.includes('pmgd') || prompt.includes('solar') || prompt.includes('eolica') || prompt.includes('acondicionamiento')) {
-        // Calibrado: SITR Mantoverde M$25; Enlight PMU La Huayca M$35
-        items.push({ item_code: 'HW-GATEWAY-SITR', name: `[HARDWARE] Gateway SITR Telemetría PMGD 4G Dual-SIM DNP3.0`, qty: parsedQty, unit_cost: 4200000 });
-        items.push({ item_code: 'REG-CEN-AT-SITR-1', name: `[REGULATORY] Tramitación Protocolo AT-SITR-1 e Informe IPES ante CEN`, qty: 1, unit_cost: 5500000 });
-        items.push({ item_code: 'ENG-SITR-PARAM', name: `[ENGINEERING] Parametrización SITR + Pruebas Comunicación CEN`, qty: 1, unit_cost: 3800000 });
+        pushCanonical('HW-RTU-DNP3', '[HARDWARE] Gateway / RTU SITR PMGD 4G Dual-SIM DNP3.0 sobre TCP/IP', parsedQty);
+        pushCanonical('REG-CEN-AT-SITR-1', '[REGULATORY] Tramitación Protocolo AT-SITR-1 e Informe IPES ante CEN', 1);
+        pushCanonical('ENG-SITR-PARAM', '[ENGINEERING] Parametrización SITR + Pruebas Comunicación CEN', 1);
       }
 
       if (prompt.includes('edac') || prompt.includes('erag') || prompt.includes('proteccion') || prompt.includes('estudio')) {
-        // Calibrado: Estudio EDAC basado en precios ENG DIgSILENT
-        items.push({ item_code: 'ENG-STUDY-EDAC', name: `[ENGINEERING] Estudio de Protecciones EDAC/ERAG DIgSILENT PowerFactory`, qty: 1, unit_cost: 14500000 });
-        items.push({ item_code: 'ENG-COORD-PROT', name: `[ENGINEERING] Coordinación de Protecciones + Ajuste Relés + Documentación`, qty: 1, unit_cost: 7500000 });
+        pushCanonical('ENG-DIGSILENT-MODEL', '[ENGINEERING] Modelación de Red DIgSILENT PowerFactory para Estudio EDAC/ERAG', 1);
+        pushCanonical('ENG-EDAC-CALC', '[ENGINEERING] Cálculo de Curvas Tiempo-Corriente y Ajustes EDAC/ERAG', 1);
+        pushCanonical('ENG-COORD-PROT', '[ENGINEERING] Coordinación de Protecciones + Ajuste Relés + Documentación', 1);
       }
 
       if (prompt.includes('pac') || prompt.includes('rele') || prompt.includes('relé') || prompt.includes('sas') || prompt.includes('retrofit protecciones')) {
-        // Calibrado: Retrofit Protecciones Transelec M$120
-        items.push({ item_code: 'HW-RELE-SEL', name: `[HARDWARE] Relé Protección SEL / GE Multilin / Schneider Cortec`, qty: parsedQty * 2, unit_cost: 5000000 });
-        items.push({ item_code: 'ENG-PAC-COORD', name: `[ENGINEERING] Ingeniería PAC / Coordinación de Protecciones DIgSILENT`, qty: 1, unit_cost: 14000000 });
-        items.push({ item_code: 'FLD-PAC-COMM', name: `[FIELD_SERVICES] Comisionamiento PAC In-Situ + Pruebas Primarias`, qty: 8, unit_cost: 550000 });
+        pushCanonical('HW-RELE-SEL', '[HARDWARE] Relé Protección SEL / GE Multilin / Schneider Cortec', parsedQty * 2);
+        pushCanonical('ENG-PAC-COORD', '[ENGINEERING] Ingeniería PAC / Coordinación de Protecciones DIgSILENT', 1);
+        pushCanonical('FLD-PAC-COMM', '[FIELD_SERVICES] Comisionamiento PAC In-Situ + Pruebas Primarias', 8);
       }
 
       if (prompt.includes('slrp') || prompt.includes('pdc') || prompt.includes('centro de control') || prompt.includes('servidor') || prompt.includes('modernizacion') || prompt.includes('modernización')) {
-        // Calibrado: PDC Modernización Transelec M$206; SLRP+PDC Grenergy M$130
-        items.push({ item_code: 'SW-PDC-CORP-LIC', name: `[SOFTWARE] Licencias PDC Corporativo Multi-Nodo + Soporte 2 años`, qty: parsedQty, unit_cost: 12000000 });
-        items.push({ item_code: 'HW-SRV-PDC', name: `[HARDWARE] Servidor PDC Redundante Industrial`, qty: 2, unit_cost: 5000000 });
-        items.push({ item_code: 'REG-SLRP-CEN', name: `[REGULATORY] Coordinación SLRP / Integración Centro Control CEN`, qty: 1, unit_cost: 15000000 });
-        items.push({ item_code: 'ENG-PDC-CONFIG', name: `[ENGINEERING] Configuración PDC + Integración Fasoriales + Pruebas`, qty: 1, unit_cost: 8000000 });
+        pushCanonical('SW-PDC-LIC', '[SOFTWARE] Licencia Concentrador PDC Multi-Nodo + Soporte', parsedQty);
+        pushCanonical('HW-SRV-PDC', '[HARDWARE] Servidor PDC Redundante Industrial', 2);
+        pushCanonical('REG-SLRP-CEN', '[REGULATORY] Coordinación SLRP / Integración Centro Control CEN', 1);
+        pushCanonical('ENG-PDC-CONFIG', '[ENGINEERING] Configuración PDC + Integración Fasoriales + Pruebas', 1);
       }
 
-      // Add Switches if requested or selected in dropdown
+      // Switches industriales (canónico HW-SWITCH-IND Belden Hirschmann)
       if (includeSwitches || prompt.includes('switch') || prompt.includes('belden') || prompt.includes('hirschmann')) {
-        items.push({ item_code: 'HW-SWITCH-BELDEN', name: `[HARDWARE] Switch Managed Belden Hirschmann RS20/RS30 Subestación IEC 61850`, qty: parsedQty, unit_cost: 2300000 });
+        pushCanonical('HW-SWITCH-IND', '[HARDWARE] Switch Ethernet Industrial Redundante Belden Hirschmann RS20/RS30 IEC 61850', parsedQty);
       }
 
-      // Fallback for custom prompt items if no standard tokens matched
+      // Fallback para prompts sin tokens estándar reconocidos
       if (items.length === 0) {
         let cleanPromptName = rawPrompt.length > 50 ? rawPrompt.substring(0, 47) + '...' : rawPrompt;
-        items.push({ item_code: 'HW-CUSTOM-SPEC', name: `[HARDWARE] Suministro Especial OT: ${cleanPromptName}`, qty: parsedQty, unit_cost: 7500000 });
-        items.push({ item_code: 'ENG-CUSTOM-DEV', name: `[ENGINEERING] Servicios de Ingeniería de Configuración & Integración`, qty: 40, unit_cost: 160000 });
+        pushCanonical('HW-CUSTOM-SPEC', `[HARDWARE] Suministro Especial OT: ${cleanPromptName}`, parsedQty);
+        pushCanonical('ENG-CUSTOM-DEV', '[ENGINEERING] Servicios de Ingeniería de Configuración & Integración', 40);
       }
 
-      // Mandatory Engineering & Field Services (calibrado con datos reales)
-      items.push({ item_code: 'ENG-HH-INTEGRATION', name: `[ENGINEERING] Ingeniería Configuración DNP3.0/C37.118 & Integración SCADA`, qty: 50, unit_cost: 160000 });
-      items.push({ item_code: 'FLD-FAT-SAT-SERVICES', name: `[FIELD_SERVICES] Pruebas HIL FAT Taller & Comisionamiento SAT Terreno + IPES`, qty: 1, unit_cost: 5500000 });
+      // Ingeniería y servicios de campo obligatorios (canónico ENG-HH-SCADA + FLD-FAT-SAT-RTU)
+      pushCanonical('ENG-HH-SCADA', '[ENGINEERING] Ingeniería Configuración DNP3.0/C37.118 & Integración SCADA', 50);
+      pushCanonical('FLD-FAT-SAT-RTU', '[FIELD_SERVICES] Pruebas HIL FAT Taller & Comisionamiento SAT Terreno + IPES', 1);
 
-      // Add GPS Clock if selected
+      // Reloj GPS canónico
       if (hasGps || prompt.includes('gps') || prompt.includes('kronos') || prompt.includes('irig')) {
-        items.push({ item_code: 'HW-GPS-CLOCK', name: `[HARDWARE] Sincronizador Satelital GPS Kronos IRIG-B / PTP 1588`, qty: 1, unit_cost: 4500000 });
+        pushCanonical('HW-GPS-CLOCK', '[HARDWARE] Sincronizador Satelital GPS Kronos IRIG-B / PTP 1588', 1);
       }
 
       let order_lines = items.map(it => {

@@ -125,7 +125,8 @@ class TestExcelBOMBuilderFormulas:
         # Verify calculated values in openpyxl memory before byte export
         resumen = wb["Resumen"]
         assert resumen["B4"].value != 0
-        assert resumen["B7"].value == 54.8
+        # B7 se almacena como fracción (0.548) con formato "0.0%" para display correcto (54.8%)
+        assert resumen["B7"].value == pytest.approx(0.548)
 
         cf = wb["Cash Flow"]
         assert str(cf["C4"].value).startswith("=") and "0.5" in str(cf["C4"].value)
@@ -172,7 +173,8 @@ def test_resumen_target_margin_formula_evaluations(margin_pct):
     }
     wb = MultiTabBOMExcelBuilder.build_workbook(payload)
     resumen = wb["Resumen"]
-    assert resumen["B7"].value == margin_pct
+    # B7 se almacena como fracción con formato "0.0%" — display = margin_pct%
+    assert resumen["B7"].value == pytest.approx(margin_pct / 100.0)
 
 
 @pytest.mark.parametrize("untaxed_amount, expected_edp1, expected_edp2, expected_edp3", [

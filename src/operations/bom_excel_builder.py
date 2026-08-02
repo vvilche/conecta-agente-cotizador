@@ -99,9 +99,10 @@ class MultiTabBOMExcelBuilder:
         ws_equi.cell(1, 1, "DETALLE DE EQUIPOS, MATERIALES, ARRIENDOS Y SUBCONTRATOS").font = cls.TITLE
         cls._hdr_row(ws_equi, 3, ["Categoría", "Código Partida", "Descripción Ítem", "Marca / Modelo", "Cant.", "P. Unit. CLP", "Subtotal CLP"])
         
+        # Costos internos canónicos alineados con STANDARD_BOM_TEMPLATES en src/rag_memory/business_lines.py
         default_items = [
-            {"item_code": "HW-RTU-NOVATECH", "name": "Remota RTU NovaTech Orion LX+", "brand": "NovaTech", "qty": 1, "price": 21681416},
-            {"item_code": "HW-SWITCH-IND", "name": "Switch Ethernet Belden Hirschmann RS20", "brand": "Belden", "qty": 1, "price": 5088496},
+            {"item_code": "HW-RTU-NOVATECH", "name": "Remota RTU NovaTech Orion LX+", "brand": "NovaTech", "qty": 1, "price": 9800000},
+            {"item_code": "HW-SWITCH-IND", "name": "Switch Ethernet Belden Hirschmann RS20", "brand": "Belden", "qty": 1, "price": 2300000},
             {"item_code": "HW-VIZIMAX-PMU", "name": "Medidor Fasorial PMU VIZIMAX SynchroTeq", "brand": "VIZIMAX", "qty": 1, "price": 9500000},
             {"item_code": "HW-GPS-CLOCK", "name": "Reloj Satelital GPS Kronos IRIG-B", "brand": "Kronos", "qty": 1, "price": 3200000},
         ]
@@ -150,18 +151,18 @@ class MultiTabBOMExcelBuilder:
         c = ws_resumen.cell(6, 2, "=SUM(B4:B5)"); c.number_format = "$#,##0"; c.font = cls.BOLD
 
         ws_resumen.cell(7, 1, "Margen Bruto Target (%)").font = cls.BOLD
-        c = ws_resumen.cell(7, 2, target_margin_pct); c.number_format = "0.0%"; c.font = cls.BOLD; c.fill = cls.GREEN_FILL
+        c = ws_resumen.cell(7, 2, target_margin_pct / 100.0); c.number_format = "0.0%"; c.font = cls.BOLD; c.fill = cls.GREEN_FILL
         ws_resumen.cell(7, 1).fill = cls.GREEN_FILL
 
         ws_resumen.cell(8, 1, "Margen Bruto Target (CLP)").font = cls.BOLD
-        c = ws_resumen.cell(8, 2, "=B4*(B7/100)"); c.number_format = "$#,##0"; c.font = cls.BOLD; c.fill = cls.GREEN_FILL
+        c = ws_resumen.cell(8, 2, "=B4*B7"); c.number_format = "$#,##0"; c.font = cls.BOLD; c.fill = cls.GREEN_FILL
         ws_resumen.cell(8, 1).fill = cls.GREEN_FILL
 
         ws_resumen.cell(9, 1, "Costo Directo Estimado").font = cls.BOLD
-        c = ws_resumen.cell(9, 2, "=B4*(1-B7/100)"); c.number_format = "$#,##0"; c.font = cls.BOLD
+        c = ws_resumen.cell(9, 2, "=B4*(1-B7)"); c.number_format = "$#,##0"; c.font = cls.BOLD
 
         ws_resumen.cell(10, 1, "Utilidad Bruta Retenida").font = cls.BOLD
-        c = ws_resumen.cell(10, 2, "=B4*(B7/100)"); c.number_format = "$#,##0"; c.font = cls.BOLD; c.fill = cls.GREEN_FILL
+        c = ws_resumen.cell(10, 2, "=B4*B7"); c.number_format = "$#,##0"; c.font = cls.BOLD; c.fill = cls.GREEN_FILL
         ws_resumen.cell(10, 1).fill = cls.GREEN_FILL
 
         ws_resumen.cell(11, 1, "Margen Bruto Retenido (%)").font = cls.BOLD
@@ -377,13 +378,14 @@ class DedicatedBOMExcelBuilder:
             ["N°", "Código Partida", "Descripción de la Partida", "Marca / Modelo", "Cant.", "Precio Unit. Neto CLP", "Subtotal Venta Neto CLP"]
         )
 
+        # Costos internos canónicos alineados con STANDARD_BOM_TEMPLATES en src/rag_memory/business_lines.py
         default_lines = [
-            {"item_code": "HW-RTU-NOVATECH", "name": "[HARDWARE] Remota RTU Subestación NovaTech Orion LX+ / ABB RTU560", "brand": "NovaTech Orion", "qty": 1, "price": 21681416},
-            {"item_code": "HW-SWITCH-IND", "name": "[HARDWARE] Switch Managed Belden Hirschmann RS20/RS30 Subestación", "brand": "Belden Hirschmann", "qty": 1, "price": 5088496},
+            {"item_code": "HW-RTU-NOVATECH", "name": "[HARDWARE] Remota RTU Subestación NovaTech Orion LX+ / ABB RTU560", "brand": "NovaTech Orion", "qty": 1, "price": 9800000},
+            {"item_code": "HW-SWITCH-IND", "name": "[HARDWARE] Switch Managed Belden Hirschmann RS20/RS30 Subestación", "brand": "Belden Hirschmann", "qty": 1, "price": 2300000},
             {"item_code": "HW-VIZIMAX-PMU", "name": "[HARDWARE] Medidor Fasorial VIZIMAX SynchroTeq Plus PMU Clase A", "brand": "VIZIMAX", "qty": 1, "price": 9500000},
             {"item_code": "HW-GPS-CLOCK", "name": "[HARDWARE] Sincronizador Satelital GPS Kronos IRIG-B / PTP 1588", "brand": "Kronos", "qty": 1, "price": 3200000},
-            {"item_code": "ENG-HH-INTEGRATION", "name": "[ENGINEERING] Ingeniería Configuración DNP3.0/C37.118 & Integración SCADA", "brand": "Conecta S.A.", "qty": 50, "price": 110000},
-            {"item_code": "FLD-FAT-SAT-SERVICES", "name": "[FIELD_SERVICES] Pruebas HIL FAT Taller & Comisionamiento SAT Terreno", "brand": "Conecta S.A.", "qty": 1, "price": 3800000},
+            {"item_code": "ENG-HH-SCADA", "name": "[ENGINEERING] Ingeniería Configuración DNP3.0/C37.118 & Integración SCADA", "brand": "Conecta S.A.", "qty": 50, "price": 110000},
+            {"item_code": "FLD-FAT-SAT-RTU", "name": "[FIELD_SERVICES] Pruebas HIL FAT Taller & Comisionamiento SAT Terreno", "brand": "Conecta S.A.", "qty": 1, "price": 3800000},
         ]
 
         active_lines = lines if lines else default_lines
